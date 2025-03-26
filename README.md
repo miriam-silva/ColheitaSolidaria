@@ -1,2 +1,2 @@
 # ColheitaSolidaria_Teste
-Testes de instalação de firebase e programação em react
+Testes de instalação de firebase e programação de front end em react
