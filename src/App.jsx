@@ -10,7 +10,7 @@ import Footer from './components/Footer';
 import Home from './pages/Home';
 import SobreNos from './pages/SobreNos';
 import Colaboradores from './pages/Colaboradores';
-import ComoAjudar from './pages/ComoAjudar';
+import Comoajudar from './pages/Comoajudar';
 import Contato from './pages/Contato';
 import Login from './pages/Login';
 import Cadastro from './pages/Cadastro';
@@ -27,7 +27,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/sobre" element={<SobreNos />} />
             <Route path="/colaboradores" element={<Colaboradores />} />
-            <Route path="/como-ajudar" element={<ComoAjudar />} />
+            <Route path="/como-ajudar" element={<Comoajudar />} />
             <Route path="/contato" element={<Contato />} />
             <Route path="/login" element={<Login />} />
             <Route path="/cadastro" element={<Cadastro />} />
