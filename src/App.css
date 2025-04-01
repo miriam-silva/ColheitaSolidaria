@@ -1,5 +1,5 @@
-.container{
-  min-height: 60vh;
+.container {
+  flex-grow: 1;
   margin-bottom: 5em;
 }
 

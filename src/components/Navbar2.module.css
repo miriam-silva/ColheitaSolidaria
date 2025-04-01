@@ -1,206 +1,107 @@
-.authBarMobile {
-    background-color: #a42525;
-    padding: 10px 15px;
-    display: flex;
-    justify-content: flex-end;
-  }
-  
-  .botaoentrarcadastrar {
-    color: #a42525;
-    background-color: #f5e2bf;
-    border: 2px solid #f5e2bf;
-    border-radius: 8px;
-    padding: 6px 12px;
-    font-weight: 600;
-    transition: all 0.3s;
-    font-size: 0.9rem;
-  }
-  
-  .botaoentrarcadastrar:hover {
-    background-color: transparent;
-    color: #f5e2bf;
-  }
-  
+.navbarra {
+  background-color: #a42525e6;
+  padding: 30px;
+  text-align: center;
+  border-radius: 30px;
+  height: 120px;
+}
+
+.navItem {
+  display: inline-block;
+  margin: 0 5px;
+}
+
+.link {
+  color: #f5e2bf;
+  text-decoration: none;
+  padding: 15px;
+  font-size: 25px;
+  font-weight: normal;
+}
+
+.active {
+  font-weight: bold;
+  color: #ffffff;
+  background-color: #a50000;
+  border: 2px solid #5d0101;
+  border-radius: 10px;
+}
+
+.spanNavBar {
+  color: #f5e2bf;
+  font-size: 25px;
+  padding: 0 5px;
+  font-weight: normal;
+}
+
+/* Estilos do menu hamburguer */
+.toggler {
+  border: 2px solid #f5e2bf;
+  margin-left: 2px;
+}
+
+.toggler:focus {
+  box-shadow: 0 0 0 0.25rem rgba(245, 226, 191, 0.5);
+}
+
+.togglerIcon {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  position: relative;
+  transition: all 0.3s;
+}
+
+.bar {
+  position: absolute;
+  width: 100%;
+  height: 3px;
+  background-color: #f5e2bf;
+  left: 0;
+  transition: all 0.3s;
+}
+
+.bar:nth-child(1) { top: 0; }
+.bar:nth-child(2) { top: 50%; transform: translateY(-50%); }
+.bar:nth-child(3) { bottom: 0; }
+
+.togglerIcon.open .bar:nth-child(1) {
+  top: 50%;
+  transform: translateY(-50%) rotate(45deg);
+}
+
+.togglerIcon.open .bar:nth-child(2) { opacity: 0; }
+
+.togglerIcon.open .bar:nth-child(3) {
+  bottom: 50%;
+  transform: translateY(50%) rotate(-45deg);
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
   .navbarra {
-      background-color: #a42525e6;
-      padding: 30px;
-      text-align: center;
-      border-radius: 30px;
-      height: 120px;
-    }
-    
-    .nav_item {
-      display: inline-block;
-      margin: 0 5px;
-    }
-    
-    .link {
-      color: #f5e2bf;
-      text-decoration: none;
-      padding: 15px;
-      font-size: 25px;
-      font-weight: normal;
-    }
-    
-    .active {
-      font-weight: bold;
-      color: #ffffff;
-      background-color: #a50000;
-      border: 2px solid #5d0101;
-      border-radius: 10px;
-    }
-    
-    .span_nav_bar {
-      color: #f5e2bf;
-      font-size: 25px;
-      padding: 0 5px;
-      font-weight: normal;
-    }
-    
-    .authButtons, .authButtonsMobile {
-      display: flex;
-      gap: 10px;
-    }
-    
-    .authButtonsMobile {
-      margin-right: auto;
-      padding-left: 15px;
-    }
-    
-    .loginBtn, .registerBtn {
-      padding: 8px 15px !important;
-      font-size: 16px !important;
-      border-radius: 5px;
-      transition: all 0.3s;
-    }
-    
-    .loginBtn {
-      background-color: transparent;
-      border: 1px solid #f5e2bf;
-    }
-    
-    .registerBtn {
-      background-color: #f5e2bf;
-      color: #a42525 !important;
-    }
-    
-    /* Estilo para o botão toggler */
-    .toggler {
-      border: 2px solid #f5e2bf;
-      margin-left: 10px;
-    }
-    
-    .toggler:focus {
-      box-shadow: 0 0 0 0.25rem rgba(245, 226, 191, 0.5);
-    }
-    
-    .togglerIcon {
-      display: inline-block;
-      width: 24px;
-      height: 24px;
-      position: relative;
-      transition: all 0.3s;
-    }
-    
-    .bar {
-      position: absolute;
-      width: 100%;
-      height: 3px;
-      background-color: #f5e2bf;
-      left: 0;
-      transition: all 0.3s;
-    }
-    
-    .bar:nth-child(1) {
-      top: 0;
-    }
-    
-    .bar:nth-child(2) {
-      top: 50%;
-      transform: translateY(-50%);
-    }
-    
-    .bar:nth-child(3) {
-      bottom: 0;
-    }
-    
-    .togglerIcon.open .bar:nth-child(1) {
-      top: 50%;
-      transform: translateY(-50%) rotate(45deg);
-    }
-    
-    .togglerIcon.open .bar:nth-child(2) {
-      opacity: 0;
-    }
-    
-    .togglerIcon.open .bar:nth-child(3) {
-      bottom: 50%;
-      transform: translateY(50%) rotate(-45deg);
-    }
-    
-    /* Ajustes para o menu mobile */
-    @media (max-width: 768px) {
-      .navbarra {
-        padding: 15px;
-        height: auto;
-      }
-      
-      .nav_item {
-        display: block;
-        margin: 8px 0;
-      }
-      
-      .link {
-        font-size: 20px;
-        padding: 10px;
-        display: block;
-      }
-      
-      .span_nav_bar {
-        display: none; 
-      }
-    
-      .authButtons {
-        display: none;
-      }
-  
-      /* NOVOS AJUSTES PARA MOBILE */
-      .authBarMobile {
-        display: flex !important;
-        justify-content: center;
-        padding: 8px;
-      }
-  
-      .botaoentrarcadastrar {
-        font-size: 14px;
-        padding: 5px 10px;
-      }
-    }
-    
-    @media (min-width: 426px) and (max-width: 614px) {
-      .navbarra {
-        background-color: #a42525e6;
-        margin: 0;
-        padding: 30px 0px 30px 0px;
-        text-align: center;
-        border-radius: 20px;
-        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-      }
-  
-      .authBarMobile {
-        padding: 10px 20px;
-      }
-    }
-    
-    @media (min-width: 769px) {
-      .authButtonsMobile {
-        display: none;
-      }
-  
-      .authBarMobile {
-        display: none !important;
-      }
-    }
+    padding: 15px;
+    height: auto;
+  }
 
+  .navItem {
+    display: block;
+    margin: 8px 0;
+  }
 
-    
+  .link {
+    font-size: 20px;
+    padding: 10px;
+    display: block;
+  }
+
+  .spanNavBar {
+    display: none;
+  }
+}
+
+@media (max-width: 320px) {
+  .toggler {
+    max-width: 50px;
+  }
+}

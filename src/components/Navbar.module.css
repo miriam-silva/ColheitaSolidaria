@@ -39,104 +39,8 @@ ul {
     transition: background-color 0.5s ease, color 0.5s ease, transform 0.5s ease;
   }
 
-.textofaixabemvindo {
-    display: inline-block;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    text-align: center;
-    color: #6B392A;
-    background-color: #f5e2bf;
-    border: 0px solid #5d0101;
-    padding: 10px;
-    font-size: 32px;
-    font-weight: bold;
-}
-
-.carousel-inner img {
-    height: 400px;
-    width: 800px;
-    object-fit: cover;
-}
-
 p {
     font-size: 27px;
-}
-
-.degrade-right2 {
-    text-align: right;
-    margin-right: 0%;
-    width: 100%;
-    margin-top: 5%;
-    background-image: linear-gradient(to left, #f5c25cb3, transparent);
-    padding: 10px 100px 10px 0px;
-}
-
-.right {
-    text-align: right;
-    margin-right: 0%;
-    margin-top: 5%;
-}
-
-#titulo-vermelho {
-    text-align: center;
-    color: #5d0101;
-}
-
-#tamanho-imagem4 {
-    width: 250px;
-    height: auto;
-    display: flex;
-    justify-content: left;
-    align-items: center;
-    margin-left: 5%;
-}
-
-.box {
-    padding: 20px;
-    border-radius: 10px;
-    text-align: center;
-    margin: 10px;
-}
-
-.caixa1 {
-    background-color: #66A276;
-}
-
-.img1e2 {
-    width: 55%;
-    height: auto;
-}
-
-.caixa2 {
-    background-color: #6ca899;
-}
-
-.caixa3 {
-    background-color: #276772;
-}
-
-.img3 {
-    width: 30%;
-    height: auto;
-}
-
-#titulo-caixa {
-    color: white;
-}
-
-.rodape {
-    background-color: #f6c973; 
-    color: black; 
-}
-
-.texto_rodape {
-    font-size: 22px;
-    text-align: center;
-}
-
-#imagem-rod {
-    width: 70px; 
-    height: auto; 
-    margin-left: 5%;
 }
 
 .none {
@@ -164,17 +68,6 @@ p {
     }
 }
 
-@media (max-width: 992px) {
-    #tamanho-imagem4 {
-        width: 250px;
-        height: auto;
-        display: flex;
-        justify-content: left;
-        align-items: center;
-        margin-left: -5%;
-    }
-}
-
 @media (max-width: 425px) {
     .container {
         width: 100%;
@@ -185,11 +78,6 @@ p {
         padding: 20px;
     }
 
-    #tamanho-imagem4 {
-        justify-content: left;
-        align-items: center;
-        margin-left: 7%;
-    }
 
     .botaoentrarcadastrar {
         border: solid 2px #000000;
@@ -210,11 +98,11 @@ p {
   
     .botaoentrarcadastrar {
       padding: 6px 12px; 
-      font-size: 14px;   
+      font-size: 18px;   
     }
   
-    .navbar-brand img {
-      max-width: 200px; 
+    .navbar_brand img {
+      width: 230px; 
       height: auto;
     }
   }
@@ -222,6 +110,10 @@ p {
   @media (max-width: 400px) {
     .botaoentrarcadastrar {
       padding: 5px 8px;
-      font-size: 13px;
+      font-size: 18px;
     }
+
+    .botoesContainer {
+        gap: 2px !important; 
+      }
   }

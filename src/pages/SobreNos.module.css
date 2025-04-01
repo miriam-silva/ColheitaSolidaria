@@ -1,0 +1,103 @@
+.right {
+    text-align: right;
+    margin-right: 0%;
+}
+
+.left {
+    text-align: left;
+    margin-right: 0%;
+}
+
+.p {
+    font-size: 25px;
+    color: black;
+}
+
+.titulo_vermelho {
+    text-align: center;
+    color: #5d0101;
+}
+
+.container {
+    margin-top: 20px;
+}
+
+.caixa {
+    padding: 20px;
+    margin: 10px 0;
+    color: white;
+}
+
+.caixa11 {
+    background-image: linear-gradient(to left, #bc2a25c3, transparent);
+}
+
+.titulo_caixa1 {
+    color: #5d0101;
+}
+
+.tamanho_imagem1 {
+    width: 170px;
+    height: auto;
+    margin-left: 10%;
+}
+
+.caixa22 {
+    background-image: linear-gradient(to right, #539749c1, transparent);
+}
+
+.titulo_caixa2 {
+    color: #5d0101;
+}
+
+.tamanho_imagem2 {
+    width: 300px;
+    height: auto;
+    margin-left: 40%;
+}
+
+.caixa33 {
+    background-image: linear-gradient(to left, #ffaa00c3, transparent);
+}
+
+.titulo_caixa3 {
+    color: #5d0101;
+}
+
+.tamanho_imagem3 {
+    width: 200px;
+    height: auto;
+    margin-left: 10%;
+}
+
+.tamanho_imagem4 {
+    width: 300px;
+    height: auto;
+    margin-left: 4%;
+}
+
+@media (max-width: 425px){
+    .tamanho_imagem2 {
+        width: 270px;
+        height: auto;
+        margin-left: 5%;
+    }
+
+    .tamanho_imagem4 {
+        width: 250px;
+        height: auto;
+        margin-left: 0%;
+    }
+
+    .tamanho_imagem3 {
+        width: 200px;
+        height: auto;
+        margin-left: 18%;
+    }
+
+    .tamanho_imagem1 {
+        width: 170px;
+        height: auto;
+        margin-left: 25%;
+    }
+}
