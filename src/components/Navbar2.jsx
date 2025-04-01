@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
-import styles from './Navbar2.module.css';
+import React, { useState } from 'react'
+import { NavLink } from 'react-router-dom'
+import styles from './Navbar2.module.css'
 
 const Navbar2 = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -12,9 +12,7 @@ const Navbar2 = () => {
     { id: 5, label: 'Contato', path: '/contato' }
   ];
 
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
-  };
+  const toggleMenu = () => setIsOpen(!isOpen);
 
   return (
     <nav className={`navbar navbar-expand-md navbar-light ${styles.navbarra}`}>
@@ -34,13 +32,12 @@ const Navbar2 = () => {
         </button>
 
         <div 
-          className={`collapse navbar-collapse justify-content-center ${styles.menuContainer} ${isOpen ? 'show' : ''}`} 
-          id="navbar2Content"
+          className={`collapse navbar-collapse justify-content-center ${styles.menuContainer} ${isOpen ? 'show' : ''}`}
         >
           <ul className="navbar-nav align-items-center">
             {menuItems.map((item, index) => (
               <React.Fragment key={item.id}>
-                <li className={`nav-item ${styles.nav_item}`}>
+                <li className={`nav-item ${styles.navItem}`}>
                   <NavLink 
                     to={item.path}
                     className={({ isActive }) => 
@@ -52,7 +49,7 @@ const Navbar2 = () => {
                   </NavLink>
                 </li>
                 {index !== menuItems.length - 1 && (
-                  <span className={`${styles.span_nav_bar}`}>|</span>
+                  <span className={styles.spanNavBar}>|</span>
                 )}
               </React.Fragment>
             ))}

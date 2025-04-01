@@ -22,7 +22,7 @@ function App() {
       <Navbar2 />
       
       <main className="flex-grow-1 py-4">
-        <div className="container">
+        <div className="container-fluid">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/sobre" element={<SobreNos />} />
