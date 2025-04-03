@@ -1,9 +1,9 @@
 export function validarCNPJ(cnpj) {
-    cnpj = cnpj.replace(/\D/g, ""); // Remove caracteres não numéricos
-    return cnpj.length === 14; // Simples verificação de tamanho
+    cnpj = cnpj.replace(/\D/g, ""); 
+    return cnpj.length === 14; 
 }
 
 export function validarCPF(cpf) {
-    cpf = cpf.replace(/\D/g, ""); // Remove caracteres não numéricos
-    return cpf.length === 11; // Simples verificação de tamanho
+    cpf = cpf.replace(/\D/g, ""); 
+    return cpf.length === 11; 
 }

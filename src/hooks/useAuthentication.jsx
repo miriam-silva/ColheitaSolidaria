@@ -13,7 +13,7 @@ import { getFirestore, doc, setDoc, getDoc } from "firebase/firestore";
 import { useState, useEffect } from "react";
 import { app } from "../firebase/config";
 
-export const useAuthentication = () => {
+const useAuthentication = () => {
     const [user, setUser] = useState(null);
     const [role, setRole] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -27,13 +27,11 @@ export const useAuthentication = () => {
         if (cancelled) return;
     }
 
-    // Função para buscar role do usuário
     const getUserRole = async (uid) => {
         const userDoc = await getDoc(doc(db, "users", uid));
         return userDoc.exists() ? userDoc.data().role : null;
     };
 
-    // Observa mudanças de autenticação
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
             if (currentUser) {
@@ -50,8 +48,16 @@ export const useAuthentication = () => {
         return () => unsubscribe();
     }, []);
 
-    // Cadastro de usuário
-    const createUser = async (data, role, cnpj = null, chaveAcesso = null) => {
+    const validateAdminKey = async (chaveAcesso) => {
+        const chavesDoc = await getDoc(doc(db, "config", "chaves_de_acesso"));
+        if (!chavesDoc.exists()) {
+            throw new Error("Configuração de chaves não encontrada.");
+        }
+        const chavesValidas = chavesDoc.data().chaves_de_acesso || [];
+        return chavesValidas.includes(chaveAcesso);
+    };
+
+    const createUser = async (data, role, cnpj = null) => {
         checkIfIsCancelled();
         setLoading(true);
         setError(null);
@@ -60,10 +66,22 @@ export const useAuthentication = () => {
             if (!data.displayName) {
                 throw new Error("O nome de exibição é obrigatório.");
             }
-
+    
+            if (role === 'admin') {
+                const chavesDoc = await getDoc(doc(db, "config", "chaves_de_acesso"));
+                if (!chavesDoc.exists()) {
+                    throw new Error("Configuração de chaves não encontrada.");
+                }
+                const chavesValidas = chavesDoc.data().chaves_de_acesso || [];
+                if (chavesValidas.length === 0) {
+                    throw new Error("Nenhuma chave de acesso disponível.");
+                }
+                const chaveAtribuida = chavesValidas[0]; 
+            }
+    
             const { user } = await createUserWithEmailAndPassword(auth, data.email, data.password);
             await updateProfile(user, { displayName: data.displayName });
-
+    
             const userData = {
                 nome: data.nome || '',
                 email: data.email || '',
@@ -71,30 +89,27 @@ export const useAuthentication = () => {
                 dataNascimento: data.dataNascimento || '',
                 role: role || 'colaborador', 
             };
-
+    
             if (role === 'admin') {
                 userData.cnpj = cnpj || null;
-                userData.chaveAcesso = chaveAcesso || null;
             } else if (role === 'colaborador') {
                 userData.cpf = data.cpf || null;
             }
-
-            console.log("Dados que serão salvos no Firestore:", userData);
+    
             await setDoc(doc(db, "users", user.uid), userData);
-
+    
             setUser(user);
             setRole(role);
-
+    
             return user;
         } catch (error) {
             console.error("Erro no cadastro:", error.message);
             setError(error.message || "Ocorreu um erro, por favor tente mais tarde.");
+        } finally {
+            setLoading(false);
         }
-
-        setLoading(false);
     };
 
-    // Login de usuário
     const login = async (data) => {
         checkIfIsCancelled();
         setLoading(true);
@@ -114,13 +129,12 @@ export const useAuthentication = () => {
             return { user, role: userRole };
         } catch (error) {
             console.error("Erro no login:", error.message);
-            setError(error.message || "Ocorreu um erro, por favor tente mais tarde.");
+            setError(error.message || "Credenciais inválidas. Verifique seus dados.");
+        } finally {
+            setLoading(false);
         }
-
-        setLoading(false);
     };
 
-    // Logout
     const logout = async () => {
         checkIfIsCancelled();
         await signOut(auth);
@@ -144,4 +158,4 @@ export const useAuthentication = () => {
     };
 };
 
-export const useAuth = useAuthentication;
+export { useAuthentication };
