@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom"; // REMOVA BrowserRouter
+import { Routes, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "./App.css";
@@ -36,8 +36,8 @@ function App() {
       <Route 
         path="/InicialAdministrador" 
         element={
-          <ProtectedRoute requiredRole="administrador">
-            <InicialAdministrador />
+          <ProtectedRoute requiredRole="admin">
+              <InicialAdministrador />
           </ProtectedRoute>
         }
       />

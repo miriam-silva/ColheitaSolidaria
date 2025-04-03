@@ -77,7 +77,6 @@
   transform: translateY(50%) rotate(-45deg);
 }
 
-/* Media Queries */
 @media (max-width: 768px) {
   .navbarra {
     padding: 15px;

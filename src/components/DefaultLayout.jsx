@@ -1,5 +1,4 @@
 // Com os Navbar's e o Footer
-
 import Navbar from './Navbar';
 import Navbar2 from './Navbar2';
 import Footer from './Footer';

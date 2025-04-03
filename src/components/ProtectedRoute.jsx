@@ -1,19 +1,40 @@
 import { Navigate } from "react-router-dom";
-import { useAuth } from "../hooks/useAuthentication";
+import { useAuthentication } from '../hooks/useAuthentication';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 const ProtectedRoute = ({ children, requiredRole }) => {
-  const { user, role, loading } = useAuth(); // Obtém usuário e role
+  const { user, role, loading, error } = useAuthentication();
 
   if (loading) {
-    return <p>Carregando...</p>; // Evita redirecionamento antes de carregar os dados
+    return <LoadingSpinner />; 
+  }
+
+  if (error) {
+    console.error("Erro de autenticação:", error);
+    return <Navigate to="/error" state={{ error }} replace />;
   }
 
   if (!user) {
-    return <Navigate to="/login" replace />; // Se não estiver logado, vai para login
+    return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
-  if (role !== requiredRole) {
-    return <Navigate to="/" replace />; // Se não tiver a role correta, vai para a home
+  const roleHierarchy = {
+    admin: ['admin'],
+    colaborador: ['admin', 'colaborador'],
+    recebedor: ['admin', 'colaborador', 'recebedor']
+  };
+
+  if (!roleHierarchy[requiredRole]?.includes(role)) {
+    return (
+      <Navigate 
+        to="/unauthorized" 
+        replace 
+        state={{ 
+          requiredRole, 
+          currentRole: role 
+        }}
+      />
+    );
   }
 
   return children;
