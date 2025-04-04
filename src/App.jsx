@@ -4,6 +4,7 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "./App.css";
 
 import DefaultLayout from "./components/DefaultLayout";
+import DefaultLayout2 from "./components/DefaultLayout2";
 import AuthLayout from "./components/AuthLayout";
 import ProtectedRoute from "./components/ProtectedRoute";
 
@@ -17,6 +18,8 @@ import Cadastro from "./pages/Cadastro";
 import InicialAdministrador from "./pages/InicialAdministrador";
 import InicialRecebedor from "./pages/InicialRecebedor";
 import InicialColaborador from "./pages/InicialColaborador";
+import CadastrarRecebedorAdm from "./pages/CadastrarRecebedorAdm";
+
 
 function App() {
   return (
@@ -32,25 +35,40 @@ function App() {
       <Route path="/login" element={<AuthLayout><Login /></AuthLayout>} />
       <Route path="/cadastro" element={<AuthLayout><Cadastro /></AuthLayout>} />
 
+
       {/* Páginas protegidas */}
-      <Route 
-        path="/InicialAdministrador" 
+      <Route
+        path="/InicialAdministrador"
         element={
           <ProtectedRoute requiredRole="admin">
+            <DefaultLayout2>  {/* Adicione o DefaultLayout2 aqui */}
               <InicialAdministrador />
+            </DefaultLayout2>
           </ProtectedRoute>
         }
       />
-      <Route 
-        path="/InicialColaborador" 
+      
+      <Route
+        path="/adm/cadastrar-recebedor"
+        element={
+          <ProtectedRoute requiredRole="admin">
+            <AuthLayout>
+              <CadastrarRecebedorAdm />
+            </AuthLayout>
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/InicialColaborador"
         element={
           <ProtectedRoute requiredRole="colaborador">
             <InicialColaborador />
           </ProtectedRoute>
         }
       />
-      <Route 
-        path="/InicialRecebedor" 
+      <Route
+        path="/InicialRecebedor"
         element={
           <ProtectedRoute requiredRole="recebedor">
             <InicialRecebedor />
