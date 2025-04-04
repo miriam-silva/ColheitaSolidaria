@@ -21,7 +21,7 @@ export default function LoginPage() {
 
   const handleTabChange = (tab) => {
     setActiveTab(tab);
-    setError(""); 
+    setError("");
   };
 
   const handleLogin = async (event) => {
@@ -31,7 +31,7 @@ export default function LoginPage() {
 
     try {
       console.log("Tentando fazer login com:", email);
-      
+
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
 
@@ -42,7 +42,7 @@ export default function LoginPage() {
       console.log("Usuário autenticado:", user.uid);
 
       const userDoc = await getDoc(doc(db, "users", user.uid));
-      
+
       if (!userDoc.exists()) {
         throw new Error("Perfil de usuário não encontrado.");
       }
@@ -51,6 +51,7 @@ export default function LoginPage() {
       const userRole = userData.role;
       console.log("Role do usuário:", userRole);
 
+      // Validações por aba
       if (activeTab === "adm") {
         if (userRole !== "admin") {
           throw new Error("Você não tem permissão de administrador.");
@@ -61,20 +62,28 @@ export default function LoginPage() {
         }
 
         const chavesDoc = await getDoc(doc(db, "config", "chaves_de_acesso"));
-        
+
         if (!chavesDoc.exists()) {
           throw new Error("Configuração de chaves não encontrada.");
         }
 
         const chavesValidas = chavesDoc.data().chaves_de_acesso || [];
-        
+
         if (!chavesValidas.includes(chaveAcesso)) {
           throw new Error("Chave de acesso inválida.");
         }
       }
 
+      if (activeTab === "colaborador" && userRole !== "colaborador") {
+        throw new Error("Você não tem permissão de colaborador.");
+      }
+
+      if (activeTab === "recebedor" && userRole !== "recebedor") {
+        throw new Error("Você não tem permissão de recebedor.");
+      }
+
       console.log("Redirecionando para:", userRole);
-      switch(userRole) {
+      switch (userRole) {
         case "admin":
           navigate("/InicialAdministrador");
           break;
@@ -140,8 +149,8 @@ export default function LoginPage() {
             <div className={styles.tab_content}>
               <form className={styles.login_form} onSubmit={handleLogin}>
                 <h2 className={styles.h2}>
-                  {activeTab === "adm" ? "Login Administrador" : 
-                   activeTab === "colaborador" ? "Login Colaborador" : "Login Recebedor"}
+                  {activeTab === "adm" ? "Login Administrador" :
+                    activeTab === "colaborador" ? "Login Colaborador" : "Login Recebedor"}
                 </h2>
 
                 {error && <div className={styles.error_message}>{error}</div>}
@@ -192,8 +201,8 @@ export default function LoginPage() {
                   />
                 </div>
 
-                <button 
-                  type="submit" 
+                <button
+                  type="submit"
                   className={styles.submit_button}
                   disabled={loading}
                 >
