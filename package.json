@@ -10,7 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "bootstrap": "^5.3.3",
+    "bootstrap": "^5.3.5",
     "firebase": "^11.6.0",
     "react": "^19.0.0",
     "react-bootstrap": "^2.10.9",
