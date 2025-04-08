@@ -37,13 +37,12 @@ function App() {
       <Route path="/login" element={<AuthLayout><Login /></AuthLayout>} />
       <Route path="/cadastro" element={<AuthLayout><Cadastro /></AuthLayout>} />
 
-
       {/* Páginas protegidas */}
       <Route
         path="/InicialAdministrador"
         element={
           <ProtectedRoute requiredRole="admin">
-            <DefaultLayout2>  {/* Adicione o DefaultLayout2 aqui */}
+            <DefaultLayout2> 
               <InicialAdministrador />
             </DefaultLayout2>
           </ProtectedRoute>
