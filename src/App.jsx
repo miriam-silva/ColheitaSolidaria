@@ -5,6 +5,8 @@ import "./App.css";
 
 import DefaultLayout from "./components/DefaultLayout";
 import DefaultLayout2 from "./components/DefaultLayout2";
+import DefaultLayout3 from "./components/DefaultLayout3";
+import DefaultLayout4 from "./components/DefaultLayout4";
 import AuthLayout from "./components/AuthLayout";
 import ProtectedRoute from "./components/ProtectedRoute";
 
@@ -63,7 +65,9 @@ function App() {
         path="/InicialColaborador"
         element={
           <ProtectedRoute requiredRole="colaborador">
+            <DefaultLayout3>
             <InicialColaborador />
+            </DefaultLayout3>
           </ProtectedRoute>
         }
       />
@@ -71,7 +75,9 @@ function App() {
         path="/InicialRecebedor"
         element={
           <ProtectedRoute requiredRole="recebedor">
+            <DefaultLayout4>
             <InicialRecebedor />
+            </DefaultLayout4>
           </ProtectedRoute>
         }
       />

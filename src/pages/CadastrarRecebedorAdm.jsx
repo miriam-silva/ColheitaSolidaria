@@ -121,8 +121,8 @@ const CadastrarRecebedorAdm = () => {
                     </button>
 
                     <div className={`${styles.itens} text-center mt-3`} >
-                      <p className={`${styles.p2}`}>O recebedor já possui um cadastro? <Link to="/login-cadastro">Clique aqui para ajudá-lo a fazer login!</Link></p>
-                      <p className={`${styles.p2}`}> Deseja voltar para a tela anterior? <Link to="/adm/inicio">Clique aqui!</Link></p>
+                      <p className={`${styles.p2}`}>O recebedor já possui um cadastro? <Link to="/login">Clique aqui para ajudá-lo a fazer login!</Link></p>
+                      <p className={`${styles.p2}`}> Deseja voltar para a tela anterior? <Link to="/InicialAdministrador">Clique aqui!</Link></p>
                     </div>
                   </form>
                 </div>
