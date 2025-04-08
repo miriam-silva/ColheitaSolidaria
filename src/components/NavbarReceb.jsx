@@ -15,7 +15,7 @@ import { db } from "../firebase/config";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const NavbarAdm = () => {
+const NavbarReceb = () => {
   const [nomeUsuario, setNomeUsuario] = useState("");
   const { user, logout } = useAuthentication();
   const navigate = useNavigate();
@@ -102,10 +102,8 @@ navigate("/", { state: { logoutSuccess: true } });
           <h5 className="text-center">Olá, {nomeUsuario || "usuário"}!</h5>
 
           <div className="w-100 d-flex flex-column gap-2 mt-3">
-            <Link to="/inicio" className={`btn btn-outline w-100 ${styles.botoes}`}>Início</Link>
-            <Link to="/pedidos" className={`btn btn-outline w-100 ${styles.botoes}`}>Pedidos</Link>
-            <Link to="/doacoes" className={`btn btn-outline w-100 ${styles.botoes}`}>Doações</Link>
-            <Link to="/cadastrar-recebedor" className={`btn btn-outline w-100 ${styles.botoes}`}>Cadastrar Recebedor</Link>
+            <Link to="/pedidos" className={`btn btn-outline w-100 ${styles.botoes}`}>Doações</Link>
+            <Link to="/doacoes" className={`btn btn-outline w-100 ${styles.botoes}`}>Minhas solicitações</Link>
             <button className={`btn w-100 mt-3 ${styles.botoes2}`} onClick={handleClickSair}>Sair</button>
           </div>
         </div>
@@ -116,5 +114,5 @@ navigate("/", { state: { logoutSuccess: true } });
   );
 };
 
-export default NavbarAdm;
+export default NavbarReceb;
 

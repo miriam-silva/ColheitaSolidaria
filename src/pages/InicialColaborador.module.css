@@ -1,0 +1,128 @@
+.navbarra {
+    text-align: left;
+    background-color: #F6C973;
+    border: 5px solid #C1554C;
+    font-weight: bold;
+    font-size: 22px;
+    padding: 20px;
+    width: 100%;
+}
+
+.nav_item {
+    display: inline;
+    text-align: center;
+    margin-left: -2%;
+}
+
+#arrumar {
+    margin-left: -1%;
+}
+
+.transparente {
+    color: #a18654;
+    text-align: center;
+}
+
+/*Botão registrar doação*/
+.donation_btn {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: whitesmoke ;
+    color: black;
+    border: none;
+    border-radius: 60px;
+    font-size: 16px;
+    transition: background-color 0.3s;
+    justify-content: left;
+    padding: 20px ;
+    font-weight: bold;
+    margin-left: -7%;
+}
+
+.donation_btn:hover {
+    background-color: #d2d1d1;
+}
+
+.donation_btn img {
+    margin-right: 10px;
+}
+
+@media (min-width: 1026px) and (max-width: 1440px){
+    .donation_btn {
+        display: flex;
+        align-items: center;
+        padding: 10px 20px;
+        background-color: whitesmoke;
+        color: black;
+        border: none;
+        border-radius: 60px;
+        font-size: 16px;
+        transition: background-color 0.3s;
+        justify-content: left;
+        padding: 20px;
+        font-weight: bold;
+        margin-left: -5%;
+        margin-top: -2%;
+    }
+
+    .navbarra {
+        text-align: left;
+        background-color: #F6C973;
+        border: 5px solid #C1554C;
+        font-weight: bold;
+        font-size: 22px;
+        padding: 20px;
+        width: 100%;
+        margin-left: 0;
+        margin-top: 1%;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1026px) {
+    .donation_btn {
+        display: flex;
+        align-items: center;
+        padding: 10px 20px;
+        background-color: whitesmoke;
+        color: black;
+        border: none;
+        border-radius: 60px;
+        font-size: 16px;
+        transition: background-color 0.3s;
+        justify-content: left;
+        padding: 20px;
+        font-weight: bold;
+        margin-left: -4%;
+    }
+}
+
+@media (max-width: 596px){
+    .donation_btn {
+        display: flex;
+        align-items: center;
+        padding: 10px 20px;
+        background-color: whitesmoke;
+        color: black;
+        border: none;
+        border-radius: 60px;
+        font-size: 16px;
+        transition: background-color 0.3s;
+        justify-content: left;
+        padding: 15px;
+        font-weight: bold;
+        margin-left:-2%;
+        margin-top: -8%;
+    }
+
+    .navbarra {
+        text-align: left;
+        background-color: #F6C973;
+        border: 5px solid #C1554C;
+        font-weight: bold;
+        font-size: 22px;
+        padding: 20px;
+        margin-top: -20%;
+        width: 100%;
+    }
+}

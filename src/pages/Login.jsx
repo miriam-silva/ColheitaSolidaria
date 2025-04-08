@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
@@ -208,6 +208,17 @@ export default function LoginPage() {
                 >
                   {loading ? "Carregando..." : "Acessar"}
                 </button>
+
+                <div id="itens" className="text-center mt-3">
+                    <p  className={`${styles.p}`}>
+                      Não possui um cadastro?{' '}
+                      <Link to="/cadastro">Clique aqui para criar um!</Link>
+                    </p>
+                    <p  className={`${styles.p}`}>
+                      Deseja voltar para a tela anterior?{' '}
+                      <Link to="/">Clique aqui!</Link>
+                    </p>
+                  </div>
               </form>
             </div>
           </Col>
