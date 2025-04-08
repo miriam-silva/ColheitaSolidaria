@@ -1,12 +1,30 @@
-import { Navigate } from "react-router-dom";
-import { useAuthentication } from '../hooks/useAuthentication';
+import { Navigate, useLocation } from "react-router-dom";
+import { toast } from 'react-toastify';
+import useAuthentication from '../hooks/useAuthentication';
 import LoadingSpinner from '../components/LoadingSpinner';
+import { useEffect } from 'react';
+import { getAuth, signOut } from 'firebase/auth';
 
 const ProtectedRoute = ({ children, requiredRole }) => {
   const { user, role, loading, error } = useAuthentication();
+  const location = useLocation();
+
+  useEffect(() => {
+    const handleInvalidRole = async () => {
+      if (user && !loading && !role) {
+        console.warn("Usuário autenticado, mas sem role — deslogando...");
+        const auth = getAuth();
+        await new Promise(resolve => setTimeout(resolve, 200));
+        await signOut(auth);
+        toast.success("Logout automático: acesso inválido ou sem permissão.");
+      }
+    };
+    handleInvalidRole();
+  }, [user, role, loading]);
+  
 
   if (loading) {
-    return <LoadingSpinner />; 
+    return <LoadingSpinner />;
   }
 
   if (error) {
@@ -24,14 +42,16 @@ const ProtectedRoute = ({ children, requiredRole }) => {
     recebedor: ['admin', 'colaborador', 'recebedor']
   };
 
-  if (!roleHierarchy[requiredRole]?.includes(role)) {
+  const allowedRoles = roleHierarchy[requiredRole] || [];
+
+  if (!allowedRoles.includes(role)) {
     return (
-      <Navigate 
-        to="/unauthorized" 
-        replace 
-        state={{ 
-          requiredRole, 
-          currentRole: role 
+      <Navigate
+        to="/unauthorized"
+        replace
+        state={{
+          requiredRole,
+          currentRole: role
         }}
       />
     );

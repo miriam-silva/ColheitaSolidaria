@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import styles from './CadastrarRecebedorAdm.module.css';
-import { useAuthentication } from "../hooks/useAuthentication";
+import useAuthentication from "../hooks/useAuthentication";
 
 
 

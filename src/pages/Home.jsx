@@ -9,6 +9,8 @@ import agricultoraicon from '../assets/agricultoraicon.png'
 import receba from '../assets/receba.png'
 import coracao_plantinha from '../assets/coracao_plantinha.png'
 import alimentos2 from '../assets/alimentos2.png'
+import { useLocation } from "react-router-dom";
+
 
 const Home = () => {
     return (

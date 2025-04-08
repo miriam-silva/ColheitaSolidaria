@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Container, Row, Col } from 'react-bootstrap';
-import { useAuthentication } from '../hooks/useAuthentication';
+import useAuthentication  from '../hooks/useAuthentication';
 import { validarCNPJ, validarCPF } from "../utils/validacao.js";
 import { getFirestore, doc, setDoc } from "firebase/firestore";
 import styles from "./Cadastro.module.css";
