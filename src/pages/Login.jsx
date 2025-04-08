@@ -28,61 +28,70 @@ export default function LoginPage() {
     event.preventDefault();
     setLoading(true);
     setError("");
-
+  
     try {
       console.log("Tentando fazer login com:", email);
-
+  
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
-
+  
       if (!user?.uid) {
         throw new Error("Erro ao obter informações do usuário.");
       }
-
-      console.log("Usuário autenticado:", user.uid);
-
-      const userDoc = await getDoc(doc(db, "users", user.uid));
-
+  
+      console.log("✅ UID do usuário autenticado:", user.uid);
+  
+      const userDocRef = doc(db, "users", user.uid);
+      console.log("📄 Caminho do documento Firestore:", `users/${user.uid}`);
+  
+      const userDoc = await getDoc(userDocRef);
+  
       if (!userDoc.exists()) {
         throw new Error("Perfil de usuário não encontrado.");
       }
-
+  
       const userData = userDoc.data();
       const userRole = userData.role;
-      console.log("Role do usuário:", userRole);
-
+      console.log("🎭 Role do usuário:", userRole);
+  
       // Validações por aba
       if (activeTab === "adm") {
         if (userRole !== "admin") {
           throw new Error("Você não tem permissão de administrador.");
         }
-
+  
         if (!cnpj) {
           throw new Error("CNPJ é obrigatório para administradores.");
         }
-
-        const chavesDoc = await getDoc(doc(db, "config", "chaves_de_acesso"));
-
+  
+        const chavesDocRef = doc(db, "config", "chaves_de_acesso");
+        const chavesDoc = await getDoc(chavesDocRef);
+  
+        console.log("🔑 Buscando chaves de acesso em: config/chaves_de_acesso");
+  
         if (!chavesDoc.exists()) {
           throw new Error("Configuração de chaves não encontrada.");
         }
-
+  
         const chavesValidas = chavesDoc.data().chaves_de_acesso || [];
-
+  
         if (!chavesValidas.includes(chaveAcesso)) {
           throw new Error("Chave de acesso inválida.");
         }
+  
+        console.log("✅ Chave de acesso válida");
       }
-
+  
       if (activeTab === "colaborador" && userRole !== "colaborador") {
         throw new Error("Você não tem permissão de colaborador.");
       }
-
+  
       if (activeTab === "recebedor" && userRole !== "recebedor") {
         throw new Error("Você não tem permissão de recebedor.");
       }
-
-      console.log("Redirecionando para:", userRole);
+  
+      console.log("➡️ Redirecionando para:", userRole);
+  
       switch (userRole) {
         case "admin":
           navigate("/InicialAdministrador");
@@ -96,14 +105,15 @@ export default function LoginPage() {
         default:
           throw new Error("Tipo de usuário não reconhecido.");
       }
-
+  
     } catch (error) {
-      console.error("Erro no login:", error);
+      console.error("❌ Erro no login:", error);
       setError(error.message || "Erro ao fazer login. Verifique suas credenciais.");
     } finally {
       setLoading(false);
     }
   };
+  
 
   return (
     <Container fluid className={styles.login_container}>

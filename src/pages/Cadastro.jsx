@@ -17,8 +17,7 @@ export default function CadastroPage() {
     telefone: '',
     endereco: '',
     senha: '',
-    confirmarSenha: '',
-    chaveAcesso: ''
+    confirmarSenha: ''
   });
   const navigate = useNavigate();
   const { createUser, error, loading } = useAuthentication();
@@ -62,8 +61,7 @@ export default function CadastroPage() {
         nome: formData.nome,
         telefone: formData.telefone,
         dataNascimento: formData.dataNascimento,
-        endereco: formData.endereco,
-        chaveAcesso: formData.chaveAcesso
+        endereco: formData.endereco
       }, role, formData.cnpj);
 
       if (user) {
@@ -140,10 +138,6 @@ export default function CadastroPage() {
 
                   <div className={styles.form_group}>
                     <input type="password" name="confirmarSenha" placeholder="Confirme sua senha" required onChange={handleChange} />
-                  </div>
-
-                  <div className={styles.form_group}>
-                    <input type="text" name="chaveAcesso" placeholder="Chave de Acesso" required onChange={handleChange} />
                   </div>
 
                   <button type="submit" className={styles.submit_button} disabled={loading}>

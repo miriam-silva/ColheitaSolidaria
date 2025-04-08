@@ -1,3 +1,8 @@
+// Miriam, quando estver codando no seu computador da facul, troque a linha:
+self.FIREBASE_APPCHECK_DEBUG_TOKEN = '2d692290-ac92-464d-8b52-c75b829ada59';
+// por:
+// self.FIREBASE_APPCHECK_DEBUG_TOKEN = '32dc0bbf-9ca6-4d85-abee-f8fed5ed123b'; 
+
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { initializeAppCheck, ReCaptchaV3Provider, getToken } from "firebase/app-check";
@@ -16,7 +21,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 
-self.FIREBASE_APPCHECK_DEBUG_TOKEN = true;
 
 const appCheck = initializeAppCheck(app, {
   provider: new ReCaptchaV3Provider("6LcVCQgrAAAAAPu1OR1xcHMgqiv8bYCBh8WmVUzr"),

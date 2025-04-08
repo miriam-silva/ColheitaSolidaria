@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import styles from './CadastrarRecebedorAdm.module.css';
 import useAuthentication from "../hooks/useAuthentication";
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -22,6 +23,8 @@ const CadastrarRecebedorAdm = () => {
   const [mensagemSucesso, setMensagemSucesso] = useState('');
 
   const { registerRecebedor, error, loading } = useAuthentication();
+  const navigate = useNavigate();
+
 
   const handleTabChange = (tabId) => setActiveTab(tabId);
 
@@ -48,6 +51,9 @@ const CadastrarRecebedorAdm = () => {
       });
 
       setMensagemSucesso("Recebedor cadastrado com sucesso!");
+      setTimeout(() => {
+        navigate("/InicialAdministrador");
+      }, 2000);
       setNome('');
       setCpf('');
       setDataNascimento('');
