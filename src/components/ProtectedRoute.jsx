@@ -38,9 +38,9 @@ const ProtectedRoute = ({ children, requiredRole }) => {
 
   const roleHierarchy = {
     admin: ['admin'],
-    colaborador: ['admin', 'colaborador'],
-    recebedor: ['admin', 'colaborador', 'recebedor']
-  };
+    colaborador: ['colaborador'],
+    recebedor: ['recebedor']
+  };  
 
   const allowedRoles = roleHierarchy[requiredRole] || [];
 

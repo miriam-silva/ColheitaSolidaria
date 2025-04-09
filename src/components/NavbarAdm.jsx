@@ -6,12 +6,10 @@ import logotp from "../assets/logotp.png";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
-// Importação correta do hook e db
 import useAuthentication from "../hooks/useAuthentication";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase/config";
 
-// toast
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -102,10 +100,10 @@ navigate("/", { state: { logoutSuccess: true } });
           <h5 className="text-center">Olá, {nomeUsuario || "usuário"}!</h5>
 
           <div className="w-100 d-flex flex-column gap-2 mt-3">
-            <Link to="/inicio" className={`btn btn-outline w-100 ${styles.botoes}`}>Início</Link>
-            <Link to="/pedidos" className={`btn btn-outline w-100 ${styles.botoes}`}>Pedidos</Link>
-            <Link to="/doacoes" className={`btn btn-outline w-100 ${styles.botoes}`}>Doações</Link>
-            <Link to="/cadastrar-recebedor" className={`btn btn-outline w-100 ${styles.botoes}`}>Cadastrar Recebedor</Link>
+            <Link to="/InicialAdministrador" className={`btn btn-outline w-100 ${styles.botoes}`}>Início</Link>
+            <Link to="/adm/Pedidos" className={`btn btn-outline w-100 ${styles.botoes}`}>Pedidos</Link>
+            <Link to="/adm/Doacoes" className={`btn btn-outline w-100 ${styles.botoes}`}>Doações</Link>
+            <Link to="/adm/cadastrar-recebedor" className={`btn btn-outline w-100 ${styles.botoes}`}>Cadastrar Recebedor</Link>
             <button className={`btn w-100 mt-3 ${styles.botoes2}`} onClick={handleClickSair}>Sair</button>
           </div>
         </div>

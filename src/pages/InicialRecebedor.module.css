@@ -1,0 +1,121 @@
+/*faixa laranja*/
+.navbarra {
+    text-align: center;
+    background-color: #F6C973;
+    border: 5px solid #C1554C;
+    font-weight: bold;
+    font-size: 22px;
+    padding: 20px;
+}
+
+.arrumar {
+    justify-content: center;
+    align-content: center;
+    text-align: center;
+    margin-left: 23%;
+}
+
+/*solicitação*/
+.caixa {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 5px solid black;
+    border-radius: 20px;
+    padding: 30px;
+    margin: 10px 0;
+    background-color: #ffffff;
+}
+
+.imagem {
+    width: 200px;
+    height: auto;
+    border-radius: 20px;
+}
+
+.titulo {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.textoo {
+    text-align: center;
+    justify-content: center;
+    align-self: center;
+    font-weight: bold;
+    max-width: 80%;
+    font-size: 18px;
+}
+
+.check {
+    flex: 0 0 20px;
+    transform: scale(3.0);
+}
+
+/* Botões */
+.approve_btn, .postpone_btn {
+    padding: 10px 20px;
+    margin: 5px 0;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    outline: none;
+}
+
+.approve_btn {
+    background-color: #276772;
+    color: white;
+    margin-left: 1%;
+}
+
+.postpone_btn {
+    background-color: #a50000;
+    color: white;
+}
+
+/* Media query para dispositivos móveis */
+@media (max-width: 576px) {
+    .caixa {
+        max-width: 100%;
+        flex-direction: column; 
+        align-items: flex-start;
+    }
+
+    .imagem {
+        width: 100%; 
+        height: auto;
+        margin-bottom: 10px;
+    }
+
+    .check {
+        align-self: center; 
+        margin-top: 10px; 
+    }
+
+    .arrumar {
+        justify-content: center;
+        margin-left: -0.5%;
+    }
+}
+
+@media (max-width: 1400px) {
+    .arrumar {
+        justify-content: center;
+        align-content: center;
+        text-align: center;
+        margin-left: 11%;
+    }
+}
+
+@media (min-width: 410px) and (max-width: 991px) {
+    .arrumar {
+        justify-content: center;
+        align-content: center;
+        text-align: center;
+        margin-left: 0%;
+    }
+}

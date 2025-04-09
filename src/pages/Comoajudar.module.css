@@ -1,0 +1,43 @@
+
+.p {
+    font-size: 25px;
+}
+
+.titulo_vermelho {
+    text-align: center;
+    color: #5d0101;
+    font-weight: bold;
+}
+
+.titulo_vermelho2 {
+    text-align: center;
+    color: #5d0101;
+}
+
+.imagem{
+    width: 10%;
+}
+
+@media (max-width: 910px) {
+    .imagem{
+        width: 15%;
+    }
+}
+
+@media (max-width: 672px) {
+    .imagem{
+        width: 20%;
+    }
+}
+
+@media (max-width: 486px) {
+    .imagem{
+        width: 25%;
+    }
+}
+
+@media (max-width: 374px) {
+    .imagem{
+        width: 35%;
+    }
+}
