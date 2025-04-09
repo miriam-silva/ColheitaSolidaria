@@ -50,6 +50,7 @@
     .fotoabrirperfil{
       width: 75px;
       height: auto;
+      margin-left: -1% !important;
     }
     
   }

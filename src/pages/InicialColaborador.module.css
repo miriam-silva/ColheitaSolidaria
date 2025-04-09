@@ -37,7 +37,7 @@
     justify-content: left;
     padding: 20px ;
     font-weight: bold;
-    margin-left: -7%;
+    margin-top: 1%;
 }
 
 .donation_btn:hover {
@@ -48,81 +48,59 @@
     margin-right: 10px;
 }
 
-@media (min-width: 1026px) and (max-width: 1440px){
+@media (max-width: 1000px) {
     .donation_btn {
         display: flex;
         align-items: center;
         padding: 10px 20px;
-        background-color: whitesmoke;
+        background-color: whitesmoke ;
         color: black;
         border: none;
         border-radius: 60px;
         font-size: 16px;
         transition: background-color 0.3s;
         justify-content: left;
-        padding: 20px;
+        padding: 20px ;
         font-weight: bold;
-        margin-left: -5%;
         margin-top: -2%;
-    }
-
-    .navbarra {
-        text-align: left;
-        background-color: #F6C973;
-        border: 5px solid #C1554C;
-        font-weight: bold;
-        font-size: 22px;
-        padding: 20px;
-        width: 100%;
-        margin-left: 0;
-        margin-top: 1%;
+        margin-bottom: 5%;
     }
 }
 
-@media (min-width: 768px) and (max-width: 1026px) {
+@media (min-width: 1001px) {
     .donation_btn {
         display: flex;
         align-items: center;
         padding: 10px 20px;
-        background-color: whitesmoke;
+        background-color: whitesmoke ;
         color: black;
         border: none;
         border-radius: 60px;
         font-size: 16px;
         transition: background-color 0.3s;
         justify-content: left;
-        padding: 20px;
+        padding: 20px ;
         font-weight: bold;
-        margin-left: -4%;
+        margin-top: -2%;
+        margin-bottom: 3%;
     }
 }
 
-@media (max-width: 596px){
+@media (min-width: 1250px) {
     .donation_btn {
         display: flex;
         align-items: center;
         padding: 10px 20px;
-        background-color: whitesmoke;
+        background-color: whitesmoke ;
         color: black;
         border: none;
         border-radius: 60px;
         font-size: 16px;
         transition: background-color 0.3s;
         justify-content: left;
-        padding: 15px;
+        padding: 20px ;
         font-weight: bold;
-        margin-left:-2%;
-        margin-top: -8%;
-    }
-
-    .navbarra {
-        text-align: left;
-        background-color: #F6C973;
-        border: 5px solid #C1554C;
-        font-weight: bold;
-        font-size: 22px;
-        padding: 20px;
-        margin-top: -20%;
-        width: 100%;
+        margin-top: -2%;
+        margin-bottom: 2%;
     }
 }

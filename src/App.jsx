@@ -21,7 +21,10 @@ import InicialAdministrador from "./pages/InicialAdministrador";
 import InicialRecebedor from "./pages/InicialRecebedor";
 import InicialColaborador from "./pages/InicialColaborador";
 import CadastrarRecebedorAdm from "./pages/CadastrarRecebedorAdm";
-
+import Pedidoenviado from "./pages/Pedidoenviado";
+import Minhassolicitacoes from "./pages/Minhassolicitacoes";
+import Doacoes from "./pages/Doacoes";
+import Pedidos from "./pages/Pedidos";
 
 function App() {
   return (
@@ -42,13 +45,24 @@ function App() {
         path="/InicialAdministrador"
         element={
           <ProtectedRoute requiredRole="admin">
-            <DefaultLayout2> 
+            <DefaultLayout2>
               <InicialAdministrador />
             </DefaultLayout2>
           </ProtectedRoute>
         }
       />
-      
+
+      <Route
+        path="/adm/Doacoes"
+        element={
+          <ProtectedRoute requiredRole="admin">
+            <DefaultLayout2>
+              <Doacoes />
+            </DefaultLayout2>
+          </ProtectedRoute>
+        }
+      />
+
       <Route
         path="/adm/cadastrar-recebedor"
         element={
@@ -61,25 +75,60 @@ function App() {
       />
 
       <Route
+        path="/adm/Pedidos"
+        element={
+          <ProtectedRoute requiredRole="admin">
+            <DefaultLayout2>
+              <Pedidos />
+            </DefaultLayout2>
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
         path="/InicialColaborador"
         element={
           <ProtectedRoute requiredRole="colaborador">
             <DefaultLayout3>
-            <InicialColaborador />
+              <InicialColaborador />
             </DefaultLayout3>
           </ProtectedRoute>
         }
       />
+
       <Route
         path="/InicialRecebedor"
         element={
           <ProtectedRoute requiredRole="recebedor">
             <DefaultLayout4>
-            <InicialRecebedor />
+              <InicialRecebedor />
             </DefaultLayout4>
           </ProtectedRoute>
         }
       />
+
+      <Route
+        path="/recebedor/Pedidoenviado"
+        element={
+          <ProtectedRoute requiredRole="recebedor">
+            <DefaultLayout4>
+              <Pedidoenviado />
+            </DefaultLayout4>
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/recebedor/Minhassolicitacoes"
+        element={
+          <ProtectedRoute requiredRole="recebedor">
+            <DefaultLayout4>
+              <Minhassolicitacoes />
+            </DefaultLayout4>
+          </ProtectedRoute>
+        }
+      />
+
 
       {/* Página de erro */}
       <Route path="*" element={<h1 className="text-center py-5">Página não encontrada</h1>} />

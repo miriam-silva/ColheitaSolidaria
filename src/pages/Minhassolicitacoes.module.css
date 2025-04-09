@@ -1,0 +1,38 @@
+.navbarra {
+    text-align: left;
+    background-color: #F6C973;
+    border: 5px solid #C1554C;
+    font-weight: bold;
+    font-size: 22px;
+    padding: 20px;
+    width: 100%;
+}
+
+#arrumar {
+    margin-left: -1%;
+}
+
+.transparente {
+    color: #a18654;
+    text-align: center;
+}
+
+
+.voltar_button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color:  #276772;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .voltar_button:hover {
+    background-color:  #1d4d55;
+  }
+  

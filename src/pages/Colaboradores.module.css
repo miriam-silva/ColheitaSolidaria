@@ -1,0 +1,78 @@
+.p{
+    font-size: 25px;
+    text-align: center;
+}
+
+
+/*primeira "faixa" de texto e imagens*/
+.box {
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    margin: 10px;
+}
+
+.img1 {
+    width: 55%;
+    height: auto;
+}
+.img2 {
+    width: 55%;
+    height: auto;
+}
+
+.titulo_caixa {
+    color: white;
+}
+
+/*parte das fotos dos agricultores*/
+.container {
+    margin-top: 20px;
+}
+
+.caixa {
+    padding: 20px;
+    margin: 10px 0;
+    color: black;
+}
+
+.caixa1e3 {
+    background-image: linear-gradient(to left, #e5a016b3, transparent);
+}
+
+.caixa22 {
+    background-image: linear-gradient(to right, #e5a016b3, transparent);
+}
+
+.titulo_caixa {
+    color: #5d0101;
+    text-align: center;
+    font-weight: bold;
+}
+
+.tamanho_imagem {
+    width: 250px;
+    height: auto;
+    margin-left: 7%;
+}
+
+.tamanho_imagem4 {
+    width: 300px;
+    height: auto;
+    margin-left: 4%;
+}
+
+.texto{
+    margin-left: 5%;
+}
+
+@media (max-width: 425px) {
+    .img1 {
+        width: 35%;
+        height: auto;
+    }
+    .img2 {
+        width: 35%;
+        height: auto;
+    }
+}

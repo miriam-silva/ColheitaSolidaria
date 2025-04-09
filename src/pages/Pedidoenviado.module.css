@@ -1,0 +1,58 @@
+.center_button {
+    font-size: 35px;
+    text-align: center;
+    color: whitesmoke;
+    background-color: brown;
+    border-radius: 30px;
+    text-decoration: none;
+    padding: 60px 0px 60px 0px;
+    max-width: 30%;
+    margin-top: 10%; 
+}
+
+.arrumar {
+    justify-content: center;
+    margin-left: 35%;
+}
+
+.voltar_button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color:  #276772;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .voltar_button:hover {
+    background-color:  #1d4d55;
+  }
+  
+
+@media (max-width: 600px) {
+    .center_button {
+        max-width: 50%;
+        margin-left: 25%;
+    }
+}
+
+@media (max-width: 420px) {
+    .center_button {
+        max-width: 70%;
+        margin-left: 15%;
+    }
+}
+
+@media (max-width: 380px) {
+    .center_button {
+        max-width: 80%;
+        margin-left: 10%;
+    }
+}
+
+

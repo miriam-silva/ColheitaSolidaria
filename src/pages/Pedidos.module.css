@@ -1,0 +1,105 @@
+/* Faixa laranja */
+.navbarra {
+    text-align: left;
+    background-color: #F6C973;
+    border: 5px solid #C1554C;
+    font-weight: bold;
+    font-size: 22px;
+    padding: 20px;
+}
+
+#arrumar {
+    margin-left: -1%;
+}
+
+.texto {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight: bold;
+    font-size: 19px;
+}
+
+/* Doações */
+.donation_box {
+    position: relative;
+    border: 5px solid black;
+    border-radius: 20px;
+    padding: 30px;
+    margin: 10px 0;
+    background-color: #ffffff; 
+}
+
+/* Grupo de Botões */
+.button_group {
+    position: absolute;
+    right: 20px; 
+    top: 10px; 
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+/* Botões */
+.approve_btn, .postpone_btn {
+    padding: 10px 20px;
+    margin: 5px 0; 
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    outline: none;
+}
+
+.approve_btn {
+    background-color: #276772;
+    color: white;
+}
+
+.postpone_btn {
+    background-color: #a50000;
+    color: white;
+}
+
+.approve_btn:disabled, .postpone_btn:disabled {
+    background-color: #cccccc; 
+    cursor: not-allowed;
+}
+
+.status {
+    margin-top: 10px;
+    font-size: 20px; 
+    font-weight: bold; 
+}
+
+.tituloo{
+    font-size: 25px !important;
+}
+
+.textoo{
+    font-size: 24px !important;
+}
+
+.approved {
+    color: #276772;
+}
+
+.postponed {
+    color: #a50000;
+}
+
+    @media (max-width: 576px) {
+        .button_group {
+            position: static; 
+            flex-direction: row; 
+            align-items: center; 
+            margin-top: 10px;
+            gap: 10px;
+        }
+
+        .approve_btn, .postpone_btn {
+            margin: 5px 0; 
+        } 
+        
+        .donation_box {
+        max-width: 100%; 
+        }
+    }
