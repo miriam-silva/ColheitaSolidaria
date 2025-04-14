@@ -43,7 +43,7 @@ const InicialRecebedor = () => {
             </div>
           </div>
         </div>
-
+        <div className={`${styles.teste}`}></div>
         <div className="container">
           <div className={`${styles.caixa}`}>
             <img src={milho} alt="Milho" className={`${styles.imagem}`} />

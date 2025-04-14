@@ -25,23 +25,24 @@
     border-radius: 20px;
     padding: 30px;
     margin: 10px 0;
-    background-color: #ffffff; 
+    background-color: #ffffff;
 }
 
 /* Grupo de Botões */
 .button_group {
     position: absolute;
-    right: 20px; 
-    top: 10px; 
+    right: 20px;
+    top: 10px;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
 }
 
 /* Botões */
-.approve_btn, .postpone_btn {
+.approve_btn,
+.postpone_btn {
     padding: 10px 20px;
-    margin: 5px 0; 
+    margin: 5px 0;
     border: none;
     border-radius: 5px;
     font-size: 16px;
@@ -59,22 +60,23 @@
     color: white;
 }
 
-.approve_btn:disabled, .postpone_btn:disabled {
-    background-color: #cccccc; 
+.approve_btn:disabled,
+.postpone_btn:disabled {
+    background-color: #cccccc;
     cursor: not-allowed;
 }
 
 .status {
     margin-top: 10px;
-    font-size: 20px; 
-    font-weight: bold; 
+    font-size: 20px;
+    font-weight: bold;
 }
 
-.tituloo{
+.tituloo {
     font-size: 25px !important;
 }
 
-.textoo{
+.textoo {
     font-size: 24px !important;
 }
 
@@ -86,20 +88,45 @@
     color: #a50000;
 }
 
-    @media (max-width: 576px) {
-        .button_group {
-            position: static; 
-            flex-direction: row; 
-            align-items: center; 
-            margin-top: 10px;
-            gap: 10px;
-        }
+.voltar_container {
+    width: 100%;
+    text-align: right;
+    margin: 20px 0;
+}
 
-        .approve_btn, .postpone_btn {
-            margin: 5px 0; 
-        } 
-        
-        .donation_box {
-        max-width: 100%; 
-        }
+.voltar_button {
+    bottom: 20px;
+    right: 20px;
+    background-color:  #276772;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s ease;
+  }
+
+.voltar_button:hover {
+    background-color: #1d4d55;
+}
+
+
+@media (max-width: 576px) {
+    .button_group {
+        position: static;
+        flex-direction: row;
+        align-items: center;
+        margin-top: 10px;
+        gap: 10px;
     }
+
+    .approve_btn,
+    .postpone_btn {
+        margin: 5px 0;
+    }
+
+    .donation_box {
+        max-width: 100%;
+    }
+}

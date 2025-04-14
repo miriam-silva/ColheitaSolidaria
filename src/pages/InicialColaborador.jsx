@@ -6,7 +6,7 @@ export default function InicialColaborador() {
   return (
     <div>
       <div className="container-fluid mt-1">
-        <Link to="/RegistrarDoacaoColaborador">
+        <Link to="/colaborador/Registrardoacao">
           <button className={`${styles.donation_btn}`}>Realizar doação</button>
         </Link>
       </div>
