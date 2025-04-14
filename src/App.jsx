@@ -25,6 +25,9 @@ import Pedidoenviado from "./pages/Pedidoenviado";
 import Minhassolicitacoes from "./pages/Minhassolicitacoes";
 import Doacoes from "./pages/Doacoes";
 import Pedidos from "./pages/Pedidos";
+import Registrardoacao from "./pages/Registrardoacao";
+import Minhasdoacoes from "./pages/Minhasdoacoes";
+import Doacaoregistrada from "./pages/Doacaoregistrada";
 
 function App() {
   return (
@@ -97,6 +100,39 @@ function App() {
       />
 
       <Route
+        path="/colaborador/Registrardoacao"
+        element={
+          <ProtectedRoute requiredRole="colaborador">
+            <DefaultLayout3>
+              <Registrardoacao />
+            </DefaultLayout3>
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/colaborador/Doacaoregistrada"
+        element={
+          <ProtectedRoute requiredRole="colaborador">
+            <DefaultLayout3>
+              <Doacaoregistrada />
+            </DefaultLayout3>
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/colaborador/Minhasdoacoes"
+        element={
+          <ProtectedRoute requiredRole="colaborador">
+            <DefaultLayout3>
+              <Minhasdoacoes />
+            </DefaultLayout3>
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
         path="/InicialRecebedor"
         element={
           <ProtectedRoute requiredRole="recebedor">
@@ -128,6 +164,7 @@ function App() {
           </ProtectedRoute>
         }
       />
+
 
 
       {/* Página de erro */}

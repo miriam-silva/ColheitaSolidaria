@@ -102,8 +102,8 @@ navigate("/", { state: { logoutSuccess: true } });
           <h5 className="text-center">Olá, {nomeUsuario || "usuário"}!</h5>
 
           <div className="w-100 d-flex flex-column gap-2 mt-3">
-            <Link to="/pedidos" className={`btn btn-outline w-100 ${styles.botoes}`}>Registrar doações</Link>
-            <Link to="/doacoes" className={`btn btn-outline w-100 ${styles.botoes}`}>Minhas doações</Link>
+            <Link to="/colaborador/Registrardoacao" className={`btn btn-outline w-100 ${styles.botoes}`}>Registrar doações</Link>
+            <Link to="/InicialColaborador" className={`btn btn-outline w-100 ${styles.botoes}`}>Minhas doações</Link>
             <button className={`btn w-100 mt-3 ${styles.botoes2}`} onClick={handleClickSair}>Sair</button>
           </div>
         </div>

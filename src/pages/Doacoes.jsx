@@ -1,7 +1,9 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from './Doacoes.module.css';
 
 const Doacoes = () => {
+  const navigate = useNavigate();
   return (
     <div>
       <br />
@@ -35,6 +37,15 @@ const Doacoes = () => {
             <p className={`${styles.texto}`} >Doou sete quilos de tomates e uma dúzia de espigas de milho</p>
           </div>
         </div>
+      </div>
+
+      <div className={styles.voltar_container}>
+        <button
+          className={styles.voltar_button}
+          onClick={() => navigate('/InicialAdministrador')}
+        >
+          Voltar
+        </button>
       </div>
     </div>
   );

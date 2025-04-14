@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from './Pedidos.module.css';
 
 const Pedidos = () => {
+  const navigate = useNavigate();
   const [pedidos, setPedidos] = useState([
     {
       id: 1,
@@ -53,14 +55,14 @@ const Pedidos = () => {
                 <h5 className={`${styles.tituloo}`}>#{pedido.id.toString().padStart(3, '0')} - {pedido.usuario} - {pedido.familiares}</h5>
                 <p className={`${styles.textoo}`}>{pedido.pedido}</p>
                 <div className={`${styles.button_group}`}>
-                  <button 
+                  <button
                     className={`${styles.approve_btn}`}
                     onClick={() => handleStatusChange(pedido.id, 'Aprovado')}
                     disabled={pedido.status !== ''}
                   >
                     Aprovar
                   </button>
-                  <button 
+                  <button
                     className={`${styles.postpone_btn}`}
                     onClick={() => handleStatusChange(pedido.id, 'Protelado')}
                     disabled={pedido.status !== ''}
@@ -70,17 +72,24 @@ const Pedidos = () => {
                 </div>
                 {pedido.status && (
                   <p
-                  className={`${styles.status} ${
-                    pedido.status === 'Aprovado' ? styles.approved : styles.postponed
-                  }`}
-                >
-                  Status: {pedido.status}
-                </p>
-                
+                    className={`${styles.status} ${pedido.status === 'Aprovado' ? styles.approved : styles.postponed
+                      }`}
+                  >
+                    Status: {pedido.status}
+                  </p>
+
                 )}
               </div>
             </div>
           ))}
+        </div>
+        <div className={styles.voltar_container}>
+          <button
+            className={styles.voltar_button}
+            onClick={() => navigate('/InicialAdministrador')}
+          >
+            Voltar
+          </button>
         </div>
       </div>
     </div>

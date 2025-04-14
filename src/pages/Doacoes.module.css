@@ -38,6 +38,29 @@
     font-size: 20px;
 }
 
+.voltar_container {
+    width: 100%;
+    text-align: right;
+    margin: 20px 0;
+}
+
+.voltar_button {
+    bottom: 20px;
+    right: 20px;
+    background-color:  #276772;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s ease;
+  }
+
+.voltar_button:hover {
+    background-color: #1d4d55;
+}
+
 @media (max-width: 576px) {
     .donation_box {
         max-width: 100%; 
