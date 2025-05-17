@@ -9,6 +9,7 @@ import DefaultLayout3 from "./components/DefaultLayout3";
 import DefaultLayout4 from "./components/DefaultLayout4";
 import AuthLayout from "./components/AuthLayout";
 import ProtectedRoute from "./components/ProtectedRoute";
+import { DoacoesProvider } from "./context/DoacoesContext";
 
 import Home from "./pages/Home";
 import SobreNos from "./pages/SobreNos";
@@ -31,6 +32,7 @@ import Doacaoregistrada from "./pages/Doacaoregistrada";
 
 function App() {
   return (
+    <DoacoesProvider>
     <Routes>
       {/* Páginas públicas */}
       <Route path="/" element={<DefaultLayout><Home /></DefaultLayout>} />
@@ -170,6 +172,7 @@ function App() {
       {/* Página de erro */}
       <Route path="*" element={<h1 className="text-center py-5">Página não encontrada</h1>} />
     </Routes>
+    </DoacoesProvider>
   );
 }
 
