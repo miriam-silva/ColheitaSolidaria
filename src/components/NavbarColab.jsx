@@ -39,17 +39,15 @@ const NavbarColab = () => {
   }, [user]);
 
   const handleClickSair = async () => {
-    try {
-      await logout();
-navigate("/", { state: { logoutSuccess: true } });
-      setTimeout(() => {
-        navigate("/");
-      }, 1000);
-    } catch (error) {
-      console.error("Erro ao sair:", error.message);
-      toast.error("Erro ao realizar logout. Tente novamente.");
-    }
+  try {
+    await logout();
+    window.location.href = "/"; 
+  } catch (error) {
+    console.error("Erro ao sair:", error.message);
+    toast.error("Erro ao realizar logout. Tente novamente.");
+  }
   };
+
 
   return (
     <>
