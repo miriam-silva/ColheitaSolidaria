@@ -39,13 +39,13 @@ const NavbarColab = () => {
   }, [user]);
 
   const handleClickSair = async () => {
-  try {
-    await logout();
-    window.location.href = "/"; 
-  } catch (error) {
-    console.error("Erro ao sair:", error.message);
-    toast.error("Erro ao realizar logout. Tente novamente.");
-  }
+    try {
+      await logout();
+      window.location.href = "/"; 
+    } catch (error) {
+      console.error("Erro ao sair:", error.message);
+      toast.error("Erro ao realizar logout. Tente novamente.");
+    }
   };
 
 
@@ -95,7 +95,7 @@ const NavbarColab = () => {
             src={receptorImg}
             alt="Perfil"
             className={`${styles.fotoperfil} rounded-circle mb-2`}
-            
+
           />
           <h5 className="text-center">Olá, {nomeUsuario || "usuário"}!</h5>
 

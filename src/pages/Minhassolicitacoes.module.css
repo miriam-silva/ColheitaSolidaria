@@ -18,11 +18,14 @@
 }
 
 
+.container_botao {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 40px; 
+}
+
 .voltar_button {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background-color:  #276772;
+    background-color: #276772;
     color: white;
     border: none;
     padding: 10px 16px;
@@ -30,9 +33,48 @@
     cursor: pointer;
     font-size: 18px;
     transition: background-color 0.3s ease;
-  }
-  
-  .voltar_button:hover {
-    background-color:  #1d4d55;
-  }
-  
+}
+
+.voltar_button:hover {
+    background-color: #1d4d55;
+}
+
+.caixa {
+    justify-content: space-between;
+    border: 5px solid black;
+    border-radius: 20px;
+    padding: 30px;
+    margin: 10px 0;
+    background-color: #ffffff;
+    margin-top: 1%;
+}
+
+.imagem {
+    width: 200px;
+    height: auto;
+    border-radius: 20px;
+}
+
+.titulo {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.texto {
+    text-align: center;
+    justify-content: center;
+    align-self: center;
+    font-weight: bold;
+    max-width: 80%;
+    font-size: 20px;
+}
+
+.textoo {
+    justify-content: center;
+    align-self: center;
+    max-width: 80%;
+    font-size: 22px;
+}
