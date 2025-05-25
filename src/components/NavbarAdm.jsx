@@ -39,10 +39,7 @@ const NavbarAdm = () => {
   const handleClickSair = async () => {
     try {
       await logout();
-navigate("/", { state: { logoutSuccess: true } });
-      setTimeout(() => {
-        navigate("/");
-      }, 1000);
+      window.location.href = "/"; 
     } catch (error) {
       console.error("Erro ao sair:", error.message);
       toast.error("Erro ao realizar logout. Tente novamente.");
@@ -95,7 +92,7 @@ navigate("/", { state: { logoutSuccess: true } });
             src={receptorImg}
             alt="Perfil"
             className={`${styles.fotoperfil} rounded-circle mb-2`}
-            
+
           />
           <h5 className="text-center">Olá, {nomeUsuario || "usuário"}!</h5>
 

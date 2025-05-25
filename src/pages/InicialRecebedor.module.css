@@ -12,7 +12,7 @@
     justify-content: center;
     align-content: center;
     text-align: center;
-    margin-left: 23%;
+    margin-left: 26%;
 }
 
 /*solicitação*/
@@ -25,6 +25,7 @@
     padding: 30px;
     margin: 10px 0;
     background-color: #ffffff;
+    margin-bottom: -5%;
 }
 
 .imagem {
@@ -111,8 +112,31 @@
         justify-content: center;
         align-content: center;
         text-align: center;
-        margin-left: 11%;
+        margin-left: 24%;
     }
+    
+    .caixa{
+        margin-bottom: -5%;
+    }
+}
+
+@media (max-width: 1200px) {
+    .arrumar {
+        justify-content: center;
+        align-content: center;
+        text-align: center;
+        margin-left: 20%;
+    }
+}
+
+@media (max-width: 1020px) {
+    .arrumar {
+        justify-content: center;
+        align-content: center;
+        text-align: center;
+        margin-left: 15%;
+    }
+    
 }
 
 @media (min-width: 410px) and (max-width: 991px) {
@@ -120,6 +144,35 @@
         justify-content: center;
         align-content: center;
         text-align: center;
-        margin-left: 0%;
+        margin-left: 10%;
     }
 }
+
+@media (max-width: 770px) {
+    .arrumar {
+        justify-content: center;
+        align-content: center;
+        text-align: center;
+        margin-left: 5%;
+    }
+}
+
+@media (max-width: 567px) {
+    .arrumar {
+        justify-content: center;
+        align-content: center;
+        text-align: center;
+        margin-left: 0%;
+    }
+
+    .caixa{
+        margin-bottom: -20%;
+    }
+}
+
+@media (min-width: 387px) and (max-width: 566px) {
+    .caixa{
+        margin-bottom: -5%;
+    }
+}
+
