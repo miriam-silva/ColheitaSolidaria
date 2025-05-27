@@ -66,6 +66,10 @@
     cursor: not-allowed;
 }
 
+.pending {
+  color: gray;
+}
+
 .status {
     margin-top: 10px;
     font-size: 20px;
