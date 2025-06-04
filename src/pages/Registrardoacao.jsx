@@ -5,6 +5,7 @@ import { registrarDoacao } from '../hooks/useDoacoes';
 import { getAuth } from 'firebase/auth';
 import { useDoacoes } from '../context/DoacoesContext';
 import { Timestamp } from 'firebase/firestore';
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 const Registrardoacao = () => {
     const navigate = useNavigate();
@@ -16,6 +17,7 @@ const Registrardoacao = () => {
     const [validade, setValidade] = useState('');
     const [mensagem, setMensagem] = useState('');
     const [tipoMensagem, setTipoMensagem] = useState('');
+    const [imagemDoacao, setImagemDoacao] = useState(null);
 
     const limparCampos = () => {
         setProduto('');
@@ -56,12 +58,31 @@ const Registrardoacao = () => {
             return;
         }
 
+        // 📤 Upload da imagem PRIMEIRO
+        const storage = getStorage();
+        let imagemUrl = "";
+
+        if (imagemDoacao) {
+            const idUnico = `${user.uid}_${Date.now()}`;
+            const storageRef = ref(storage, `imagensDoacao/${user.uid}/${idUnico}`);
+
+            try {
+                const snapshot = await uploadBytes(storageRef, imagemDoacao);
+                imagemUrl = await getDownloadURL(snapshot.ref);
+            } catch (erro) {
+                setMensagem("Erro ao fazer upload da imagem.");
+                setTipoMensagem("erro");
+                return;
+            }
+        }
+
         const resultado = await registrarDoacao({
             produto,
             descricao,
             quantidade,
             validade: Timestamp.fromDate(new Date(validade)),
-            colaboradorId: user.uid
+            colaboradorId: user.uid,
+            imagemDoacao: imagemUrl
         });
 
         if (resultado.sucesso) {
@@ -70,7 +91,8 @@ const Registrardoacao = () => {
                 descricao,
                 quantidade,
                 validade,
-                dataRegistro: Timestamp.now(), 
+                dataRegistro: Timestamp.now(),
+                imagemDoacao: imagemUrl
             });
 
             setMensagem("Doação registrada com sucesso!");
@@ -84,6 +106,7 @@ const Registrardoacao = () => {
             setTipoMensagem("erro");
         }
     };
+
 
     return (
         <div>
@@ -143,6 +166,16 @@ const Registrardoacao = () => {
                     placeholder="Validade"
                     value={validade}
                     onChange={(e) => setValidade(e.target.value)}
+                />
+            </div>
+            <div className="mb-3">
+                <label htmlFor="imagemDoacao" className={`form-label ${styles.texto}`}>Foto da doação:</label>
+                <input
+                    type="file"
+                    className="form-control"
+                    id="imagemDoacao"
+                    accept="image/*"
+                    onChange={(e) => setImagemDoacao(e.target.files[0])}
                 />
             </div>
 

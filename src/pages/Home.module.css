@@ -43,7 +43,7 @@ ul {
     font-weight: bold;
 }
 
-.carousel_inner img {
+.carrosselimagens {
     height: 400px;
     width: 800px;
     object-fit: cover;
