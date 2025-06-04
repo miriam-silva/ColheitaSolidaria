@@ -39,7 +39,7 @@ const Home = () => {
             <img src={img4} className={`d-block w-100 ${styles.carrosselimagens}`} alt="imagem de uma mulher com um chapeu de palha colhendo na lavoura" />
           </div>
           <div className="carousel-item">
-            <img src={img5} className={`d-block w-100 ${styles.carrosselimagens}`} alt="imagem de dois tipos de plantação" />
+            <img src={img5} className={`d-block w-100  ${styles.carrosselimagens}`} alt="imagem de dois tipos de plantação" />
           </div>
         </div>
         <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
