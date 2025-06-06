@@ -5,7 +5,7 @@ import { registrarDoacao } from '../hooks/useDoacoes';
 import { getAuth } from 'firebase/auth';
 import { useDoacoes } from '../context/DoacoesContext';
 import { Timestamp } from 'firebase/firestore';
-import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { supabase } from '../supabase/supabaseClient';
 
 const Registrardoacao = () => {
     const navigate = useNavigate();
@@ -29,6 +29,20 @@ const Registrardoacao = () => {
     const handleCancel = () => {
         limparCampos();
         window.location.href = '/InicialColaborador';
+    };
+
+    const uploadImagemSupabase = async (file, uid) => {
+        const nomeArquivo = `${uid}_${Date.now()}`;
+        const caminho = `imagens/${nomeArquivo}`;
+
+        const { error } = await supabase
+            .storage
+            .from('doacoes')
+            .upload(caminho, file);
+
+        if (error) throw new Error('Erro ao enviar imagem.');
+
+        return caminho;
     };
 
     const handleSubmit = async () => {
@@ -58,23 +72,21 @@ const Registrardoacao = () => {
             return;
         }
 
-        // 📤 Upload da imagem PRIMEIRO
-        const storage = getStorage();
-        let imagemUrl = "";
-
-        if (imagemDoacao) {
-            const idUnico = `${user.uid}_${Date.now()}`;
-            const storageRef = ref(storage, `imagensDoacao/${user.uid}/${idUnico}`);
-
-            try {
-                const snapshot = await uploadBytes(storageRef, imagemDoacao);
-                imagemUrl = await getDownloadURL(snapshot.ref);
-            } catch (erro) {
-                setMensagem("Erro ao fazer upload da imagem.");
-                setTipoMensagem("erro");
-                return;
-            }
+        if (!imagemDoacao) {
+            setMensagem("Anexe uma imagem da doação.");
+            setTipoMensagem("erro");
+            return;
         }
+
+        let imagemUrl = "";
+        try {
+            imagemUrl = await uploadImagemSupabase(imagemDoacao, user.uid);
+        } catch (error) {
+            setMensagem("Erro ao enviar imagem.");
+            setTipoMensagem("erro");
+            return;
+        }
+
 
         const resultado = await registrarDoacao({
             produto,
@@ -106,7 +118,6 @@ const Registrardoacao = () => {
             setTipoMensagem("erro");
         }
     };
-
 
     return (
         <div>

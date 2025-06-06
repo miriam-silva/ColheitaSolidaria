@@ -10,12 +10,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.49.10",
     "bootstrap": "^5.3.6",
-    "firebase": "^11.8.1",
+    "firebase": "^11.9.0",
     "react": "^19.0.0",
     "react-bootstrap": "^2.10.10",
     "react-dom": "^19.0.0",
-    "react-router-dom": "^7.6.1",
+    "react-router-dom": "^7.6.2",
     "react-toastify": "^11.0.5"
   },
   "devDependencies": {
