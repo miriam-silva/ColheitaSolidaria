@@ -1,55 +1,55 @@
 :global(.offcanvas-end) {
-    width: 300px !important;
-  }
-  
-  .botoes {
-    background-color: #276772 !important;
-    color: #fff;
-  }
-  
-  .botoes2 {
-    background-color: #a50000 !important;
-    color: #fff;
-  }
-  
-  .botoes:hover,
-  .botoes2:hover {
-    color: #dad7d7 !important;
-  }
-  
-  .fotoperfil{
-    width: 220px;
+  width: 300px !important;
+}
+
+.botoes {
+  background-color: #276772 !important;
+  color: #fff;
+}
+
+.botoes2 {
+  background-color: #a50000 !important;
+  color: #fff;
+}
+
+.botoes:hover,
+.botoes2:hover {
+  color: #dad7d7 !important;
+}
+
+.fotoperfil {
+  width: 220px;
+  height: 195px;
+  object-fit: cover;
+}
+
+.fotoabrirperfil {
+  width: 100px;
+  height: 85px;
+}
+
+@media (max-width: 448px) {
+  .logocolheita {
+    width: 250px;
     height: auto;
-    object-fit: cover;
   }
-  
-  .fotoabrirperfil{
-    width: 110px;
+
+  .fotoabrirperfil {
+    width: 90px;
     height: auto;
   }
-  
-  @media (max-width: 448px) {
-    .logocolheita{
-      width: 250px;
-      height: auto;
-    }
-  
-    .fotoabrirperfil{
-      width: 90px;
-      height: auto;
-    }
-    
+
+}
+
+@media (max-width: 376px) {
+  .logocolheita {
+    width: 205px;
+    height: auto;
   }
-  
-  @media (max-width: 376px) {
-    .logocolheita{
-      width: 205px;
-      height: auto;
-    }
-  
-    .fotoabrirperfil{
-      width: 75px;
-      height: auto;
-    }
-    
+
+  .fotoabrirperfil {
+    width: 75px;
+    height: auto;
   }
+
+}

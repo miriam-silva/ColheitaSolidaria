@@ -29,7 +29,7 @@ export function DoacoesProvider({ children }) {
   }, []);
 
   return (
-    <DoacoesContext.Provider value={{ doacoes, adicionarDoacao, carregando }}>
+    <DoacoesContext.Provider value={{ doacoes, adicionarDoacao, carregando, setDoacoes }}>
       {children}
     </DoacoesContext.Provider>
   );

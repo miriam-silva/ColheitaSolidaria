@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './InicialRecebedor.module.css';
-import { db } from '../firebase/config'; 
+import { db } from '../firebase/config';
 import { collection, getDocs, addDoc, serverTimestamp } from 'firebase/firestore';
 import useAuthentication from '../hooks/useAuthentication';
+import { supabase } from '../supabase/supabaseClient';
 
 const InicialRecebedor = () => {
   const navigate = useNavigate();
@@ -16,10 +17,24 @@ const InicialRecebedor = () => {
     const buscarDoacoes = async () => {
       try {
         const querySnapshot = await getDocs(collection(db, 'doacoes'));
-        const listaDoacoes = querySnapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
+        const listaDoacoes = querySnapshot.docs.map((doc) => {
+          const data = doc.data();
+
+          let imagemPublicaUrl = null;
+          if (data.imagemDoacao) { 
+            imagemPublicaUrl = supabase
+              .storage
+              .from('doacoes') 
+              .getPublicUrl(data.imagemDoacao).publicUrl;
+          }
+
+          return {
+            id: doc.id,
+            ...data,
+            imagemPublicaUrl,
+          };
+        });
+
         setDoacoes(listaDoacoes);
       } catch (error) {
         console.error('Erro ao buscar doações:', error);
@@ -28,6 +43,7 @@ const InicialRecebedor = () => {
 
     buscarDoacoes();
   }, []);
+
 
   const handleToggle = (id) => {
     setSelecionados((prev) =>
@@ -64,9 +80,8 @@ const InicialRecebedor = () => {
       alert('Solicitação realizada com sucesso!');
       navigate('/recebedor/Pedidoenviado');
     } catch (error) {
-  console.error('Erro ao enviar solicitação:', error);
-  alert(`Erro ao enviar solicitação: ${error.message || error}`);
-
+      console.error('Erro ao enviar solicitação:', error);
+      alert(`Erro ao enviar solicitação: ${error.message || error}`);
     }
   };
 
@@ -86,11 +101,11 @@ const InicialRecebedor = () => {
         doacoes.map((doacao) => (
           <div key={doacao.id} className="container">
             <div className={`${styles.caixa}`}>
-              {doacao.imagemUrl && (
-                <img src={doacao.imagemUrl} alt={doacao.titulo} className={`${styles.imagem}`} />
+              {doacao.imagemPublicaUrl && (
+                <img src={doacao.imagemPublicaUrl} alt={doacao.produto} className={`${styles.imagem}`} />
               )}
               <div className={`${styles.titulo}`}>
-                <h4>{doacao.titulo}</h4>
+                <h4>{doacao.produto}</h4>
                 <p className={`${styles.textoo}`}>{doacao.descricao}</p>
               </div>
               <div className={`${styles.check}`}>
