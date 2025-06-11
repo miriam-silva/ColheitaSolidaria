@@ -3,32 +3,36 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "./App.css";
 
-import DefaultLayout from "./components/DefaultLayout";
-import DefaultLayout2 from "./components/DefaultLayout2";
-import DefaultLayout3 from "./components/DefaultLayout3";
-import DefaultLayout4 from "./components/DefaultLayout4";
-import AuthLayout from "./components/AuthLayout";
-import ProtectedRoute from "./components/ProtectedRoute";
+import DefaultLayout from "./components/LayoutPadrao/Home/DefaultLayout";
+import DefaultLayout2 from "./components/LayoutPadrao/Adm/DefaultLayout2";
+import DefaultLayout3 from "./components/LayoutPadrao/Colaborador/DefaultLayout3";
+import DefaultLayout4 from "./components/LayoutPadrao/Recebedor/DefaultLayout4";
+import AuthLayout from "./components/LayoutPadrao/SemPadrao/AuthLayout";
+import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import { DoacoesProvider } from "./context/DoacoesContext";
 
-import Home from "./pages/Home";
-import SobreNos from "./pages/SobreNos";
-import Colaboradores from "./pages/Colaboradores";
-import Comoajudar from "./pages/Comoajudar";
-import Contato from "./pages/Contato";
-import Login from "./pages/Login";
-import Cadastro from "./pages/Cadastro";
-import InicialAdministrador from "./pages/InicialAdministrador";
-import InicialRecebedor from "./pages/InicialRecebedor";
-import InicialColaborador from "./pages/InicialColaborador";
-import CadastrarRecebedorAdm from "./pages/CadastrarRecebedorAdm";
-import Pedidoenviado from "./pages/Pedidoenviado";
-import Minhassolicitacoes from "./pages/Minhassolicitacoes";
-import Doacoes from "./pages/Doacoes";
-import Pedidos from "./pages/Pedidos";
-import Registrardoacao from "./pages/Registrardoacao";
-import Minhasdoacoes from "./pages/Minhasdoacoes";
-import Doacaoregistrada from "./pages/Doacaoregistrada";
+import Home from "./pages/Home/Home/Home";
+import SobreNos from "./pages/Home/SobreNos/SobreNos";
+import Colaboradores from "./pages/Home/Colaboradores/Colaboradores";
+import Comoajudar from "./pages/Home/Comoajudar/Comoajudar";
+import Contato from "./pages/Home/Contato/Contato";
+
+import Login from "./pages/Entrar e Cadastrar/Login/Login";
+import Cadastro from "./pages/Entrar e Cadastrar/Cadastro/Cadastro";
+
+import InicialAdministrador from "./pages/Administrador/InicialAdm/InicialAdministrador";
+import Doacoes from "./pages/Administrador/Doacoes/Doacoes";
+import Pedidos from "./pages/Administrador/Pedidos/Pedidos";
+import CadastrarRecebedorAdm from "./pages/Administrador/CadastrarRecebedor/CadastrarRecebedorAdm";
+
+import InicialRecebedor from "./pages/Recebedor/InicialRecebedor/InicialRecebedor";
+import Minhassolicitacoes from "./pages/Recebedor/Minhassolicitacoes/Minhassolicitacoes";
+import Pedidoenviado from "./pages/Recebedor/Pedidoenviado/Pedidoenviado";
+
+import InicialColaborador from "./pages/Colaborador/InicialColaborador/InicialColaborador";
+import Registrardoacao from "./pages/Colaborador/Registrardoacao/Registrardoacao";
+import Minhasdoacoes from "./pages/Colaborador/Minhasdoaçoes/Minhasdoacoes";
+import Doacaoregistrada from "./pages/Colaborador/Doacaoregistrada/Doacaoregistrada";
 
 function App() {
   return (
