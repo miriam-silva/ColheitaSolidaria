@@ -1,3 +1,5 @@
+# ReadMe.md - Colheita Solidária
+
 # 🥕 Colheita Solidária
 
 **Colheita Solidária** é uma plataforma digital criada para facilitar a doação de alimentos excedentes por agricultores para pessoas em situação de vulnerabilidade social. O objetivo é reduzir o desperdício, promover a solidariedade e gerar impacto positivo por meio da redistribuição de alimentos.
