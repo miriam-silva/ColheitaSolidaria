@@ -79,11 +79,11 @@ Surgiu da necessidade de conectar quem **tem excedente de alimentos (agricultore
 
 ## 👥 Equipe
 
-- **Miriam Silva Corrêa** – Código React, Firebase, Figma
-- **Ana Julia Tsubouchi de Oliveira** – Documentação e protótipos
-- **Eloisa Rocha da Silva** – Documentação e Figma
-- **Isadora Georgete** – Back-end em C# e documentação
-- **Caroline Oliveira Silva** – Back-end em C# e documentação
+- **Miriam Silva Corrêa** – Código React, Firebase e Figma
+- **Ana Julia Tsubouchi de Oliveira** – Documentação, protótipos e Github
+- **Eloisa Rocha da Silva** – Documentação, Figma e código React
+- **Isadora Georgete** – Código React e documentação
+- **Caroline Oliveira Silva** – Código React e documentação
 
 ---
 
