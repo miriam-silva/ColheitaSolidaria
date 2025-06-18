@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './Doacoes.module.css';
-
+import { supabase } from '../../../supabase/supabaseClient'
 import { collection, getDocs, doc, getDoc } from 'firebase/firestore';
 import { db } from '../../../firebase/config';
-
+import CardDoacao from '../../../components/CardDoacao/CardDoacao';
 const Doacoes = () => {
   const navigate = useNavigate();
   const [doacoes, setDoacoes] = useState([]);
@@ -59,31 +59,35 @@ const Doacoes = () => {
       <div className="container-fluid">
         <div className="row justify-content-center mb-4">
           {doacoes.length > 0 ? (
-            doacoes.map((doacao, index) => (
-              <div key={doacao.id} className="col-12 mb-3">
-                <div className={`${styles.donation_box}`}>
-                  <h5 className={styles.titulo}>
-                    #{index + 1} - {doacao.produto}
-                  </h5>
-                  <p className={styles.texto}>
-                    Doador: {doacao.nomeColaborador} <br />
-                    Descrição: {doacao.descricao} <br />
-                    Quantidade: {doacao.quantidade} <br />
-                    Validade:{' '}
-                    {doacao.validade
-                      ? new Date(doacao.validade.seconds * 1000).toLocaleDateString()
-                      : 'Sem data'}{' '}
-                    <br />
-                    Data de Registro:{' '}
-                    {doacao.dataRegistro
-                      ? new Date(doacao.dataRegistro.seconds * 1000).toLocaleString()
-                      : 'Sem data'}
-                  </p>
-                </div>
-              </div>
-            ))
-          ) : (
-            <p className="text-center">Nenhuma doação encontrada.</p>
+
+            doacoes.map((doacao) => {
+              const imagemPublicaUrl = doacao.imagemDoacao ? supabase
+                .storage
+                .from('doacoes')
+                .getPublicUrl(doacao.imagemDoacao).publicUrl
+                : null;
+
+                return (
+                  <div key ={doacao.id} className= "mb-3">
+                    <CardDoacao 
+                    imagemUrl={imagemPublicaUrl}
+                    nome= {doacao.produto}
+                    validade= {doacao.validade}
+                    descricao={
+                      `Doador: ${doacao.nomeColaborador}\n` +
+                       `Descrição: ${doacao.descricao}\n` +
+                        `Quantidade: ${doacao.quantidade}`
+                    }
+                    selecionado={false}
+                    onToggle={() => {}}
+
+                    />
+                  </div>
+                );
+            })
+        
+          ):(
+           <p className="text-center">Nenhuma doação encontrada.</p>
           )}
         </div>
       </div>

@@ -34,6 +34,7 @@ import Registrardoacao from "./pages/Colaborador/Registrardoacao/Registrardoacao
 import Minhasdoacoes from "./pages/Colaborador/Minhasdoaçoes/Minhasdoacoes";
 import Doacaoregistrada from "./pages/Colaborador/Doacaoregistrada/Doacaoregistrada";
 
+
 function App() {
   return (
     <DoacoesProvider>
