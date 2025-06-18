@@ -5,6 +5,7 @@ import { db } from '../../../firebase/config';
 import { collection, getDocs, addDoc, serverTimestamp } from 'firebase/firestore';
 import useAuthentication from '../../../hooks/useAuthentication';
 import { supabase } from '../../../supabase/supabaseClient';
+import CardDoacao from '../../../components/CardDoacao/CardDoacao';
 
 const InicialRecebedor = () => {
   const navigate = useNavigate();
@@ -99,24 +100,16 @@ const InicialRecebedor = () => {
         <p className="text-center">Nenhuma doação disponível no momento.</p>
       ) : (
         doacoes.map((doacao) => (
-          <div key={doacao.id} className="container">
-            <div className={`${styles.caixa}`}>
-              {doacao.imagemPublicaUrl && (
-                <img src={doacao.imagemPublicaUrl} alt={doacao.produto} className={`${styles.imagem}`} />
-              )}
-              <div className={`${styles.titulo}`}>
-                <h4>{doacao.produto}</h4>
-                <p className={`${styles.textoo}`}>{doacao.descricao}</p>
-              </div>
-              <div className={`${styles.check}`}>
-                <input
-                  type="checkbox"
-                  checked={selecionados.includes(doacao.id)}
-                  onChange={() => handleToggle(doacao.id)}
-                />
-              </div>
-            </div>
-          </div>
+        <CardDoacao
+        key= {doacao.id}
+        imagemUrl={doacao.imagemPublicaUrl}
+        nome= {doacao.produto}
+        validade = {doacao.validade}
+        descricao = {doacao.descricao}
+        selecionado = {selecionados.includes(doacao.id)}
+        onToggle = {() => handleToggle(doacao.id)}
+
+        />
         ))
       )}
 
