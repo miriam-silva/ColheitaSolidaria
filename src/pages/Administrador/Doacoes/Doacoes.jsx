@@ -87,7 +87,7 @@ const Doacoes = () => {
             })
         
           ):(
-           <p className="text-center">Nenhuma doação encontrada.</p>
+           <p className="text-center">Nenhuma doação foi encontrada.</p>
           )}
         </div>
       </div>
