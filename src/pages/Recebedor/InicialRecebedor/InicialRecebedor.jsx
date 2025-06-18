@@ -100,7 +100,6 @@ const InicialRecebedor = () => {
         <p className="text-center">Nenhuma doação disponível no momento.</p>
       ) : (
         doacoes.map((doacao) => (
-        <CardDoacao
         key= {doacao.id}
         imagemUrl={doacao.imagemPublicaUrl}
         nome= {doacao.produto}
@@ -112,6 +111,7 @@ const InicialRecebedor = () => {
         />
         ))
       )}
+
 
       <div className="button-container">
         <button className={`${styles.postpone_btn}`} onClick={handleCancel}>Cancelar</button>
