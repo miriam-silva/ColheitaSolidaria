@@ -1,4 +1,5 @@
- import React from "react";
+
+import React from "react";
 import styles from './CardDoacao.module.css';
 
 const CardDoacao = ({imagemUrl, nome, validade, descricao, selecionado, onToggle}) => {
@@ -26,4 +27,7 @@ const CardDoacao = ({imagemUrl, nome, validade, descricao, selecionado, onToggle
     )
 };
 
+
 export default CardDoacao;
+
+

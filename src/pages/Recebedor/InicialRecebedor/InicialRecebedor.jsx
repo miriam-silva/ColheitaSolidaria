@@ -6,6 +6,7 @@ import { collection, getDocs, addDoc, serverTimestamp } from 'firebase/firestore
 import useAuthentication from '../../../hooks/useAuthentication';
 import { supabase } from '../../../supabase/supabaseClient';
 import CardDoacao from '../../../components/CardDoacao/CardDoacao';
+
 const InicialRecebedor = () => {
   const navigate = useNavigate();
   const { user } = useAuthentication();
@@ -99,7 +100,6 @@ const InicialRecebedor = () => {
         <p className="text-center">Nenhuma doação disponível no momento.</p>
       ) : (
         doacoes.map((doacao) => (
-           <CardDoacao 
         key= {doacao.id}
         imagemUrl={doacao.imagemPublicaUrl}
         nome= {doacao.produto}
