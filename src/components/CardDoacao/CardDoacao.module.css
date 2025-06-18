@@ -1,0 +1,64 @@
+.cardDoacao {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 5px solid black;
+  border-radius: 20px;
+  padding: 20px;
+  margin: 20px 0;
+  background-color: #ffffff;
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
+}
+
+.imagemdoacao {
+  width: 150px;
+  height: auto;
+  border-radius: 10px;
+  margin-right: 20px;
+}
+
+.conteudo {
+  text-align: center;
+  flex: 1;
+}
+
+.nomedoacao {
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.descricaodoacao {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.validadedoacao {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.checkboxlabel {
+  margin-left: 20px;
+  transform: scale(2);
+}
+
+.placeholderImagem {
+  width: 120px;
+  height: 120px;
+  background-color: #f5c16c;
+  border-radius: 10px;
+  margin-right: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 5px;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.legendaImagem {
+  font-size: 12px;
+  font-weight: bold;
+  color: #333;
+}
