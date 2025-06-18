@@ -5,7 +5,7 @@ const CardDoacao = ({imagemUrl, nome, validade, descricao, selecionado, onToggle
     return (
         <div className= {styles.cardDoacao}>
             <div className={styles.placeholderImagem}>
-                <span className="{styles.legendaImagem}">Imagens de alimentos</span>
+                <span className="{styles.legendaImagem}">Imagens dos alimentos</span>
             </div>
             {imagemUrl && <img src={imagemUrl} alt={nome} className={styles.imagemdoacao} />}
             <div className= {styles.conteudo}>
