@@ -16,6 +16,7 @@ import SobreNos from "./pages/Home/SobreNos/SobreNos";
 import Colaboradores from "./pages/Home/Colaboradores/Colaboradores";
 import Comoajudar from "./pages/Home/Comoajudar/Comoajudar";
 import Contato from "./pages/Home/Contato/Contato";
+import SobreoProjeto from "./pages/Home/SobreoProjeto/SobreoProjeto";
 
 import Login from "./pages/Entrar e Cadastrar/Login/Login";
 import Cadastro from "./pages/Entrar e Cadastrar/Cadastro/Cadastro";
@@ -45,6 +46,7 @@ function App() {
       <Route path="/colaboradores" element={<DefaultLayout><Colaboradores /></DefaultLayout>} />
       <Route path="/como-ajudar" element={<DefaultLayout><Comoajudar /></DefaultLayout>} />
       <Route path="/contato" element={<DefaultLayout><Contato /></DefaultLayout>} />
+      <Route path="/sobreoprojeto" element={<DefaultLayout><SobreoProjeto /></DefaultLayout>}/>
 
       {/* Páginas sem Navbar e Footer */}
       <Route path="/login" element={<AuthLayout><Login /></AuthLayout>} />
