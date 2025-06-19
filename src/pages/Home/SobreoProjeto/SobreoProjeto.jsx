@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from './SobreoProjeto.module.css'
-import miriaam from '../../../assets/miriaam.jpg'
+import miriam from '../../../assets/miriam.jpg'
 import ana from '../../../assets/ana.jpg'
 import react from '../../../assets/react.png'
 import bootstrap from '../../../assets/bootstrap.png'
@@ -51,7 +51,7 @@ const SobreoProjeto = () => {
 
                     <div className="row justify-content-center">
                         <div className="col-12 col-sm-6 col-md-4 col-lg-2 mb-4">
-                            <img src={miriaam} className={`img-fluid rounded-circle mb-2 ${styles.img2}`} alt="Miriam Silva Corrêa"/>
+                            <img src={miriam} className={`img-fluid rounded-circle mb-2 ${styles.img2}`} alt="Miriam Silva Corrêa"/>
                             <h6 className="fw-bold">Miriam Silva Corrêa</h6>
                         </div>
 
@@ -64,11 +64,11 @@ const SobreoProjeto = () => {
                             <h6 className="fw-bold">Eloisa Rocha da Silva</h6>
                     </div>
                         <div className="col-12 col-sm-6 col-md-4 col-lg-2 mb-4">
-                            <img src={miriaam} className={`img-fluid rounded-circle mb-2 ${styles.img2}`} alt="Isadora Georgete"/>
+                            <img src={miriam} className={`img-fluid rounded-circle mb-2 ${styles.img2}`} alt="Isadora Georgete"/>
                             <h6 className="fw-bold">Isadora Georgete</h6>
                     </div>
                         <div className="col-12 col-sm-6 col-md-4 col-lg-2 mb-4">
-                            <img src={miriaam} className={`img-fluid rounded-circle mb-2 ${styles.img2}`}alt="Caroline Oliveira Silva"/>
+                            <img src={miriam} className={`img-fluid rounded-circle mb-2 ${styles.img2}`}alt="Caroline Oliveira Silva"/>
                             <h6 className="fw-bold">Caroline Oliveira Silva</h6>
                     </div>
                 </div>
