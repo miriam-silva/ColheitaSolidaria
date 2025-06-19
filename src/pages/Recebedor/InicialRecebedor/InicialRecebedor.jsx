@@ -22,10 +22,10 @@ const InicialRecebedor = () => {
           const data = doc.data();
 
           let imagemPublicaUrl = null;
-          if (data.imagemDoacao) { 
+          if (data.imagemDoacao) {
             imagemPublicaUrl = supabase
               .storage
-              .from('doacoes') 
+              .from('doacoes')
               .getPublicUrl(data.imagemDoacao).publicUrl;
           }
 
@@ -100,15 +100,16 @@ const InicialRecebedor = () => {
         <p className="text-center">Nenhuma doação disponível no momento.</p>
       ) : (
         doacoes.map((doacao) => (
-        key= {doacao.id}
-        imagemUrl={doacao.imagemPublicaUrl}
-        nome= {doacao.produto}
-        validade = {doacao.validade}
-        descricao = {doacao.descricao}
-        selecionado = {selecionados.includes(doacao.id)}
-        onToggle = {() => handleToggle(doacao.id)}
+          <CardDoacao
+            key={doacao.id}
+            imagemUrl={doacao.imagemPublicaUrl}
+            nome={doacao.produto}
+            validade={doacao.validade}
+            descricao={doacao.descricao}
+            selecionado={selecionados.includes(doacao.id)}
+            onToggle={() => handleToggle(doacao.id)}
 
-        />
+          />
         ))
       )}
 
