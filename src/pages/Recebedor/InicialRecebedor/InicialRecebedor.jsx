@@ -7,6 +7,7 @@ import useAuthentication from '../../../hooks/useAuthentication';
 import { supabase } from '../../../supabase/supabaseClient';
 import CardDoacao from '../../../components/CardDoacao/CardDoacao';
 import LoadingSpinner from '../../../components/LoadingSpinner/LoadingSpinner';
+import ListaDoacoesFiltraValidade from '../../../components/ListaDoacoesFiltraValidade/ListaDoacoesFiltraValidade';
 
 const InicialRecebedor = () => {
   const navigate = useNavigate();
@@ -15,47 +16,6 @@ const InicialRecebedor = () => {
   const [doacoes, setDoacoes] = useState([]);
   const [selecionados, setSelecionados] = useState([]);
   const [loading, setLoading] = useState(false)
-
-  useEffect(() => {
-    const buscarDoacoes = async () => {
-      setLoading(true)
-      try {
-        const querySnapshot = await getDocs(collection(db, 'doacoes'));
-        const listaDoacoes = querySnapshot.docs.map((doc) => {
-          const data = doc.data();
-
-          let imagemPublicaUrl = null;
-          if (data.imagemDoacao) {
-            imagemPublicaUrl = supabase
-              .storage
-              .from('doacoes')
-              .getPublicUrl(data.imagemDoacao).publicUrl;
-          }
-
-          return {
-            id: doc.id,
-            ...data,
-            imagemPublicaUrl,
-          };
-        });
-
-        setDoacoes(listaDoacoes);
-      } catch (error) {
-        console.error('Erro ao buscar doações:', error);
-      } finally {
-        setLoading(false)
-      }
-    };
-
-    buscarDoacoes();
-  }, []);
-
-
-  const handleToggle = (id) => {
-    setSelecionados((prev) =>
-      prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id]
-    );
-  };
 
   const handleCancel = () => {
     window.location.reload();
@@ -103,29 +63,13 @@ const InicialRecebedor = () => {
         </div>
       </nav>
 
-      {loading && (
-        <div className="d-flex justify-content-center my-4">
-          <LoadingSpinner size={60} color="#a50000"/>
-        </div>
-      )}
-      <br />
+      <br/>
 
-      {doacoes.length === 0 ? (
-        <p className="text-center">Nenhuma doação disponível no momento.</p>
-      ) : (
-        doacoes.map((doacao) => (
-          <CardDoacao
-            key={doacao.id}
-            imagemUrl={doacao.imagemPublicaUrl}
-            nome={doacao.produto}
-            validade={doacao.validade}
-            descricao={doacao.descricao}
-            selecionado={selecionados.includes(doacao.id)}
-            onToggle={() => handleToggle(doacao.id)}
-
-          />
-        ))
-      )}
+      <ListaDoacoesFiltraValidade 
+        selecionados={selecionados} 
+        onSelecionar={(id) => {
+          setSelecionados(prev => prev.includes(id) ? prev.filter(i => i !== id) : [...prev, id]) 
+      }} somenteAtivas={true}/>
 
 
       <div className="button-container">
