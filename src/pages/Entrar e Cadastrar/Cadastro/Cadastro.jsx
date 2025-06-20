@@ -5,6 +5,7 @@ import useAuthentication from '../../../hooks/useAuthentication.jsx';
 import { validarCNPJ, validarCPF } from "../../../utils/validacao.js";
 import { getFirestore, doc, setDoc } from "firebase/firestore";
 import styles from "./Cadastro.module.css";
+import LoadingSpinner from '../../../components/LoadingSpinner/LoadingSpinner.jsx';
 
 export default function CadastroPage() {
   const [activeTab, setActiveTab] = useState('adm');
@@ -108,36 +109,42 @@ export default function CadastroPage() {
                 <form className={styles.login_form} onSubmit={handleSubmit}>
                   <h2 className={styles.h2}>Cadastro Administrador</h2>
 
+                  {loading && (
+                    <div className="d-flex justify-content-center mb-4">
+                      <LoadingSpinner size={60} color="#a50000"/>
+                    </div>
+                  )}
+
                   <div className={styles.form_group}>
-                    <input type="text" name="nome" placeholder="Nome completo" required onChange={handleChange} />
+                    <input type="text" name="nome" placeholder="Nome completo" required onChange={handleChange} disabled={loading}/>
                   </div>
 
                   <div className={styles.form_group}>
-                    <input type="text" name="cnpj" placeholder="CNPJ" required onChange={handleChange} />
+                    <input type="text" name="cnpj" placeholder="CNPJ" required onChange={handleChange} disabled={loading}/>
                   </div>
 
                   <div className={styles.form_group}>
-                    <input type="date" name="dataNascimento" required onChange={handleChange} />
+                    <input type="date" name="dataNascimento" required onChange={handleChange} disabled={loading}/>
                   </div>
 
                   <div className={styles.form_group}>
-                    <input type="email" name="email" placeholder="Email" required onChange={handleChange} />
+                    <input type="email" name="email" placeholder="Email" required onChange={handleChange} disabled={loading}/>
                   </div>
 
                   <div className={styles.form_group}>
-                    <input type="tel" name="telefone" placeholder="Telefone" required onChange={handleChange} />
+                    <input type="tel" name="telefone" placeholder="Telefone" required onChange={handleChange} disabled={loading}/>
                   </div>
 
                   <div className={styles.form_group}>
-                    <input type="text" name="endereco" placeholder="Endereço" required onChange={handleChange} />
+                    <input type="text" name="endereco" placeholder="Endereço" required onChange={handleChange} disabled={loading}/>
                   </div>
 
                   <div className={styles.form_group}>
-                    <input type="password" name="senha" placeholder="Senha" required onChange={handleChange} />
+                    <input type="password" name="senha" placeholder="Senha" required onChange={handleChange} disabled={loading}/>
                   </div>
 
                   <div className={styles.form_group}>
-                    <input type="password" name="confirmarSenha" placeholder="Confirme sua senha" required onChange={handleChange} />
+                    <input type="password" name="confirmarSenha" placeholder="Confirme sua senha" required onChange={handleChange} disabled={loading}/>
                   </div>
 
                   <button type="submit" className={styles.submit_button} disabled={loading}>
@@ -161,36 +168,42 @@ export default function CadastroPage() {
                 <form className={styles.login_form} onSubmit={handleSubmit}>
                   <h2 className={styles.h2}>Cadastro Colaborador</h2>
 
+                  {loading && (
+                    <div className="d-flex justify-content-center mb-4">
+                      <LoadingSpinner size={60} color="#a50000"/>
+                    </div>
+                  )}
+
                   <div className={styles.form_group}>
-                    <input type="text" name="nome" placeholder="Nome completo" required onChange={handleChange} />
+                    <input type="text" name="nome" placeholder="Nome completo" required onChange={handleChange} disabled={loading}/>
                   </div>
 
                   <div className={styles.form_group}>
-                    <input type="text" name="cpf" placeholder="CPF" required onChange={handleChange} />
+                    <input type="text" name="cpf" placeholder="CPF" required onChange={handleChange} disabled={loading}/>
                   </div>
 
                   <div className={styles.form_group}>
-                    <input type="date" name="dataNascimento" required onChange={handleChange} />
+                    <input type="date" name="dataNascimento" required onChange={handleChange} disabled={loading}/>
                   </div>
 
                   <div className={styles.form_group}>
-                    <input type="email" name="email" placeholder="Email" required onChange={handleChange} />
+                    <input type="email" name="email" placeholder="Email" required onChange={handleChange} disabled={loading}/>
                   </div>
 
                   <div className={styles.form_group}>
-                    <input type="tel" name="telefone" placeholder="Telefone" required onChange={handleChange} />
+                    <input type="tel" name="telefone" placeholder="Telefone" required onChange={handleChange} disabled={loading}/>
                   </div>
 
                   <div className={styles.form_group}>
-                    <input type="text" name="endereco" placeholder="Endereço" required onChange={handleChange} />
+                    <input type="text" name="endereco" placeholder="Endereço" required onChange={handleChange} disabled={loading}/>
                   </div>
 
                   <div className={styles.form_group}>
-                    <input type="password" name="senha" placeholder="Senha" required onChange={handleChange} />
+                    <input type="password" name="senha" placeholder="Senha" required onChange={handleChange} disabled={loading}/>
                   </div>
 
                   <div className={styles.form_group}>
-                    <input type="password" name="confirmarSenha" placeholder="Confirme sua senha" required onChange={handleChange} />
+                    <input type="password" name="confirmarSenha" placeholder="Confirme sua senha" required onChange={handleChange} disabled={loading}/>
                   </div>
 
                   <button type="submit" className={styles.submit_button} disabled={loading}>

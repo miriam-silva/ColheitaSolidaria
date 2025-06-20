@@ -6,6 +6,7 @@ import { collection, getDocs, addDoc, serverTimestamp } from 'firebase/firestore
 import useAuthentication from '../../../hooks/useAuthentication';
 import { supabase } from '../../../supabase/supabaseClient';
 import CardDoacao from '../../../components/CardDoacao/CardDoacao';
+import LoadingSpinner from '../../../components/LoadingSpinner/LoadingSpinner';
 
 const InicialRecebedor = () => {
   const navigate = useNavigate();
@@ -13,9 +14,11 @@ const InicialRecebedor = () => {
 
   const [doacoes, setDoacoes] = useState([]);
   const [selecionados, setSelecionados] = useState([]);
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     const buscarDoacoes = async () => {
+      setLoading(true)
       try {
         const querySnapshot = await getDocs(collection(db, 'doacoes'));
         const listaDoacoes = querySnapshot.docs.map((doc) => {
@@ -39,6 +42,8 @@ const InicialRecebedor = () => {
         setDoacoes(listaDoacoes);
       } catch (error) {
         console.error('Erro ao buscar doações:', error);
+      } finally {
+        setLoading(false)
       }
     };
 
@@ -66,7 +71,8 @@ const InicialRecebedor = () => {
       alert('Você precisa estar logado para solicitar.');
       return;
     }
-
+    
+    setLoading(true)
     try {
       await Promise.all(
         selecionados.map(async (doacaoId) => {
@@ -83,6 +89,8 @@ const InicialRecebedor = () => {
     } catch (error) {
       console.error('Erro ao enviar solicitação:', error);
       alert(`Erro ao enviar solicitação: ${error.message || error}`);
+    } finally {
+      setLoading(false)
     }
   };
 
@@ -94,6 +102,12 @@ const InicialRecebedor = () => {
           <h3 className={`${styles.arrumar}`}>Selecione uma doação que você gostaria de receber:</h3>
         </div>
       </nav>
+
+      {loading && (
+        <div className="d-flex justify-content-center my-4">
+          <LoadingSpinner size={60} color="#a50000"/>
+        </div>
+      )}
       <br />
 
       {doacoes.length === 0 ? (

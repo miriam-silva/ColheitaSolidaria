@@ -6,6 +6,7 @@ import { getAuth } from 'firebase/auth';
 import { useDoacoes } from '../../../context/DoacoesContext';
 import { Timestamp } from 'firebase/firestore';
 import { supabase } from '../../../supabase/supabaseClient';
+import LoadingSpinner from "../../../components/LoadingSpinner/LoadingSpinner";
 
 const Registrardoacao = () => {
     const navigate = useNavigate();
@@ -18,6 +19,7 @@ const Registrardoacao = () => {
     const [mensagem, setMensagem] = useState('');
     const [tipoMensagem, setTipoMensagem] = useState('');
     const [imagemDoacao, setImagemDoacao] = useState(null);
+    const [loading, setLoading] = useState(false);
 
     const limparCampos = () => {
         setProduto('');
@@ -46,9 +48,12 @@ const Registrardoacao = () => {
     };
 
     const handleSubmit = async () => {
+        setLoading(true)
+        try {
         if (!produto.trim() || !descricao.trim() || !quantidade || !validade) {
             setMensagem("Preencha os dados corretamente.");
             setTipoMensagem("erro");
+            setLoading(false)
             return;
         }
 
@@ -60,6 +65,7 @@ const Registrardoacao = () => {
         if (dataValidade < hoje) {
             setMensagem("Não é possível registrar doação com validade passada.");
             setTipoMensagem("erro");
+            setLoading(false)
             return;
         }
 
@@ -75,6 +81,7 @@ const Registrardoacao = () => {
         if (!imagemDoacao) {
             setMensagem("Anexe uma imagem da doação.");
             setTipoMensagem("erro");
+            setLoading(false)
             return;
         }
 
@@ -84,6 +91,7 @@ const Registrardoacao = () => {
         } catch (error) {
             setMensagem("Erro ao enviar imagem.");
             setTipoMensagem("erro");
+            setLoading(false)
             return;
         }
 
@@ -116,8 +124,17 @@ const Registrardoacao = () => {
         } else {
             setMensagem("Erro ao registrar doação. Tente novamente.");
             setTipoMensagem("erro");
+            setLoading(false)
         }
-    };
+    } catch (error) {
+        console.error("Erro no registro:", error);
+        setMensagem("Erro inesperado ao registrar doação");
+        setTipoMensagem("erro");
+        setLoading(false)
+    } finally {
+        setLoading(false);
+    }
+};
 
     return (
         <div>
@@ -143,7 +160,7 @@ const Registrardoacao = () => {
                     id="productName"
                     placeholder="Nome"
                     value={produto}
-                    onChange={(e) => setProduto(e.target.value)}
+                    onChange={(e) => setProduto(e.target.value)} disabled={loading}
                 />
             </div>
             <div className="mb-3">
@@ -154,7 +171,7 @@ const Registrardoacao = () => {
                     rows="3"
                     placeholder="Descrição"
                     value={descricao}
-                    onChange={(e) => setDescricao(e.target.value)}
+                    onChange={(e) => setDescricao(e.target.value)} disabled={loading}
                 />
             </div>
             <div className="mb-3">
@@ -165,7 +182,7 @@ const Registrardoacao = () => {
                     id="productQuantity"
                     placeholder="Quantidade"
                     value={quantidade}
-                    onChange={(e) => setQuantidade(e.target.value)}
+                    onChange={(e) => setQuantidade(e.target.value)} disabled={loading}
                 />
             </div>
             <div className="mb-3">
@@ -176,7 +193,7 @@ const Registrardoacao = () => {
                     id="productExpiry"
                     placeholder="Validade"
                     value={validade}
-                    onChange={(e) => setValidade(e.target.value)}
+                    onChange={(e) => setValidade(e.target.value)} disabled={loading}
                 />
             </div>
             <div className="mb-3">
@@ -186,13 +203,19 @@ const Registrardoacao = () => {
                     className="form-control"
                     id="imagemDoacao"
                     accept="image/*"
-                    onChange={(e) => setImagemDoacao(e.target.files[0])}
+                    onChange={(e) => setImagemDoacao(e.target.files[0])} disabled={loading}
                 />
             </div>
 
+            {loading && (
+                <div className="d-flex justify-content-center my-3">
+                    <LoadingSpinner size={60} color="#a50000"/>
+                </div>
+            )}
+
             <div className="button-group">
                 <button className={`${styles.postpone_btn}`} type="button" onClick={handleCancel}>Cancelar</button>
-                <button className={`form-label ${styles.approve_btn}`} type="submit" onClick={handleSubmit}>Enviar</button>
+                <button className={`form-label ${styles.approve_btn}`} type="submit" onClick={handleSubmit} disabled={loading}>Enviar</button>
             </div>
 
             <br />

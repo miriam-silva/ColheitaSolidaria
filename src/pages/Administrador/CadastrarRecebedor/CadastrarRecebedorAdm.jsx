@@ -5,7 +5,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min';
 import styles from './CadastrarRecebedorAdm.module.css';
 import useAuthentication from "../../../hooks/useAuthentication";
 import { useNavigate } from 'react-router-dom';
-
+import LoadingSpinner from '../../../components/LoadingSpinner/LoadingSpinner';
 
 
 const CadastrarRecebedorAdm = () => {
@@ -109,6 +109,12 @@ const CadastrarRecebedorAdm = () => {
                 >
                   <form className={`${styles.login_form}`}onSubmit={handleSubmit}>
                     <h2 className={`${styles.h2} text-center`} >Cadastrar Recebedor</h2>
+
+                    {loading && (
+                      <div className="d-flex justify-content-center mb-4">
+                        <LoadingSpinner size={60} color="#a50000"/>
+                      </div>
+                    )}
 
                     <input type="text" className={`${styles.form_control} mb-2`}  placeholder="Nome completo" value={nome} onChange={(e) => setNome(e.target.value)} required />
                     <input type="text" className={`${styles.form_control} mb-2`} placeholder="CPF" value={cpf} onChange={(e) => setCpf(e.target.value)} required />

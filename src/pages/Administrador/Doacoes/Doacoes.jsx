@@ -5,9 +5,12 @@ import { supabase } from '../../../supabase/supabaseClient'
 import { collection, getDocs, doc, getDoc } from 'firebase/firestore';
 import { db } from '../../../firebase/config';
 import CardDoacao from '../../../components/CardDoacao/CardDoacao';
+import LoadingSpinner from '../../../components/LoadingSpinner/LoadingSpinner';
+
 const Doacoes = () => {
   const navigate = useNavigate();
   const [doacoes, setDoacoes] = useState([]);
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const buscarDoacoes = async () => {
@@ -38,6 +41,8 @@ const Doacoes = () => {
         setDoacoes(listaDoacoes);
       } catch (error) {
         console.error('Erro ao buscar doações:', error);
+      } finally {
+        setLoading(false)
       }
     };
 
@@ -58,8 +63,11 @@ const Doacoes = () => {
 
       <div className="container-fluid">
         <div className="row justify-content-center mb-4">
-          {doacoes.length > 0 ? (
-
+          {loading ? (
+            <div className="d-flex justify-content-center my-4">
+              <LoadingSpinner size={60} color="#a50000"/>
+            </div>
+          ) : doacoes.length > 0 ? (
             doacoes.map((doacao) => {
               const imagemPublicaUrl = doacao.imagemDoacao ? supabase
                 .storage

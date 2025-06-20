@@ -5,6 +5,7 @@ import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
 import { app } from "../../../firebase/config";
 import styles from "./Login.module.css";
+import LoadingSpinner from "../../../components/LoadingSpinner/LoadingSpinner";
 
 const auth = getAuth(app);
 const db = getFirestore(app);
@@ -54,7 +55,6 @@ export default function LoginPage() {
       const userRole = userData.role;
       console.log("🎭 Role do usuário:", userRole);
   
-      // Validações por aba
       if (activeTab === "adm") {
         if (userRole !== "admin") {
           throw new Error("Você não tem permissão de administrador.");
@@ -164,6 +164,12 @@ export default function LoginPage() {
                 </h2>
 
                 {error && <div className={styles.error_message}>{error}</div>}
+
+                {loading && (
+                  <div className="d-flex justify-content-center mb-4 mb-3">
+                    <LoadingSpinner size={60} color="#a50000"/>
+                  </div>
+                )}
 
                 {activeTab === "adm" && (
                   <>

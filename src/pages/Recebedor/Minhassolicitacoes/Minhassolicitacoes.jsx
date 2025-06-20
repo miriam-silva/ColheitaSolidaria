@@ -4,6 +4,7 @@ import { collection, query, where, getDocs, doc, getDoc } from "firebase/firesto
 import { db } from "../../../firebase/config";
 import useAuthentication from "../../../hooks/useAuthentication";
 import styles from "./Minhassolicitacoes.module.css";
+import LoadingSpinner from "../../../components/LoadingSpinner/LoadingSpinner";
 
 const Minhassolicitacoes = () => {
     const navigate = useNavigate();
@@ -62,7 +63,9 @@ const Minhassolicitacoes = () => {
             </nav>
 
             {loading ? (
-                <p className="text-center">Carregando...</p>
+                <div className="d-flex justify-content-center my-4">
+                    <LoadingSpinner size={60} color="#a50000"/>
+                </div>
             ) : solicitacoes.length === 0 ? (
                 <h3 className={`${styles.transparente}`}>Nenhuma solicitação foi feita</h3>
             ) : (
