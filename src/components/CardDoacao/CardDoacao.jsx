@@ -2,11 +2,11 @@
 import React from "react";
 import styles from './CardDoacao.module.css';
 
-const CardDoacao = ({imagemUrl, nome, validade, descricao, selecionado, onToggle}) => {
+const CardDoacao = ({imagemUrl, nome, validade, descricao, selecionado, onToggle, selecionavel = true}) => {
     return (
         <div className= {styles.cardDoacao}>
             <div className={styles.placeholderImagem}>
-                <span className="{styles.legendaImagem}">Imagens dos alimentos</span>
+                <span className={`${styles.legendaImagem}`}>Imagens dos alimentos</span>
             </div>
             {imagemUrl && <img src={imagemUrl} alt={nome} className={styles.imagemdoacao} />}
             <div className= {styles.conteudo}>
@@ -16,13 +16,14 @@ const CardDoacao = ({imagemUrl, nome, validade, descricao, selecionado, onToggle
             </p>
             </div>
             
+            {selecionavel && (
             <label className={styles.checkboxlabel}>
                 <input type="checkbox"
                 checked= {selecionado} onChange = {onToggle}
                 />
-              
-                
             </label>
+            )}
+            
         </div>
     )
 };

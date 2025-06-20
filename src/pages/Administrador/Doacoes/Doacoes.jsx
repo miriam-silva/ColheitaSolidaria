@@ -4,7 +4,7 @@ import styles from './Doacoes.module.css';
 import { supabase } from '../../../supabase/supabaseClient'
 import { collection, getDocs, doc, getDoc } from 'firebase/firestore';
 import { db } from '../../../firebase/config';
-import CardDoacao from '../../../components/CardDoacao/CardDoacao';
+import CardHistoricoDoacao from '../../../components/CardHistoricoDoacao/CardHistoricoDoacao'
 import LoadingSpinner from '../../../components/LoadingSpinner/LoadingSpinner';
 
 const Doacoes = () => {
@@ -68,33 +68,12 @@ const Doacoes = () => {
               <LoadingSpinner size={60} color="#a50000"/>
             </div>
           ) : doacoes.length > 0 ? (
-            doacoes.map((doacao) => {
-              const imagemPublicaUrl = doacao.imagemDoacao ? supabase
-                .storage
-                .from('doacoes')
-                .getPublicUrl(doacao.imagemDoacao).publicUrl
-                : null;
-
-                return (
-                  <div key ={doacao.id} className= "mb-3">
-                    <CardDoacao 
-                    imagemUrl={imagemPublicaUrl}
-                    nome= {doacao.produto}
-                    validade= {doacao.validade}
-                    descricao={
-                      `Doador: ${doacao.nomeColaborador}\n` +
-                       `Descrição: ${doacao.descricao}\n` +
-                        `Quantidade: ${doacao.quantidade}`
-                    }
-                    selecionado={false}
-                    onToggle={() => {}}
-
-                    />
-                  </div>
-                );
-            })
-        
-          ):(
+            doacoes.map((doacao, index) => (
+              <div key ={doacao.id} className= "mb-3">
+                    <CardHistoricoDoacao index={index} doacao={doacao} />
+                  </div> 
+                ))
+              ) : (
            <p className="text-center">Nenhuma doação foi encontrada.</p>
           )}
         </div>
