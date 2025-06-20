@@ -6,7 +6,8 @@ self.FIREBASE_APPCHECK_DEBUG_TOKEN = '2d692290-ac92-464d-8b52-c75b829ada59';
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { initializeAppCheck, ReCaptchaV3Provider, getToken } from "firebase/app-check";
-import { getFirestore } from "firebase/firestore";
+import { connectFirestoreEmulator, getFirestore } from "firebase/firestore";
+import { getFunctions, connectFunctionsEmulator } from "firebase/functions";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCWlh0m_CxDx9sGoARkmM68EIdsrRC8Fog",
@@ -29,6 +30,10 @@ const appCheck = initializeAppCheck(app, {
 
 const db = getFirestore(app); 
 
+const functions = getFunctions(app)
+
+connectFunctionsEmulator(functions, "localhost", 5001)
+  
 const checkAppCheckToken = async () => {
   try {
     const tokenResponse = await getToken(appCheck, true);
@@ -40,4 +45,4 @@ const checkAppCheckToken = async () => {
 
 checkAppCheckToken();
 
-export { app, appCheck, analytics, db };
+export { app, appCheck, analytics, db, functions };
