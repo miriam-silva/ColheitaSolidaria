@@ -84,17 +84,17 @@ const Header = ({ role }) => {
 
     const menus = {
         admin: [
-            { to: "/InicialAdministrador", label: "H Início" },
+            { to: "/InicialAdministrador", label: "Início" },
             { to: "/adm/Pedidos", label: "Pedidos" },
             { to: "/adm/Doacoes", label: "Doações" },
             { to: "/adm/cadastrar-recebedor", label: "Cadastrar Recebedor" }
         ],
         colaborador: [
-            { to: "/colaborador/Registrardoacao", label: "H Registrar doações" },
+            { to: "/colaborador/Registrardoacao", label: "Registrar doações" },
             { to: "/InicialColaborador", label: "Minhas doações" }
         ],
         recebedor: [
-            { to: "/InicialRecebedor", label: "H Doações" },
+            { to: "/InicialRecebedor", label: "Doações" },
             { to: "/recebedor/Minhassolicitacoes", label: "Minhas solicitações" }
         ],
     };
