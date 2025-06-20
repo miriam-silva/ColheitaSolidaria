@@ -1,25 +1,20 @@
-export default function LoadingSpinner() {
+import styles from "./LoadingSpinner.module.css"
+
+export default function LoadingSpinner({size = 60, color = '#a50000'}) {
+  const borderWidth = size * 0.1;
+
+  const spinnerStyle = {
+    width: `${size}px`,
+    height: `${size}px`,
+    border: `${borderWidth}px solid rgba(0, 0, 0, 0.1)`,
+    borderTopColor: color,
+    borderRadius: '50%',
+    animation: `${styles.spin} 1s linear infinite`
+  };
+
     return (
-      <div style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '100px'
-      }}>
-        <div style={{
-          border: '4px solid rgba(0, 0, 0, 0.1)',
-          borderRadius: '50%',
-          borderTop: '4px solid #09f',
-          width: '40px',
-          height: '40px',
-          animation: 'spin 1s linear infinite'
-        }}></div>
-        <style>{`
-          @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-          }
-        `}</style>
+      <div className={`${styles.spinner_container}`}>
+        <div className={`${styles.loading_spinner}`} role="status" aria-label="Carregando..." style={spinnerStyle}></div>
       </div>
     );
   }

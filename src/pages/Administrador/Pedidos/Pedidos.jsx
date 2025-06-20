@@ -4,14 +4,18 @@ import { collection, getDocs, doc, getDoc, updateDoc } from 'firebase/firestore'
 import { getAuth } from 'firebase/auth';
 import { db } from '../../../firebase/config';
 import styles from './Pedidos.module.css';
+import LoadingSpinner from '../../../components/LoadingSpinner/LoadingSpinner';
 
 const Pedidos = () => {
   const navigate = useNavigate();
   const [pedidos, setPedidos] = useState([]);
-  const [temPermissao, setTemPermissao] = useState(false); // 👈 novo estado
+  const [temPermissao, setTemPermissao] = useState(false); 
+  const [loading, setLoading] = useState(true)
+  const [updatingId, setUpdatingId] = useState(null)
 
   useEffect(() => {
-    const verificarPermissao = async () => {
+    const carregarDados = async () => {
+      try{
       const auth = getAuth();
       const user = auth.currentUser;
 
@@ -21,16 +25,10 @@ const Pedidos = () => {
 
         if (userSnap.exists()) {
           const dados = userSnap.data();
-          console.log('Dados do Firestore:', dados);
           setTemPermissao(dados.role === 'admin');
-        } else {
-          console.log('Documento do usuário não encontrado.');
-        }
       }
-    };
+    }
 
-
-    const fetchPedidos = async () => {
       const querySnapshot = await getDocs(collection(db, 'solicitacoes'));
       const listaPedidos = await Promise.all(
         querySnapshot.docs.map(async (docPedido) => {
@@ -62,10 +60,14 @@ const Pedidos = () => {
       );
 
       setPedidos(listaPedidos);
-    };
-
-    verificarPermissao();
-    fetchPedidos();
+    } catch (error) {
+      console.error('Erro ao carregar pedidos:', error)
+    } finally {
+      setLoading(false)
+    }
+  }
+    
+    carregarDados();
   }, []);
 
   const handleStatusChange = async (id, novoStatus) => {
@@ -74,6 +76,8 @@ const Pedidos = () => {
         console.error('Usuário não tem permissão de admin!');
         return;
       }
+
+      setUpdatingId(id)
 
       const pedidoRef = doc(db, 'solicitacoes', id);
       await updateDoc(pedidoRef, { status: novoStatus });
@@ -85,6 +89,8 @@ const Pedidos = () => {
       );
     } catch (error) {
       console.error('Erro ao atualizar status do pedido:', error);
+    } finally {
+      setUpdatingId(null)
     }
   };
 
@@ -98,6 +104,11 @@ const Pedidos = () => {
 
       <br />
 
+      {loading ? (
+        <div className="d-flex justify-content-center my-4">
+          <LoadingSpinner size={60} color="#a50000"/>
+        </div>
+      ) : (
       <div className="container-fluid">
         <div className="row justify-content-center mb-4">
           {pedidos.map((pedido, index) => (
@@ -115,16 +126,21 @@ const Pedidos = () => {
                     className={`${styles.approve_btn}`}
                     onClick={() => handleStatusChange(pedido.id, 'Aprovado')}
                     disabled={pedido.status !== 'pendente'}
-                  >
-                    Aprovar
-                  </button>
+                  > {updatingId === pedido.id ? (
+                    <LoadingSpinner size={20} color="#fff"/>
+                  ) : (
+                    "Aprovar"
+                  )}
+                    </button>
                   <button
                     className={`${styles.postpone_btn}`}
                     onClick={() => handleStatusChange(pedido.id, 'Protelado')}
                     disabled={pedido.status !== 'pendente'}
-                  >
-                    Protelar
-                  </button>
+                  > {updatingId === pedido.id ? (
+                    <LoadingSpinner size={20} color="#fff"/>
+                  ) : (
+                    "Protelar"
+                  )} </button>
                 </div>
 
                 {pedido.status && (
@@ -153,6 +169,7 @@ const Pedidos = () => {
           </button>
         </div>
       </div>
+      )}
     </div>
   );
 };

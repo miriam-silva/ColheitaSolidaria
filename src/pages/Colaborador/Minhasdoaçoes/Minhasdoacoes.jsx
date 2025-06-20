@@ -4,27 +4,40 @@ import { db } from '../../../firebase/config';
 import {supabase} from '../../../supabase/supabaseClient'
 import useAuthentication from '../../../hooks/useAuthentication'
 import CardDoacao from '../../../components/CardDoacao/CardDoacao';
+import LoadingSpinner from '../../../components/LoadingSpinner/LoadingSpinner';
+
 const Minhasdoacoes = () => {
   const {user} = useAuthentication()
   const [doacoes, setDoacoes] = useState([])
+  const [loading, setLoading] = useState(true)
 
    useEffect(() => {
     const fetchDoacoes = async() => {
+      try{
       const snapshot = await getDocs(collection(db, 'doacoes'))
       const lista = snapshot.docs
       .map(doc => ({id: doc.id, ...doc.data()}))
       .filter(doc => doc.colaboradorId === user?.uid)
 
       setDoacoes(lista)
+    } catch (error) {
+      console.error('Erro ao buscar doações:', error)
+    } finally {
+      setLoading(false)
     }
+  }
    
-   fetchDoacoes()
-  }, [user] )
+   fetchDoacoes();
+  }, [user])
   
   return (
     <div style={{ padding: '20px'}}>
       <h2>Minhas Doações</h2>
-      {doacoes.length === 0 ? (
+      {loading ? (
+        <div className="d-flex justify-content-center my-4">
+          <LoadingSpinner size={60} color="#a50000"/>
+        </div>
+      ) : doacoes.length === 0 ? (
         <p>Nenhuma doação cadastrada por você</p>
         ) : (
           doacoes.map((doacao) => {
@@ -43,9 +56,7 @@ const Minhasdoacoes = () => {
               />
              )
           })
-      )}
-      
-   
+      )} 
     
     </div>
   );
