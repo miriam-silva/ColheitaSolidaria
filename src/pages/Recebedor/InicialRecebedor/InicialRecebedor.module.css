@@ -82,6 +82,23 @@
     margin-top: -4%;
 }
 
+.perfil_btn {
+  background-color: #a50000;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+  margin-bottom: 15px;
+}
+
+.perfil_btn:hover {
+  background-color: #a50000;
+}
+
+
 /* Media query para dispositivos móveis */
 @media (max-width: 576px) {
     .caixa {

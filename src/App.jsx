@@ -35,6 +35,8 @@ import Registrardoacao from "./pages/Colaborador/Registrardoacao/Registrardoacao
 import Minhasdoacoes from "./pages/Colaborador/Minhasdoaçoes/Minhasdoacoes";
 import Doacaoregistrada from "./pages/Colaborador/Doacaoregistrada/Doacaoregistrada";
 
+import PerfilColaborador from './pages/Colaborador/PerfilColaborador/Perfil'
+import PerfilRecebedor from "./pages/Recebedor/PerfilRecebedor/Perfil";
 
 function App() {
   return (
@@ -174,6 +176,9 @@ function App() {
         }
       />
 
+      <Route path = "/PerfilColaborador" element = {<PerfilColaborador />}/>
+      <Route path = "/PerfilRecebedor" element = {<PerfilRecebedor/>}/>
+      
 
 
       {/* Página de erro */}
