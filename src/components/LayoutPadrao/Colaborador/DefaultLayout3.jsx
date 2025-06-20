@@ -1,10 +1,10 @@
 
-import NavbarColab from '../../Navbars/NavbarColab/NavbarColab';
+import Header from "../../Header/Header";
 
-const DefaultLayout3 = ({ children }) => {
+const DefaultLayout4 = ({ children }) => {
   return (
     <div className="d-flex flex-column min-vh-100">
-      <NavbarColab />
+      <Header role="colaborador"/>
       <main className="flex-grow-1 py-4">
         <div className="container-fluid">{children}</div>
       </main>
@@ -12,4 +12,4 @@ const DefaultLayout3 = ({ children }) => {
   );
 };
 
-export default DefaultLayout3;
+export default DefaultLayout4;
