@@ -6,6 +6,7 @@ import { collection, getDocs, doc, getDoc } from 'firebase/firestore';
 import { db } from '../../../firebase/config';
 import CardHistoricoDoacao from '../../../components/CardHistoricoDoacao/CardHistoricoDoacao'
 import LoadingSpinner from '../../../components/LoadingSpinner/LoadingSpinner';
+import { gerarPDFDoacoes } from '../../../utils/GerarPDF/gerarPDFDoacoes';
 
 const Doacoes = () => {
   const navigate = useNavigate();
@@ -49,6 +50,10 @@ const Doacoes = () => {
     buscarDoacoes();
   }, []);
 
+  const hanldeExportarPDF = () =>{
+    gerarPDFDoacoes()
+  }
+
   return (
     <div>
       <br />
@@ -77,6 +82,10 @@ const Doacoes = () => {
            <p className="text-center">Nenhuma doação foi encontrada.</p>
           )}
         </div>
+      </div>
+      
+      <div className="text-center mb-5">
+          <button className={`btn btn-primary ${styles.exportar_button}`} onClick={hanldeExportarPDF}>Exportar PDF</button>
       </div>
 
       <div className={styles.voltar_container}>

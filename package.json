@@ -13,6 +13,8 @@
     "@supabase/supabase-js": "^2.49.10",
     "bootstrap": "^5.3.6",
     "firebase": "^11.9.1",
+    "jspdf": "^3.0.1",
+    "jspdf-autotable": "^5.0.2",
     "react": "^19.0.0",
     "react-bootstrap": "^2.10.10",
     "react-dom": "^19.0.0",
