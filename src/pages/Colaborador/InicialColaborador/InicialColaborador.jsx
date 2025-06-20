@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import styles from './InicialColaborador.module.css';
 import { useDoacoes } from '../../../context/DoacoesContext';
 import { supabase } from '../../../supabase/supabaseClient';
-
 function ImagemDoacao({ caminho }) {
   const [url, setUrl] = useState(null);
 
@@ -45,6 +44,14 @@ export default function InicialColaborador() {
       <div className="container-fluid mt-1">
         <Link to="/colaborador/Registrardoacao">
           <button className={`${styles.donation_btn}`}>Realizar doação</button>
+        </Link>
+        <Link to = "/PerfilColaborador">
+        
+        <button className={styles.perfil_btn}>
+          Dados de seu perfil
+        </button>
+     
+        
         </Link>
       </div>
 
