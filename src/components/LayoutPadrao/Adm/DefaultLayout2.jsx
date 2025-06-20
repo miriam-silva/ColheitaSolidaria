@@ -1,9 +1,10 @@
-import NavbarAdm from '../../Navbars/NavbarAdm/NavbarAdm';
 
-const DefaultLayout2 = ({ children }) => {
+import Header from "../../Header/Header";
+
+const DefaultLayout4 = ({ children }) => {
   return (
     <div className="d-flex flex-column min-vh-100">
-      <NavbarAdm />
+      <Header role="admin"/>
       <main className="flex-grow-1 py-4">
         <div className="container-fluid">{children}</div>
       </main>
@@ -11,4 +12,4 @@ const DefaultLayout2 = ({ children }) => {
   );
 };
 
-export default DefaultLayout2;
+export default DefaultLayout4;
