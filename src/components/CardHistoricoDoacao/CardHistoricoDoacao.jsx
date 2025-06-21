@@ -2,19 +2,35 @@ import React from "react"
 import {supabase} from "../../supabase/supabaseClient"
 import styles from "./CardHistoricoDoacao.module.css"
 
+const obterUrlImagem = (imagemDoacao) => {
+    if (!imagemDoacao) return null
+
+    if (imagemDoacao.startsWith('http')){
+        return imagemDoacao
+    }
+
+    const {data, error} = supabase.storage.from("doacoes").getPublicUrl(imagemDoacao)
+    if(error){
+        console.error("Erro ao obter publicUrl:", error)
+        return null
+    }
+
+    return data?.publicUrl || null
+}
+
 const CardHistoricoDoacao = ({index, doacao}) => {
     if (!doacao) return null
+    console.log("imagemDoacao raw:", doacao.imagemDoacao)
 
-    const imagemUrl = doacao.imagemDoacao
-    ? supabase.storage.from("doacoes").getPublicUrl(doacao.imagemDoacao).data.publicUrl : null
+    const imagemUrl = obterUrlImagem(doacao.imagemDoacao)
+
+    console.log("URL da imagem da doação:", imagemUrl)
 
     const formatarData = (data) => {
         if (data?.toDate) return data.toDate().toLocaleString("pt-BR")
         if (data?.seconds) return new Date(data.seconds * 1000).toLocaleDateString("pt-BR")
         return "Data inválida"
     }
-
-    const isValidDate = (date) => date instanceof Date && !isNaN(date)
 
     return (
         <div className="col-12">
