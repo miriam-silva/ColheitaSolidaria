@@ -2,13 +2,28 @@
 import React from "react";
 import styles from './CardDoacao.module.css';
 
+const obterUrlImagem = (imagemDoacao) => {
+    if (!imagemDoacao) return null
+
+    if (imagemDoacao.startsWith('http')){
+        return imagemDoacao
+    }
+
+    return `https://pyjqpkkscqlokgmdtslk.supabase.co/storage/v1/object/public/doacoes/${imagemDoacao}`
+}
+
 const CardDoacao = ({imagemUrl, nome, validade, descricao, selecionado, onToggle, selecionavel = true}) => {
+    const urlImagem = obterUrlImagem(imagemUrl)
     return (
         <div className= {styles.cardDoacao}>
-            <div className={styles.placeholderImagem}>
+            {urlImagem ? (
+                <img src={urlImagem} alt={nome} className={styles.imagemdoacao}/>
+            ) : (
+                <div className={styles.placeholderImagem}>
                 <span className={`${styles.legendaImagem}`}>Imagens dos alimentos</span>
             </div>
-            {imagemUrl && <img src={imagemUrl} alt={nome} className={styles.imagemdoacao} />}
+            )}
+
             <div className= {styles.conteudo}>
             <h2 className={styles.nomedoacao}>{nome}</h2>
             <p className={styles.descricaodoacao}>{descricao}</p>

@@ -37,14 +37,12 @@ const Registrardoacao = () => {
         const nomeArquivo = `${uid}_${Date.now()}`;
         const caminho = `imagens/${nomeArquivo}`;
 
-        const { error } = await supabase
-            .storage
-            .from('doacoes')
-            .upload(caminho, file);
-
+        const { error } = await supabase.storage.from('doacoes').upload(caminho, file)
         if (error) throw new Error('Erro ao enviar imagem.');
 
-        return caminho;
+        const {data} = supabase.storage.from('doacoes').getPublicUrl(caminho)
+
+        return data.publicUrl;
     };
 
     const handleSubmit = async () => {
