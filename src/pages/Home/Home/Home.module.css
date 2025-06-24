@@ -145,8 +145,8 @@ ul {
 
     .right {
         text-align: right;
-        margin-top: 5%;
-        margin-right: -10%;
+        margin-top: 7%;
+        margin-right: -20%;
     }
     
 }
@@ -192,7 +192,7 @@ ul {
     .right {
         text-align: right;
         margin-top: 5%;
-        margin-right: -22%;
+        margin-right: -24%;
     }
 
     .tamanho_imagem4 {
@@ -220,8 +220,12 @@ ul {
 @media (max-width: 375px) {
     .right {
         text-align: right;
-        margin-top: 5%;
-        margin-right: -35%;
+        margin-top: 7%;
+        margin-right: -38%;
+    }
+
+    .degrade_right2{
+        margin-right: -3%;
     }
 
     .p {

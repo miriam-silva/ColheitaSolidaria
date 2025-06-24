@@ -17,6 +17,12 @@
   padding: 15px;
   font-size: 25px;
   font-weight: normal;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+  max-width: 100%;
+  display: inline-block;
+  text-align: center;
 }
 
 .active {
@@ -77,6 +83,22 @@
   transform: translateY(50%) rotate(-45deg);
 }
 
+@media (max-width: 940px) and (min-width: 910px) {
+  .navbarra{
+    padding: 5px;
+    font-size: 18px;
+  }
+}
+@media (max-width: 909px) and (min-width: 768px) {
+  .navbarra{
+    padding: 0px ;
+  }
+
+  .link{
+    font-size: 20px !important;
+  }
+}
+
 @media (max-width: 768px) {
   .navbarra {
     padding: 15px;
@@ -86,16 +108,23 @@
   .navItem {
     display: block;
     margin: 8px 0;
+    text-align: center;
+    width: 100%;
   }
 
   .link {
-    font-size: 20px;
-    padding: 10px;
+    font-size: 18px;
+    padding: 8px;
     display: block;
   }
 
   .spanNavBar {
     display: none;
+  }
+
+  .navbar-nav{
+    width: 100%;
+    flex-direction: column;
   }
 }
 

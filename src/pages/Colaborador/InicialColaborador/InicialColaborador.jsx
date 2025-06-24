@@ -47,14 +47,6 @@ export default function InicialColaborador() {
         <Link to="/colaborador/Registrardoacao">
           <button className={`${styles.donation_btn}`}>Realizar doação</button>
         </Link>
-        <Link to = "/PerfilColaborador">
-        
-        <button className={styles.perfil_btn}>
-          Dados de seu perfil
-        </button>
-     
-        
-        </Link>
       </div>
 
       <nav className={`navbar navbar-expand-sm navbar-toggleable-sm navbar-light box-shadow mb-1 ${styles.navbarra}`}>

@@ -82,21 +82,21 @@ const Home = () => {
             <div className={`${styles.box} ${styles.caixa1}`}> 
               <h2 className={`${styles.titulo_caixa}`}>Doe alimentos</h2>
               <img src={alimentos2} className={`box ${styles.img1e2}`} alt="Doe alimentos" />
-              <p>Agricultores cadastrados podem listar os alimentos disponíveis para <Link to="/" className={`${styles.titulo_vermelho}`}>doação</Link>.</p>
+              <p>Agricultores cadastrados podem listar os alimentos disponíveis para doação.</p>
             </div>
           </div>
           <div className="col-md-4">
             <div className={`${styles.box} ${styles.caixa2}`}>
               <h2 className={`${styles.titulo_caixa}`}>Receba alimentos</h2>
               <img src={receba} className={`box ${styles.img1e2}`} alt="Receba alimentos" />
-              <p>Pessoas carentes se cadastram para <Link to="/" className={`${styles.titulo_vermelho}`}>alimentos doados</Link>.</p>
+              <p>Pessoas carentes se cadastram para receber alimentos doados.</p>
             </div>
           </div>
           <div className="col-md-4">
             <div className={`${styles.box} text-black ${styles.caixa3}`}>
               <h2 className={`${styles.titulo_caixa}`}>Conecte-se</h2>
               <img src={coracao_plantinha} className={`box ${styles.img3}`} alt="Conecte-se" />
-              <p>Nossa plataforma facilita a conexão entre doadores e recebedores, garantindo que os alimentos cheguem a quem mais precisa. <Link to="/" className={`${styles.titulo_vermelho}`}>adm</Link></p>  
+              <p>Nossa plataforma facilita a conexão entre doadores e recebedores, garantindo que os alimentos cheguem a quem mais precisa.</p>  
             </div>
           </div>
         </div>

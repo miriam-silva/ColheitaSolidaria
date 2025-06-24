@@ -27,7 +27,7 @@ const SobreoProjeto = () => {
                             </div>
 
                             <div className="p-3">
-                                <h5 className="mb-2 fw-bold">Reflexão Final</h5>
+                                <h5 className={`mb-2 fw-bold ${styles.reflexo}`}>Reflexão Final</h5>
                                     <blockquote className={`fst-italic ${styles.p}`} style={{maxWidth:'700px', margin:'0 auto', borderLeft: '4px solid #c0392b', paddingLeft: '1rem'}}>"A principal dificuldade enfrentada pela equipe foi a de cumprir prazos, especialmente na fase de execução. Ainda assim, adquirimos muitos aprendizados valiosos sobre a organização, colaboração e uso de ferramentas modernas como AppCheck, Firebase e Supabase.</blockquote>
                             </div>
                         </div>
