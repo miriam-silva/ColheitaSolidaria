@@ -36,7 +36,7 @@ const createUserProfileIfNotExists = async (user) => {
 };
 
 export default function LoginPage() {
-  const [activeTab, setActiveTab] = useState("adm");
+  const [activeTab, setActiveTab] = useState("Administrador");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [cnpj, setCnpj] = useState("");

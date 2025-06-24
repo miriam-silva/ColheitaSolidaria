@@ -66,13 +66,33 @@
     margin-left: 5%;
 }
 
-@media (max-width: 425px) {
-    .img1 {
-        width: 35%;
-        height: auto;
-    }
-    .img2 {
-        width: 35%;
-        height: auto;
+@media (max-width: 742px) {
+    .tamanho_imagem {
+    margin-left: 28%;
     }
 }
+
+@media (max-width: 425px) {
+    .img1 {
+        width: 25%;
+        height: auto;
+        margin-bottom: -10%;
+    }
+
+    .img2 {
+        width: 25%;
+        height: auto;
+        margin-top: -10%;
+    }
+
+    .tamanho_imagem {
+    margin-left: 18%;
+    }
+}
+
+@media (max-width: 380px) {
+    .tamanho_imagem{
+        margin-left: 5%;
+    }
+}
+

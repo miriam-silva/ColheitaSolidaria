@@ -91,7 +91,9 @@ const Header = ({ role }) => {
         ],
         colaborador: [
             { to: "/colaborador/Registrardoacao", label: "Registrar doações" },
-            { to: "/InicialColaborador", label: "Minhas doações" }
+            { to: "/InicialColaborador", label: "Minhas doações" },
+            { to: "/PerfilColaborador", label: "Dados de perfil"}
+
         ],
         recebedor: [
             { to: "/InicialRecebedor", label: "Doações" },
