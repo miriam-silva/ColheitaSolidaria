@@ -48,6 +48,7 @@ const Minhasdoacoes = () => {
              return (
               <CardDoacao 
               key = {doacao.id}
+              id={doacao.id}
               imagemUrl={imagemPublicaUrl}
               nome = {doacao.produto}
               validade={doacao.validade}

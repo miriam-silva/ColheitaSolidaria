@@ -37,7 +37,7 @@ import Doacaoregistrada from "./pages/Colaborador/Doacaoregistrada/Doacaoregistr
 
 import PerfilColaborador from './pages/Colaborador/PerfilColaborador/Perfil'
 import PerfilRecebedor from "./pages/Recebedor/PerfilRecebedor/Perfil";
-
+import MinhasFavoritas from "./pages/Recebedor/MinhasFavoritas/MinhasFavoritas";
 function App() {
   return (
     <DoacoesProvider>
@@ -178,6 +178,14 @@ function App() {
 
       <Route path = "/PerfilColaborador" element = {<PerfilColaborador />}/>
       <Route path = "/PerfilRecebedor" element = {<PerfilRecebedor/>}/>
+     
+      <Route path = "/favoritas" element ={
+        <ProtectedRoute requiredRole="recebedor">
+          <DefaultLayout4>
+            <MinhasFavoritas />
+          </DefaultLayout4>
+        </ProtectedRoute>
+      } />
       
 
 

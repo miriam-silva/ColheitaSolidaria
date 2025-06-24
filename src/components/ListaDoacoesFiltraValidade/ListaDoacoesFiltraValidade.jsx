@@ -66,7 +66,8 @@ const ListaDoacoesFiltraValidade = ({onSelecionar, selecionados = [] }) => {
     return (
         <>
             {doacoes.map((doacao) => (
-                <CardDoacao key={doacao.id} imagemUrl={doacao.imagemPublicaUrl} nome={doacao.produto} validade={doacao.validade} descricao={doacao.descricao} selecionado={selecionados.includes(doacao.id)} onToggle={() => onSelecionar && onSelecionar(doacao.id)} />
+                <CardDoacao key={doacao.id} id ={doacao.id} imagemUrl={doacao.imagemPublicaUrl} nome={doacao.produto} validade={doacao.validade} descricao={doacao.descricao} selecionado={selecionados.includes(doacao.id)}
+                 onToggle={() => onSelecionar && onSelecionar(doacao.id)} />
             ))}
         </>
     )

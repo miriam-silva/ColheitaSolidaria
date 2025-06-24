@@ -94,7 +94,7 @@ const Registrardoacao = () => {
             setLoading(false)
             return;
         }
-
+    
 
         const resultado = await registrarDoacao({
             produto,
@@ -220,7 +220,7 @@ const Registrardoacao = () => {
 
             <br />
         </div>
-    );
-};
+    )
+}
 
 export default Registrardoacao;
