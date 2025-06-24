@@ -117,6 +117,6 @@ const CardDoacao =  ({imagemUrl, nome, validade, descricao, selecionado, onToggl
             
         </div>
     )
-}
+
 
 export default CardDoacao
