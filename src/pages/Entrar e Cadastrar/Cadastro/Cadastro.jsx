@@ -6,6 +6,7 @@ import { validarCNPJ, validarCPF } from "../../../utils/validacao.js";
 import { getFirestore, doc, setDoc } from "firebase/firestore";
 import styles from "./Cadastro.module.css";
 import LoadingSpinner from '../../../components/LoadingSpinner/LoadingSpinner.jsx';
+import { enviarEmailConfirmacao } from '../../../services/emailService.js';
 
 export default function CadastroPage() {
   const [activeTab, setActiveTab] = useState('adm');
@@ -67,13 +68,21 @@ export default function CadastroPage() {
 
       if (user) {
         alert('Cadastro realizado com sucesso!');
-        navigate(role === 'admin' ? '/InicialAdministrador' : '/InicialColaborador');
+      
+      try {
+        await enviarEmailConfirmacao (formData.email, formData.nome)
+        alert('E-mail de confirmação enviado.')
+      } catch (error) {
+      console.error("Erro ao enviar e-mail de confirmação:", error)
+      alert('Cadastro realizado, mas falha ao enviar e-mail de confirmação.')
       }
+
+      navigate(role === 'admin' ? '/InicialAdministrador' : '/InicialColaborador') }
     } catch (error) {
       console.error("Erro no cadastro:", error);
       alert('Erro ao cadastrar: ' + error.message);
-    }
-  };
+    }  
+  }
 
   return (
     <Container fluid className={styles.login_container}>

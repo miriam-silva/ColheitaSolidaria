@@ -1,8 +1,8 @@
 import { db } from '../firebase/config';
-import { collection, addDoc, Timestamp } from 'firebase/firestore';
+import { collection, addDoc, serverTimestamp} from 'firebase/firestore';
 import { query, where, getDocs } from 'firebase/firestore';
 
-export const registrarDoacao = async ({ produto, descricao, quantidade, validade, colaboradorId }) => {
+export const registrarDoacao = async ({ produto, descricao, quantidade, validade, colaboradorId, imagemDoacao }) => {
   try {
     await addDoc(collection(db, "doacoes"), {
       produto,
@@ -10,7 +10,8 @@ export const registrarDoacao = async ({ produto, descricao, quantidade, validade
       quantidade: Number(quantidade),
       validade,
       colaboradorId,
-      dataRegistro: Timestamp.now()
+      imagemDoacao,
+      dataRegistro: serverTimestamp()
     });
     return { sucesso: true };
   } catch (erro) {

@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import styles from './InicialColaborador.module.css';
 import { useDoacoes } from '../../../context/DoacoesContext';
 import { supabase } from '../../../supabase/supabaseClient';
+import CardHistoricoDoacao from "../../../components/CardHistoricoDoacao/CardHistoricoDoacao";
+
 function ImagemDoacao({ caminho }) {
   const [url, setUrl] = useState(null);
 
@@ -67,37 +69,7 @@ export default function InicialColaborador() {
         <h3 className={`${styles.transparente}`}>Nenhuma doação foi feita</h3>
       ) : (
         doacoes.map((doacao, index) => (
-          <div key={index} className="col-12">
-            <div className={`${styles.donation_box}`}>
-              <div className="row">
-                <div className="col-md-8 col-sm-12">
-                  <h5 className={`${styles.titulo}`}>
-                    #{index + 1}° Doação - {doacao.produto}
-                  </h5>
-
-                  <p className={`${styles.texto}`}>
-                    {doacao.descricao} - {doacao.quantidade} unidades
-                  </p>
-                  <p className={`${styles.texto}`}>
-                    Data de registro: {doacao.dataRegistro?.toDate
-                      ? doacao.dataRegistro.toDate().toLocaleString()
-                      : isValidDate(new Date(doacao.dataRegistro))
-                        ? new Date(doacao.dataRegistro).toLocaleString()
-                        : 'Data inválida'} |
-                    Validade: {doacao.validade?.toDate
-                      ? doacao.validade.toDate().toLocaleDateString()
-                      : isValidDate(new Date(doacao.validade))
-                        ? new Date(doacao.validade).toLocaleDateString()
-                        : 'Data inválida'}
-                  </p>
-                </div>
-
-                <div className="col-md-4 col-sm-12 d-flex justify-content-end align-items-center">
-                  {doacao.imagemDoacao && <ImagemDoacao caminho={doacao.imagemDoacao} />}
-                </div>
-              </div>
-            </div>
-          </div>
+          <CardHistoricoDoacao key={doacao.id || index} index={index} doacao={doacao}/>
         ))
       )}
 

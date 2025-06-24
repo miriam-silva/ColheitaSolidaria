@@ -44,6 +44,7 @@ const CardDoacao = ({imagemUrl, nome, validade, descricao, selecionado, onToggle
                 return
             }
 
+
               const favoritoRef = doc(db, "users",user.uid,"favoritos", id)
              try {
             if(favoritado) {
@@ -74,12 +75,27 @@ const CardDoacao = ({imagemUrl, nome, validade, descricao, selecionado, onToggle
             }
         }  
         
+    if (!imagemDoacao) return null
+
+    if (imagemDoacao.startsWith('http')){
+        return imagemDoacao
+    }
+
+}
+
+const CardDoacao = ({imagemUrl, nome, validade, descricao, selecionado, onToggle, selecionavel = true}) => {
+    const urlImagem = obterUrlImagem(imagemUrl)
+
     return (
         <div className= {styles.cardDoacao}>
-            <div className={styles.placeholderImagem}>
+            {urlImagem ? (
+                <img src={urlImagem} alt={nome} className={styles.imagemdoacao}/>
+            ) : (
+                <div className={styles.placeholderImagem}>
                 <span className={`${styles.legendaImagem}`}>Imagens dos alimentos</span>
             </div>
-            {imagemUrl && <img src={imagemUrl} alt={nome} className={styles.imagemdoacao} />}
+            )}
+
             <div className= {styles.conteudo}>
             <h2 className={styles.nomedoacao}>{nome}</h2>
             <p className={styles.descricaodoacao}>{descricao}</p>
