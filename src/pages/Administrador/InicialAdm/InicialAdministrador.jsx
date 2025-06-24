@@ -1,19 +1,20 @@
 import React from "react";
-import { Link } from 'react-router-dom';
-import styles from './InicialAdministrador.module.css';
+import { Link } from "react-router-dom";
+import styles from "./InicialAdministrador.module.css";
+import PainelMetrico from "../Painel/PainelMetrico";
 
 export default function InicialAdministrador() {
   return (
     <div className="text-center mt-5">
       <div className={`row justify-content-center ${styles.center_button_alinhar}`}>
         <div className="col-12 col-md-4 mb-3 mb-md-0">
-        <Link to="/adm/Pedidos">
+          <Link to="/adm/Pedidos">
             <button className={`${styles.center_button}`} type="button">Pedidos</button>
           </Link>
         </div>
 
         <div className="col-12 col-md-4 mb-3 mb-md-0">
-        <Link to="/adm/Doacoes">
+          <Link to="/adm/Doacoes">
             <button className={`${styles.center_button1}`} type="button">Doações</button>
           </Link>
         </div>
@@ -25,6 +26,11 @@ export default function InicialAdministrador() {
             </button>
           </Link>
         </div>
+      </div>
+
+      {/* Aqui o PainelMetrico aparece abaixo dos botões */}
+      <div className="mt-5">
+        <PainelMetrico />
       </div>
     </div>
   );
