@@ -83,8 +83,8 @@ const CardDoacao =  ({imagemUrl, nome, validade, descricao, selecionado, onToggl
 
 }
 
-const CardDoacao = ({imagemUrl, nome, validade, descricao, selecionado, onToggle, selecionavel = true}) => {
-    const urlImagem = obterUrlImagem(imagemUrl)
+// const CardDoacao = ({imagemUrl, nome, validade, descricao, selecionado, onToggle, selecionavel = true}) => {
+//     const urlImagem = obterUrlImagem(imagemUrl)
 
     return (
         <div className= {styles.cardDoacao}>
