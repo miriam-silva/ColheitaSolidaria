@@ -1,0 +1,25 @@
+.containerMetricas {
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  padding: 24px;
+  margin: 32px auto;
+  max-width: 800px;
+}
+
+.titulo {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #a50000;
+  margin-bottom: 24px;
+  text-align: center;
+}
+.container {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);
+  max-width: 800px;
+  margin: 2rem auto;
+  height: auto;
+}
