@@ -81,10 +81,7 @@ const CardDoacao =  ({imagemUrl, nome, validade, descricao, selecionado, onToggl
         return imagemDoacao
     }
 
-}
 
-// const CardDoacao = ({imagemUrl, nome, validade, descricao, selecionado, onToggle, selecionavel = true}) => {
-//     const urlImagem = obterUrlImagem(imagemUrl)
 
     return (
         <div className= {styles.cardDoacao}>
@@ -118,5 +115,6 @@ const CardDoacao =  ({imagemUrl, nome, validade, descricao, selecionado, onToggl
         </div>
     )
 
+}
 
 export default CardDoacao
