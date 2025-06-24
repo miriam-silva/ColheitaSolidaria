@@ -198,7 +198,7 @@ export default function LoginPage() {
 
           <Col md={6} className={styles.login_forms}>
             <ul className={styles.tabs_container}>
-              {["adm", "colaborador", "recebedor"].map((tab) => (
+              {["Administrador", "colaborador", "recebedor"].map((tab) => (
                 <li key={tab} className={styles.tab_item}>
                   <button
                     className={`${styles.tab_button} ${activeTab === tab ? styles.active : ""}`}
@@ -224,7 +224,7 @@ export default function LoginPage() {
                   </div>
                 )}
 
-                {activeTab === "adm" && (
+                {activeTab === "Administrador" && (
                   <>
                     <div className={styles.form_group}>
                       <input

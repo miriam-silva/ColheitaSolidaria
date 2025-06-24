@@ -28,7 +28,6 @@ export default function InicialAdministrador() {
         </div>
       </div>
 
-      {/* Aqui o PainelMetrico aparece abaixo dos botões */}
       <div className="mt-5">
         <PainelMetrico />
       </div>
