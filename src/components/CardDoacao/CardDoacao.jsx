@@ -5,7 +5,7 @@ import useAuthentication from '../../hooks/useAuthentication'
 import styles from './CardDoacao.module.css';
 import { useNavigate } from 'react-router-dom';
 
-const CardDoacao = ({imagemUrl, nome, validade, descricao, selecionado, onToggle, selecionavel = true, id, onRemoverFavorito = null}) => {
+const CardDoacao =  ({imagemUrl, nome, validade, descricao, selecionado, onToggle, selecionavel = true, id, onRemoverFavorito = null}) => {
     const navigate = useNavigate()
     const {user} = useAuthentication()
     const [favoritado, setFavoritado] = useState(false)

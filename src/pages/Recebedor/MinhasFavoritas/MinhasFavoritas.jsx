@@ -49,14 +49,16 @@ const MinhasFavoritas = () => {
                 <div className={styles.gridFavoritos}>
                     {favoritos.map((doacao) => (
                         <CardDoacao
-                            key={doacao.id}
-                            id={doacao.id}
-                            nome={doacao.nome}
-                            validade={doacao.validade}
-                            descricao={doacao.descricao}
-                            imagemUrl={doacao.imagemUrl}
-                            selecionavel={false}
-                            onRemoverFavorito={() =>  setFavoritos((prev) => prev.filter((f) => f.id !== doacao.id))} 
+                        imagemUrl={doacao.imagemUrl}
+                        nome={doacao.nome}
+                        validade={doacao.validade}
+                        descricao={doacao.descricao}
+                        onToggle={() => {}}
+                        selecionavel={false}
+                        selecionado={false}
+                        key={doacao.id}
+                        id={doacao.id}
+                        onRemoverFavorito={() =>  setFavoritos((prev) => prev.filter((f) => f.id !== doacao.id))} 
                         />
                     ))}
 
