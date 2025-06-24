@@ -2,6 +2,9 @@ import React from 'react'
 import styles from './SobreoProjeto.module.css'
 import miriam from '../../../assets/miriam.jpg'
 import ana from '../../../assets/ana.jpg'
+import isa from '../../../assets/isa.jpg'
+import carol from '../../../assets/carol.jpg'
+import eloisa from '../../../assets/eloisa.jpg'
 import react from '../../../assets/react.png'
 import bootstrap from '../../../assets/bootstrap.png'
 import firebase from '../../../assets/firebase.png'
@@ -60,15 +63,15 @@ const SobreoProjeto = () => {
                         <h6 className="fw-bold">Ana Júlia T. de Oliveira</h6>
                     </div>
                         <div className="col-12 col-sm-6 col-md-4 col-lg-2 mb-4">
-                            <img src={ana} className={`img-fluid rounded-circle mb-2 ${styles.img2}`} alt="Eloisa Rocha da Silva"/>
+                            <img src={eloisa} className={`img-fluid rounded-circle mb-2 ${styles.img2}`} alt="Eloisa Rocha da Silva"/>
                             <h6 className="fw-bold">Eloisa Rocha da Silva</h6>
                     </div>
                         <div className="col-12 col-sm-6 col-md-4 col-lg-2 mb-4">
-                            <img src={miriam} className={`img-fluid rounded-circle mb-2 ${styles.img2}`} alt="Isadora Georgete"/>
+                            <img src={isa} className={`img-fluid rounded-circle mb-2 ${styles.img2}`} alt="Isadora Georgete"/>
                             <h6 className="fw-bold">Isadora Georgete</h6>
                     </div>
                         <div className="col-12 col-sm-6 col-md-4 col-lg-2 mb-4">
-                            <img src={miriam} className={`img-fluid rounded-circle mb-2 ${styles.img2}`}alt="Caroline Oliveira Silva"/>
+                            <img src={carol} className={`img-fluid rounded-circle mb-2 ${styles.img2}`}alt="Caroline Oliveira Silva"/>
                             <h6 className="fw-bold">Caroline Oliveira Silva</h6>
                     </div>
                 </div>
