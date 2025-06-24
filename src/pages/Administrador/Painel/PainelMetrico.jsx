@@ -34,7 +34,7 @@ export default function PainelMetrico() {
   return (
     <div className={styles.container}>
       <h2>Usuários por Tipo</h2>
-      <ResponsiveContainer width="100%" height="100%">
+      <ResponsiveContainer width="100%" height={400}>
         <PieChart>
           <Pie
             data={dados}
