@@ -34,6 +34,17 @@ export default function InicialAdministrador() {
             </button>
           </Link>
         </div>
+        <div>
+           <p>
+
+        </p>
+        </div>
+       
+        <div className="col-12 col-md-3 mb-3">
+          <Link to="/adm/HistoricoDoacoes">
+            <button className={styles.center_button2} type="button">Histórico de Doações</button>
+          </Link>
+        </div>
       </div>
 
       <div className="mt-5">
