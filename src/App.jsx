@@ -26,6 +26,7 @@ import Doacoes from "./pages/Administrador/Doacoes/Doacoes";
 import Pedidos from "./pages/Administrador/Pedidos/Pedidos";
 import CadastrarRecebedorAdm from "./pages/Administrador/CadastrarRecebedor/CadastrarRecebedorAdm";
 import GerenciarUsuarios from "./pages/Administrador/GerenciarUsuarios/GerenciarUsuarios";
+import HistoricoDoacoes from "./pages/Administrador/HistoricoDoacoes/HistoricoDoacoes";
 
 import InicialRecebedor from "./pages/Recebedor/InicialRecebedor/InicialRecebedor";
 import Minhassolicitacoes from "./pages/Recebedor/Minhassolicitacoes/Minhassolicitacoes";
@@ -57,7 +58,7 @@ function App() {
         <Route path="/login" element={<AuthLayout><Login /></AuthLayout>} />
         <Route path="/cadastro" element={<AuthLayout><Cadastro /></AuthLayout>} />
 
-        {/* Páginas protegidas */}
+        {/* Admin */}
         <Route path="/InicialAdministrador" element={
           <ProtectedRoute requiredRole="admin">
             <DefaultLayout2>
@@ -90,7 +91,7 @@ function App() {
           </ProtectedRoute>
         } />
 
-        <Route path="/adm/usuarios" element={ 
+        <Route path="/adm/usuarios" element={
           <ProtectedRoute requiredRole="admin">
             <DefaultLayout2>
               <GerenciarUsuarios />
@@ -98,6 +99,15 @@ function App() {
           </ProtectedRoute>
         } />
 
+        <Route path="/adm/HistoricoDoacoes" element={
+          <ProtectedRoute requiredRole="admin">
+            <DefaultLayout2>
+              <HistoricoDoacoes />
+            </DefaultLayout2>
+          </ProtectedRoute>
+        } />
+
+        {/* Colaborador */}
         <Route path="/InicialColaborador" element={
           <ProtectedRoute requiredRole="colaborador">
             <DefaultLayout3>
@@ -130,6 +140,7 @@ function App() {
           </ProtectedRoute>
         } />
 
+        {/* Recebedor */}
         <Route path="/InicialRecebedor" element={
           <ProtectedRoute requiredRole="recebedor">
             <DefaultLayout4>
