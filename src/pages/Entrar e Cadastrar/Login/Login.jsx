@@ -99,10 +99,10 @@ export default function LoginPage() {
           navigate("/InicialRecebedor");
           break;
         default:
-          throw new Error("Tipo de usuário não reconhecido.");
+          throw new Error("Tipo de usuário não reconhecido. Por favor, entre em contato com o suporte.");
       }
     } catch (error) {
-      console.error("Erro no login:", error);
+      console.error("Erro no login: ", error);
       setError(error.message || "Erro ao fazer login. Verifique suas credenciais.");
     } finally {
       setLoading(false);
