@@ -25,6 +25,7 @@ import InicialAdministrador from "./pages/Administrador/InicialAdm/InicialAdmini
 import Doacoes from "./pages/Administrador/Doacoes/Doacoes";
 import Pedidos from "./pages/Administrador/Pedidos/Pedidos";
 import CadastrarRecebedorAdm from "./pages/Administrador/CadastrarRecebedor/CadastrarRecebedorAdm";
+import GerenciarUsuarios from "./pages/Administrador/GerenciarUsuarios/GerenciarUsuarios";
 
 import InicialRecebedor from "./pages/Recebedor/InicialRecebedor/InicialRecebedor";
 import Minhassolicitacoes from "./pages/Recebedor/Minhassolicitacoes/Minhassolicitacoes";
@@ -35,158 +36,131 @@ import Registrardoacao from "./pages/Colaborador/Registrardoacao/Registrardoacao
 import Minhasdoacoes from "./pages/Colaborador/Minhasdoaçoes/Minhasdoacoes";
 import Doacaoregistrada from "./pages/Colaborador/Doacaoregistrada/Doacaoregistrada";
 
-import PerfilColaborador from './pages/Colaborador/PerfilColaborador/Perfil'
+import PerfilColaborador from './pages/Colaborador/PerfilColaborador/Perfil';
 import PerfilRecebedor from "./pages/Recebedor/PerfilRecebedor/Perfil";
 
 import Favoritos from "./pages/Favoritos/Favoritos";
+
 function App() {
   return (
     <DoacoesProvider>
-    <Routes>
-      {/* Páginas públicas */}
-      <Route path="/" element={<DefaultLayout><Home /></DefaultLayout>} />
-      <Route path="/sobre" element={<DefaultLayout><SobreNos /></DefaultLayout>} />
-      <Route path="/colaboradores" element={<DefaultLayout><Colaboradores /></DefaultLayout>} />
-      <Route path="/como-ajudar" element={<DefaultLayout><Comoajudar /></DefaultLayout>} />
-      <Route path="/contato" element={<DefaultLayout><Contato /></DefaultLayout>} />
-      <Route path="/sobreoprojeto" element={<DefaultLayout><SobreoProjeto /></DefaultLayout>}/>
+      <Routes>
+        {/* Páginas públicas */}
+        <Route path="/" element={<DefaultLayout><Home /></DefaultLayout>} />
+        <Route path="/sobre" element={<DefaultLayout><SobreNos /></DefaultLayout>} />
+        <Route path="/colaboradores" element={<DefaultLayout><Colaboradores /></DefaultLayout>} />
+        <Route path="/como-ajudar" element={<DefaultLayout><Comoajudar /></DefaultLayout>} />
+        <Route path="/contato" element={<DefaultLayout><Contato /></DefaultLayout>} />
+        <Route path="/sobreoprojeto" element={<DefaultLayout><SobreoProjeto /></DefaultLayout>} />
 
-      {/* Páginas sem Navbar e Footer */}
-      <Route path="/login" element={<AuthLayout><Login /></AuthLayout>} />
-      <Route path="/cadastro" element={<AuthLayout><Cadastro /></AuthLayout>} />
+        {/* Páginas sem Navbar e Footer */}
+        <Route path="/login" element={<AuthLayout><Login /></AuthLayout>} />
+        <Route path="/cadastro" element={<AuthLayout><Cadastro /></AuthLayout>} />
 
-      {/* Páginas protegidas */}
-      <Route
-        path="/InicialAdministrador"
-        element={
+        {/* Páginas protegidas */}
+        <Route path="/InicialAdministrador" element={
           <ProtectedRoute requiredRole="admin">
             <DefaultLayout2>
               <InicialAdministrador />
             </DefaultLayout2>
           </ProtectedRoute>
-        }
-      />
+        } />
 
-      <Route
-        path="/adm/Doacoes"
-        element={
+        <Route path="/adm/Doacoes" element={
           <ProtectedRoute requiredRole="admin">
             <DefaultLayout2>
               <Doacoes />
             </DefaultLayout2>
           </ProtectedRoute>
-        }
-      />
+        } />
 
-      <Route
-        path="/adm/cadastrar-recebedor"
-        element={
-          <ProtectedRoute requiredRole="admin">
-            <AuthLayout>
-              <CadastrarRecebedorAdm />
-            </AuthLayout>
-          </ProtectedRoute>
-        }
-      />
-
-      <Route
-        path="/adm/Pedidos"
-        element={
+        <Route path="/adm/Pedidos" element={
           <ProtectedRoute requiredRole="admin">
             <DefaultLayout2>
               <Pedidos />
             </DefaultLayout2>
           </ProtectedRoute>
-        }
-      />
+        } />
 
-      <Route
-        path="/InicialColaborador"
-        element={
+        <Route path="/adm/cadastrar-recebedor" element={
+          <ProtectedRoute requiredRole="admin">
+            <AuthLayout>
+              <CadastrarRecebedorAdm />
+            </AuthLayout>
+          </ProtectedRoute>
+        } />
+
+        <Route path="/adm/usuarios" element={ 
+          <ProtectedRoute requiredRole="admin">
+            <DefaultLayout2>
+              <GerenciarUsuarios />
+            </DefaultLayout2>
+          </ProtectedRoute>
+        } />
+
+        <Route path="/InicialColaborador" element={
           <ProtectedRoute requiredRole="colaborador">
             <DefaultLayout3>
               <InicialColaborador />
             </DefaultLayout3>
           </ProtectedRoute>
-        }
-      />
+        } />
 
-      <Route
-        path="/colaborador/Registrardoacao"
-        element={
+        <Route path="/colaborador/Registrardoacao" element={
           <ProtectedRoute requiredRole="colaborador">
             <DefaultLayout3>
               <Registrardoacao />
             </DefaultLayout3>
           </ProtectedRoute>
-        }
-      />
+        } />
 
-      <Route
-        path="/colaborador/Doacaoregistrada"
-        element={
+        <Route path="/colaborador/Doacaoregistrada" element={
           <ProtectedRoute requiredRole="colaborador">
             <DefaultLayout3>
               <Doacaoregistrada />
             </DefaultLayout3>
           </ProtectedRoute>
-        }
-      />
+        } />
 
-      <Route
-        path="/colaborador/Minhasdoacoes"
-        element={
+        <Route path="/colaborador/Minhasdoacoes" element={
           <ProtectedRoute requiredRole="colaborador">
             <DefaultLayout3>
               <Minhasdoacoes />
             </DefaultLayout3>
           </ProtectedRoute>
-        }
-      />
+        } />
 
-      <Route
-        path="/InicialRecebedor"
-        element={
+        <Route path="/InicialRecebedor" element={
           <ProtectedRoute requiredRole="recebedor">
             <DefaultLayout4>
               <InicialRecebedor />
             </DefaultLayout4>
           </ProtectedRoute>
-        }
-      />
+        } />
 
-      <Route
-        path="/recebedor/Pedidoenviado"
-        element={
+        <Route path="/recebedor/Pedidoenviado" element={
           <ProtectedRoute requiredRole="recebedor">
             <DefaultLayout4>
               <Pedidoenviado />
             </DefaultLayout4>
           </ProtectedRoute>
-        }
-      />
+        } />
 
-      <Route
-        path="/recebedor/Minhassolicitacoes"
-        element={
+        <Route path="/recebedor/Minhassolicitacoes" element={
           <ProtectedRoute requiredRole="recebedor">
             <DefaultLayout4>
               <Minhassolicitacoes />
             </DefaultLayout4>
           </ProtectedRoute>
-        }
-      />
+        } />
 
-      <Route path = "/PerfilColaborador" element = {<PerfilColaborador />}/>
-      <Route path = "/PerfilRecebedor" element = {<PerfilRecebedor/>}/>
-      
-      <Route
-        path="/favoritos" element={<Favoritos />}
-        />
+        <Route path="/PerfilColaborador" element={<PerfilColaborador />} />
+        <Route path="/PerfilRecebedor" element={<PerfilRecebedor />} />
+        <Route path="/favoritos" element={<Favoritos />} />
 
-      {/* Página de erro */}
-      <Route path="*" element={<h1 className="text-center py-5">Página não encontrada</h1>} />
-    </Routes>
+        {/* Página de erro */}
+        <Route path="*" element={<h1 className="text-center py-5">Página não encontrada</h1>} />
+      </Routes>
     </DoacoesProvider>
   );
 }
