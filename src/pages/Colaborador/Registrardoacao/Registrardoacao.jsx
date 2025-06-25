@@ -19,6 +19,7 @@ const Registrardoacao = () => {
     const [mensagem, setMensagem] = useState('');
     const [tipoMensagem, setTipoMensagem] = useState('');
     const [imagemDoacao, setImagemDoacao] = useState(null);
+    const [previewImagem, setPreviewImagem] = useState(null);
     const [loading, setLoading] = useState(false);
 
     const limparCampos = () => {
@@ -201,9 +202,30 @@ const Registrardoacao = () => {
                     className="form-control"
                     id="imagemDoacao"
                     accept="image/*"
-                    onChange={(e) => setImagemDoacao(e.target.files[0])} disabled={loading}
+                    onChange={(e) => {
+                    const file = e.target.files[0];
+                    if (file) {
+                        setImagemDoacao(file);
+                        setPreviewImagem(URL.createObjectURL(file));
+                    }
+}}
+                    disabled={loading}
+
                 />
+                
+  {}
+  {previewImagem && (
+    <div className="text-center my-3">
+      <p className={`${styles.texto}`}>Prévia da imagem:</p>
+      <img
+        src={previewImagem}
+        alt="Prévia da doação"
+        style={{ maxWidth: "300px", borderRadius: "8px" }}
+      />
+    </div>
+  )}
             </div>
+
 
             {loading && (
                 <div className="d-flex justify-content-center my-3">
