@@ -10,7 +10,7 @@ import { connectFirestoreEmulator, getFirestore } from "firebase/firestore";
 import { getFunctions, connectFunctionsEmulator } from "firebase/functions";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCWlh0m_CxDx9sGoARkmM68EIdsrRC8Fog",
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
   authDomain: "colheitasolidaria-teste2.firebaseapp.com",
   projectId: "colheitasolidaria-teste2",
   storageBucket: "colheitasolidaria-teste2.appspot.com", 
