@@ -38,6 +38,7 @@ import Doacaoregistrada from "./pages/Colaborador/Doacaoregistrada/Doacaoregistr
 import PerfilColaborador from './pages/Colaborador/PerfilColaborador/Perfil'
 import PerfilRecebedor from "./pages/Recebedor/PerfilRecebedor/Perfil";
 
+import Favoritos from "./pages/Favoritos/Favoritos";
 function App() {
   return (
     <DoacoesProvider>
@@ -179,7 +180,9 @@ function App() {
       <Route path = "/PerfilColaborador" element = {<PerfilColaborador />}/>
       <Route path = "/PerfilRecebedor" element = {<PerfilRecebedor/>}/>
       
-
+      <Route
+        path="/favoritos" element={<Favoritos />}
+        />
 
       {/* Página de erro */}
       <Route path="*" element={<h1 className="text-center py-5">Página não encontrada</h1>} />

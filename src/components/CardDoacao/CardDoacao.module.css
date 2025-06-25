@@ -62,3 +62,65 @@
   font-weight: bold;
   color: #333;
 }
+
+.iconesAcao {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 0.5rem;
+}
+
+.favButton {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1.4rem;
+  padding-left: 8px;
+}
+
+/* Exemplo de estilo para o botão de favoritos */
+
+.botaoFavoritos {
+  background-color: #a50000; /* Tom vermelho escuro, como o coração vermelho */
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 10px;
+  display: inline-block;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+}
+
+.botaoFavoritos:hover {
+  background-color: #cc0000; 
+  align-items: center;
+  
+  /* Um vermelho mais claro no hover */
+}
+
+.botaoFavoritos:focus {
+  outline: 2px solid #f08a8a;
+  outline-offset: 2px;
+  align-items: center;
+}
+ 
+ 
+.botaoRemover {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  margin-left: 8px;
+  font-size: 1.3rem;
+  transition: color 0.3s ease;
+  padding: 2px;
+}
+
+.botaoRemover:hover {
+  color: #900;
+}
+
+
+

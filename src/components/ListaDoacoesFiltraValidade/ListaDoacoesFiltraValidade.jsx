@@ -4,11 +4,10 @@ import {db} from "../../firebase/config"
 import {supabase} from "../../supabase/supabaseClient"
 import CardDoacao from "../CardDoacao/CardDoacao";
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner"
-
 const ListaDoacoesFiltraValidade = ({onSelecionar, selecionados = [] }) => {
     const [doacoes, setDoacoes] = useState([])
     const [loading, setLoading] = useState(false)
-
+    
     useEffect(() => {
         const buscarDoacoes = async () => {
             setLoading(true)
