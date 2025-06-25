@@ -22,13 +22,12 @@ const ProtectedRoute = ({ children, requiredRole }) => {
     handleInvalidRole();
   }, [user, role, loading]);
   
-
   if (loading) {
     return <LoadingSpinner />;
   }
 
   if (error) {
-    console.error("Erro de autenticação:", error);
+    console.error("Erro de autenticação: ", error);
     return <Navigate to="/error" state={{ error }} replace />;
   }
 
@@ -43,7 +42,6 @@ const ProtectedRoute = ({ children, requiredRole }) => {
   };  
 
   const allowedRoles = roleHierarchy[requiredRole] || [];
-
   if (!allowedRoles.includes(role)) {
     return (
       <Navigate
