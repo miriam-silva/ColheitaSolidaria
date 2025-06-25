@@ -122,5 +122,26 @@
   color: #900;
 }
 
+.nutricional {
+  background-color: #fff7e6; /* amarelo claro suave */
+  border: 1px solid #ffd591; /* contorno suave */
+  border-radius: 12px;
+  padding: 12px 16px;
+  margin-top: 12px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  font-size: 0.9rem;
+  color: #333;
+}
 
+.nutricional h4 {
+  margin-bottom: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #d48806; /* tom de laranja escuro */
+}
+
+.nutricional ul {
+  list-style: none;
+  padding-left: 0;
+}
 

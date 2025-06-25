@@ -1,8 +1,8 @@
-
 import React, { useEffect, useState} from "react";
 import styles from './CardDoacao.module.css';
 import {FaHeart, FaRegHeart, FaTrash} from 'react-icons/fa';
 import { useNavigate } from "react-router-dom";
+import axios from 'axios'
 const obterUrlImagem = (imagemDoacao) => {
     if (!imagemDoacao) return null
 
@@ -10,17 +10,13 @@ const obterUrlImagem = (imagemDoacao) => {
         return imagemDoacao
     }
     
-
-
-
-    return `https://pyjqpkkscqlokgmdtslk.supabase.co/storage/v1/object/public/doacoes/${imagemDoacao}`
+   return `https://pyjqpkkscqlokgmdtslk.supabase.co/storage/v1/object/public/doacoes/${imagemDoacao}`
 }
  
-        
-
-const CardDoacao = ({ id, imagemUrl, nome, validade, descricao, selecionado, onToggle, selecionavel = true, onToggleFavorito , onRemoverFavorito}) => {
+    const CardDoacao = ({ id, imagemUrl, nome, validade, descricao, selecionado, onToggle, selecionavel = true, onToggleFavorito , onRemoverFavorito}) => {
     const urlImagem = obterUrlImagem(imagemUrl)
     const[favorito, setFavorito] = useState(false)
+    const [nutrientes, setNutrientes] = useState(null)
     const navigate = useNavigate()
   
     useEffect(() => {
@@ -64,6 +60,43 @@ const CardDoacao = ({ id, imagemUrl, nome, validade, descricao, selecionado, onT
         }
         
      }
+         useEffect(() => {
+            const buscarNutrientes = async () => {
+                try{
+                    const response = await axios.get(
+                        'https://world.openfoodfacts.org/cgi/search.pl',
+                    {
+                        params: {
+                            search_terms: nome,
+                            search_simple: 1,
+                            action: 'process',
+                            json: 1,
+                        },
+                    }
+
+                )
+                const produto = response.data.products[0]
+                if (produto && produto.nutriments) {
+                    setNutrientes({
+                        calorias: produto.nutriments['energy-kcal_100g'],
+                        proteinas: produto.nutriments['proteins_100g'],
+                       gorduras: produto.nutriments['fat_100g'],
+                    carboidratos: produto.nutriments['carbohydrates_100g'],
+                    })
+
+                    
+                }else{
+                    setNutrientes({erro: 'informação nutricional não encontrada'})
+                }
+
+                }catch (error) {
+                    console.error('erro ao buscar dados nutricionais', error)
+                    setNutrientes({erro: 'erro ao buscar dados'})
+                }
+            }  
+             buscarNutrientes()
+        },[nome])       
+           
     return (
         <div className= {styles.cardDoacao}>
             {urlImagem ? (
@@ -80,6 +113,25 @@ const CardDoacao = ({ id, imagemUrl, nome, validade, descricao, selecionado, onT
             <p className={styles.validadedoacao}><strong>Validade:</strong>{''}
             {validade? new Date(validade.seconds ? validade.seconds * 1000 : validade).toLocaleDateString('pt-BR') : 'Não informada'}
             </p>
+
+            {nutrientes? (
+                nutrientes.erro ? (
+                    <p className = {styles.erroNutricional}>{nutrientes.erro}</p>
+
+                ) : (
+                <div className = {styles.nutricional}>
+                    <h4>Informação Nutricional (100g)</h4>
+                    <ul>
+                        <li>Calorias:{nutrientes.calorias ?? 'N/A'}Kcal</li>
+                        <li>Proteinas:{nutrientes.proteinas ?? 'N/A'}g</li>
+                         <li>Gorduras:{nutrientes.gorduras?? 'N/A'}g</li>
+                          <li>Carboidratos:{nutrientes.carboidratos ?? 'N/A'}g</li>
+                    </ul>
+                    </div>
+                )
+            ):(
+               <p className = {styles.loadingNutricional}>Buscando dados nutricionais...</p>
+            )}
             </div>
 
             <div className={styles.iconesAcao}>
