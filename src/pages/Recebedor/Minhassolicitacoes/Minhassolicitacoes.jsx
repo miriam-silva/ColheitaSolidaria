@@ -58,7 +58,7 @@ const Minhassolicitacoes = () => {
         <div>
             <nav className={`navbar navbar-expand-sm navbar-toggleable-sm navbar-light box-shadow mb-1 ${styles.navbarra}`}>
                 <div className="container-fluid">
-                    <h3 id="arrumar">Minhas solicitações:</h3>
+                    <h3 id="arrumar">Minhas solicitações: </h3>
                 </div>
             </nav>
 
