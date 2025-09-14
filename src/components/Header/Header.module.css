@@ -19,13 +19,18 @@
 
 .fotoperfil {
   width: 220px;
-  height: 195px;
+  height: auto;
   object-fit: cover;
 }
 
 .fotoabrirperfil {
   width: 100px;
   height: 85px;
+}
+
+.pdados {
+  font-size: 24px;
+  text-align: left;
 }
 
 @media (max-width: 448px) {
