@@ -71,15 +71,16 @@ const CadastrarRecebedorAdm = () => {
   return (
     <>
     <br/>
+    <div>
     <div className="cadastro-recebedor-container">
       <div className="container-fluid d-flex justify-content-center align-items-center">
         <div className={`row ${styles.main_box} d-flex`} id="main-box">
           {/* Seção Vermelha */}
           <div className={`col-md-6 ${styles.red_section} d-flex align-items-center justify-content-center`}>
             <div className="text-center text-white">
-              <h1 className={`${styles.h1}`}>Cadastre um novo membro!</h1>
+              <h1 className={`${styles.h11}`}>Cadastre um novo membro!</h1>
               <br />
-              <p className={`${styles.p}`}>
+              <p className={`${styles.p2}`}>
                 Amplie a rede de solidariedade e ajude a construir um futuro mais justo e sustentável.
               </p>
             </div>
@@ -88,10 +89,10 @@ const CadastrarRecebedorAdm = () => {
           {/* Formulário */}
           <div className={`col-md-6 ${styles.form_section} d-flex align-items-center justify-content-center`}>
             <div className="w-100">
-              <ul className={`${styles.nav_tabs} justify-content-left`}id="myTab" role="tablist">
-                <li className={`${styles.nav_item}`}>
+              <ul className={`${styles.tabs_container} justify-content-left`}id="myTab" role="tablist">
+                <li className={`${styles.tab_item}`}>
                   <button
-                    className={`nav-link ${activeTab === 'recebedor' ? 'active' : ''}`}
+                    className={`${styles.tab_button} nav-link ${activeTab === 'recebedor' ? 'active' : ''}`}
                     id="recebedor-tab"
                     onClick={() => handleTabChange('recebedor')}
                   >
@@ -134,7 +135,6 @@ const CadastrarRecebedorAdm = () => {
 
                     <div className={`${styles.itens} text-center mt-3`} >
                       <p className={`${styles.p2}`}>O recebedor já possui um cadastro? <Link to="/login">Clique aqui para ajudá-lo a fazer login!</Link></p>
-                      <p className={`${styles.p2}`}> Deseja voltar para a tela anterior? <Link to="/InicialAdministrador">Clique aqui!</Link></p>
                     </div>
                   </form>
                 </div>
@@ -143,6 +143,13 @@ const CadastrarRecebedorAdm = () => {
           </div>
         </div>
       </div>  
+
+      <div className={styles.voltar_container}>
+              <button
+                className={styles.voltar_button} onClick={() => navigate('/InicialAdministrador')}>Voltar
+              </button>
+            </div>
+    </div>
     </div>
     </>
   );

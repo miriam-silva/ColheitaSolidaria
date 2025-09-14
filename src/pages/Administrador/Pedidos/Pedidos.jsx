@@ -5,9 +5,7 @@ import { getAuth } from 'firebase/auth';
 import { db } from '../../../firebase/config';
 import styles from './Pedidos.module.css';
 import LoadingSpinner from '../../../components/LoadingSpinner/LoadingSpinner';
-import { gerarPDFDoacoes } from '../../../utils/GerarPDF/gerarPDFDoacoes';
 import { gerarPDFPedidos } from '../../../utils/GerarPDF/gerarPDFPedidos';
-import { gerarPDFUsuarios } from '../../../utils/GerarPDF/gerarPDFUsuarios';
 
 const Pedidos = () => {
   const navigate = useNavigate();
@@ -101,10 +99,6 @@ const Pedidos = () => {
       gerarPDFPedidos()
     }
 
-  const hanldeExportarPDFUsers = () =>{
-      gerarPDFUsuarios()
-    }
-
   return (
     <div>
       <nav className={`navbar navbar-expand-sm navbar-toggleable-sm navbar-light box-shadow mb-1 ${styles.navbarra}`}>
@@ -173,8 +167,6 @@ const Pedidos = () => {
         
         <div className={`${styles.exportar_container}`}>
           <button className={`btn btn-primary ${styles.exportar_button}`} onClick={hanldeExportarPDF}>Exportar PDF Pedidos</button>
-          
-          <button className={`btn btn-primary ${styles.exportar_button}`} onClick={hanldeExportarPDFUsers}>Exportar PDF Users</button>
         </div>
 
         <div className={styles.voltar_container}>

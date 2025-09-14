@@ -87,11 +87,12 @@ const Header = ({ role }) => {
             { to: "/InicialAdministrador", label: "Início" },
             { to: "/adm/Pedidos", label: "Pedidos" },
             { to: "/adm/Doacoes", label: "Doações" },
-            { to: "/adm/cadastrar-recebedor", label: "Cadastrar Recebedor" }
+            { to: "/adm/cadastrar-recebedor", label: "Cadastrar recebedor" },
+            { to: "/adm/usuarios", label: "Gerenciar usuários" }
         ],
         colaborador: [
-            { to: "/colaborador/Registrardoacao", label: "Registrar doações" },
             { to: "/InicialColaborador", label: "Minhas doações" },
+            { to: "/colaborador/Registrardoacao", label: "Registrar doações" },
             { to: "/PerfilColaborador", label: "Dados de perfil"}
 
         ],

@@ -85,7 +85,7 @@ const Doacoes = () => {
       </div>
       
       <div className="text-center mb-5">
-          <button className={`btn btn-primary ${styles.exportar_button}`} onClick={hanldeExportarPDF}>Exportar PDF</button>
+          <button className={`btn btn-primary ${styles.exportar_button}`} onClick={hanldeExportarPDF}>Exportar PDF Doações</button>
       </div>
 
       <div className={styles.voltar_container}>

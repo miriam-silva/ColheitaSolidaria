@@ -61,8 +61,9 @@ a {
 
 /* Seção Vermelha */
 .red_section {
-    background-color: #af1818e6;
+    background-color:  #a42525e6;
     padding: 40px;
+    padding-bottom: 100px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -70,16 +71,15 @@ a {
     border-radius: 25px 0 0 25px;
 }
 
-.red_section h1 {
-    font-size: 2.5rem;
-    margin-bottom: 20px;
-    color: var(--color-light);
+.h11 {
+    padding-top: 30px;
+    font-size: 32px !important;
 }
 
-.red_section p {
-    font-size: 1.2rem;
-    margin-bottom: 30px;
-    color: var(--color-light);
+.p2 {
+    font-size: 20px !important;
+    margin-top: 10px;
+    padding-bottom: 20px;
 }
 
 .red_section .btn_light {
@@ -99,6 +99,47 @@ a {
 .nav_link.active,
 .nav_link:hover {
     color: #495057
+}
+
+/* Aba */
+.tab_button {
+    padding: 10px 15px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    color: #555;
+    position: relative;
+    white-space: nowrap;
+}
+
+.tab_item {
+    margin-right: 10px;
+    margin-bottom: 5px;
+}
+
+.tabs_container {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border-bottom: 1px solid #ddd;
+    flex-wrap: wrap;
+}
+
+.tab_button.active {
+    color: #a42525;
+    font-weight: bold;
+}
+
+.tab_button.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background-color: #a42525;
 }
 
 /* Seção dos Formulários */
@@ -149,12 +190,33 @@ a {
     text-align: center;
 }
 
+/*Botão voltar*/
+.voltar_container {
+    width: 100%;
+    text-align: right;
+    margin: 20px 0;
+}
+
+.voltar_button {
+    bottom: 20px;
+    right: 20px;
+    background-color:  #276772;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s ease;
+  }
+
+.voltar_button:hover {
+    background-color: #1d4d55;
+}
 
 
 /* Responsividade */
 @media (min-width: 769px) {
-
-
     /* Caixa Principal */
     .main_box {
         background-color: #fff;
