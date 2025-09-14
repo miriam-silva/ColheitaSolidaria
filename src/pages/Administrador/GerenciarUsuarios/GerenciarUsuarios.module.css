@@ -6,3 +6,63 @@
   max-width: 1000px;
   margin: 2rem auto;
 }
+
+/*Barra de navegação*/
+.navbarra {
+    text-align: left;
+    background-color: #F6C973;
+    border: 5px solid #C1554C;
+    font-weight: bold;
+    font-size: 22px;
+    padding: 20px;
+}
+
+/*Botão voltar*/
+.voltar_container {
+    width: 100%;
+    text-align: right;
+    margin: 20px 0;
+}
+
+.voltar_button {
+    bottom: 20px;
+    right: 20px;
+    background-color:  #276772;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s ease;
+  }
+
+.voltar_button:hover {
+    background-color: #1d4d55;
+}
+
+/*Botão de exportar relatório*/
+.exportar_container{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 32px;
+}
+
+.exportar_button {
+    bottom: 20px;
+    right: 20px;
+    background-color:  #a50000;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s ease;
+  }
+
+.exportar_button:hover {
+    background-color: #870404;
+}

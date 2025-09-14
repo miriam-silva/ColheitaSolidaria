@@ -26,7 +26,6 @@ import Doacoes from "./pages/Administrador/Doacoes/Doacoes";
 import Pedidos from "./pages/Administrador/Pedidos/Pedidos";
 import CadastrarRecebedorAdm from "./pages/Administrador/CadastrarRecebedor/CadastrarRecebedorAdm";
 import GerenciarUsuarios from "./pages/Administrador/GerenciarUsuarios/GerenciarUsuarios";
-import HistoricoDoacoes from "./pages/Administrador/HistoricoDoacoes/HistoricoDoacoes";
 
 import InicialRecebedor from "./pages/Recebedor/InicialRecebedor/InicialRecebedor";
 import Minhassolicitacoes from "./pages/Recebedor/Minhassolicitacoes/Minhassolicitacoes";
@@ -85,9 +84,9 @@ function App() {
 
         <Route path="/adm/cadastrar-recebedor" element={
           <ProtectedRoute requiredRole="admin">
-            <AuthLayout>
+            <DefaultLayout2>
               <CadastrarRecebedorAdm />
-            </AuthLayout>
+            </DefaultLayout2>
           </ProtectedRoute>
         } />
 
@@ -95,14 +94,6 @@ function App() {
           <ProtectedRoute requiredRole="admin">
             <DefaultLayout2>
               <GerenciarUsuarios />
-            </DefaultLayout2>
-          </ProtectedRoute>
-        } />
-
-        <Route path="/adm/HistoricoDoacoes" element={
-          <ProtectedRoute requiredRole="admin">
-            <DefaultLayout2>
-              <HistoricoDoacoes />
             </DefaultLayout2>
           </ProtectedRoute>
         } />
