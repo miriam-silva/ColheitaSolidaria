@@ -36,10 +36,7 @@ import Registrardoacao from "./pages/Colaborador/Registrardoacao/Registrardoacao
 import Minhasdoacoes from "./pages/Colaborador/Minhasdoaçoes/Minhasdoacoes";
 import Doacaoregistrada from "./pages/Colaborador/Doacaoregistrada/Doacaoregistrada";
 
-import PerfilColaborador from './pages/Colaborador/PerfilColaborador/Perfil';
-import PerfilRecebedor from "./pages/Recebedor/PerfilRecebedor/Perfil";
-
-import Favoritos from "./pages/Favoritos/Favoritos";
+import Favoritos from "./pages/Recebedor/Favoritos/Favoritos";
 
 function App() {
   return (
@@ -156,10 +153,14 @@ function App() {
           </ProtectedRoute>
         } />
 
-        <Route path="/PerfilColaborador" element={<PerfilColaborador />} />
-        <Route path="/PerfilRecebedor" element={<PerfilRecebedor />} />
-        <Route path="/favoritos" element={<Favoritos />} />
-
+        <Route path="/recebedor/favoritos"  element={
+          <ProtectedRoute requiredRole="recebedor">
+            <DefaultLayout4>
+              <Favoritos />
+            </DefaultLayout4>
+          </ProtectedRoute>
+        } />
+        
         {/* Página de erro */}
         <Route path="*" element={<h1 className="text-center py-5">Página não encontrada</h1>} />
       </Routes>

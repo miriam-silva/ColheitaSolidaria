@@ -17,32 +17,6 @@
   margin-right: 20px;
 }
 
-.conteudo {
-  text-align: center;
-  flex: 1;
-}
-
-.nomedoacao {
-  font-size: 28px;
-  margin-bottom: 10px;
-}
-
-.descricaodoacao {
-  font-size: 18px;
-  font-weight: bold;
-  margin-bottom: 8px;
-}
-
-.validadedoacao {
-  font-size: 16px;
-  font-weight: bold;
-}
-
-.checkboxlabel {
-  margin-left: 20px;
-  transform: scale(2);
-}
-
 .placeholderImagem {
   width: 120px;
   height: 120px;
@@ -63,11 +37,39 @@
   color: #333;
 }
 
+.conteudo {
+  text-align: center;
+  flex: 1;
+}
+
+.nomedoacao {
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.descricaodoacao {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.validadedoacao {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
 .iconesAcao {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
   margin-top: 0.5rem;
+  gap: 5px;
+}
+
+.checkboxlabel {
+  transform: scale(2);
+  border-color: black;
 }
 
 .favButton {
@@ -75,39 +77,9 @@
   border: none;
   cursor: pointer;
   font-size: 1.4rem;
-  padding-left: 8px;
+  padding: 5px;
 }
 
-/* Exemplo de estilo para o botão de favoritos */
-
-.botaoFavoritos {
-  background-color: #a50000; /* Tom vermelho escuro, como o coração vermelho */
-  color: white;
-  border: none;
-  border-radius: 6px;
-  padding: 6px 12px;
-  font-size: 0.9rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  margin-top: 10px;
-  display: inline-block;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.15);
-}
-
-.botaoFavoritos:hover {
-  background-color: #cc0000; 
-  align-items: center;
-  
-  /* Um vermelho mais claro no hover */
-}
-
-.botaoFavoritos:focus {
-  outline: 2px solid #f08a8a;
-  outline-offset: 2px;
-  align-items: center;
-}
- 
- 
 .botaoRemover {
   background: transparent;
   border: none;
@@ -122,26 +94,104 @@
   color: #900;
 }
 
-.nutricional {
-  background-color: #fff7e6; /* amarelo claro suave */
-  border: 1px solid #ffd591; /* contorno suave */
+/* Botão de informações nutricionais */
+.botaoNutrientes {
+  border: 2px solid #276772;
+  cursor: pointer;
+}
+
+.botaoNutrientes:hover {
+  border: 2px solid #245d67;
+  color: white;
+  background-color: #276772;
+}
+
+/* Modal nutricional */
+.modalBodyResponsive {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.modalImagem {
+  width: 200px;
+  height: auto;
   border-radius: 12px;
-  padding: 12px 16px;
-  margin-top: 12px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-  font-size: 0.9rem;
-  color: #333;
+  border: 2px solid #ccc;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
-.nutricional h4 {
+.modalInfo {
+  flex: 1;
+  text-align: left;
+  overflow-y: auto;
+  max-height: 400px;
+  font-size: 17px;
+}
+
+.info100g {
+  font-size: 14px;
+  font-weight: 500;
+  color: #555;
   margin-bottom: 8px;
-  font-size: 1rem;
-  font-weight: 600;
-  color: #d48806; /* tom de laranja escuro */
+  text-align: center;
 }
 
-.nutricional ul {
-  list-style: none;
-  padding-left: 0;
+.transparente{
+    color: rgba(61, 61, 61, 0.971);
 }
 
+
+/* Responsividade */
+@media (max-width: 576px) {
+  .modalBodyResponsive {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .modalImagem {
+    width: 150px;
+    margin-bottom: 15px;
+  }
+
+  .modalInfo {
+    max-height: none;
+    width: 100%;
+  }
+}
+
+@media (max-width: 425px) {
+  .cardDoacao {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .imagemdoacao,
+  .placeholderImagem {
+    width: 100%;
+    max-width: 250px;
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+
+  .conteudo {
+    text-align: center;
+    width: 100%;
+  }
+
+  .iconesAcao {
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    gap: 15px;
+    margin-top: 10px;
+  }
+
+  .checkboxlabel {
+    transform: scale(2);
+  }
+
+  .favButton {
+    margin-top: -2% !important;;
+  }
+}

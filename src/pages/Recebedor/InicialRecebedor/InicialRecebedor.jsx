@@ -56,12 +56,6 @@ const InicialRecebedor = () => {
 
   return (
     <div>
-      <div className= "container-fluid mt-1">
-        <button className={styles.perfil_btn}
-        onClick={() => navigate('/PerfilRecebedor')}>
-         Dados de seu perfil
-        </button>
-       </div>
       <nav className={`navbar navbar-expand-sm navbar-toggleable-sm navbar-light box-shadow mb-1 ${styles.navbarra}`}>
         <div className="container-fluid">
           <h3 className={`${styles.arrumar}`}>Selecione uma doação que você gostaria de receber:</h3>

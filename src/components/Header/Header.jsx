@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "./Header.module.css";
 import logotp from "../../assets/logotp.png";
 import receptorImg from "../../assets/receptor.png";
@@ -15,6 +15,7 @@ const Header = ({ role }) => {
   const [fotoPerfil, setFotoPerfil] = useState(receptorImg);
   const [showPerfilModal, setShowPerfilModal] = useState(false);
   const { user, logout } = useAuthentication();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const buscarDados = async () => {
@@ -38,7 +39,7 @@ const Header = ({ role }) => {
   const handleClickSair = async () => {
     try {
       await logout();
-      window.location.href = "/";
+      window.location.href = "/"; 
     } catch (error) {
       console.error("Erro ao sair:", error.message);
       toast.error("Erro ao realizar logout. Tente novamente.");
@@ -97,6 +98,7 @@ const Header = ({ role }) => {
     recebedor: [
       { to: "/InicialRecebedor", label: "Doações" },
       { to: "/recebedor/Minhassolicitacoes", label: "Minhas solicitações" },
+      { to: "/recebedor/favoritos", label: "Minhas doações favoritas" },
       { label: "Dados do meu perfil", onClick: abrirPerfilModal },
     ],
   };
@@ -108,7 +110,13 @@ const Header = ({ role }) => {
       <nav className={`navbar navbar-expand-lg navbar-light ${styles.navbarCustom}`}>
         <div className="container-fluid">
           <Link className={styles.navbar_brand} to="/">
-            <img src={logotp} className={`${styles.logocolheita}`} alt="Colheita Solidária" width="300px" height="130px" />
+            <img
+              src={logotp}
+              className={`${styles.logocolheita}`}
+              alt="Colheita Solidária"
+              width="300px"
+              height="130px"
+            />
           </Link>
 
           <div className="ms-auto d-flex align-items-center">
@@ -141,7 +149,7 @@ const Header = ({ role }) => {
               <button
                 key={index}
                 className={`btn btn-outline w-100 ${styles.botoes}`}
-                onClick={link.onClick ? link.onClick : () => (window.location.href = link.to)}
+                onClick={link.onClick ? link.onClick : () => navigate(link.to)} 
               >
                 {link.label}
               </button>
@@ -150,7 +158,13 @@ const Header = ({ role }) => {
             <label htmlFor="fotoPerfilUpload" className={`btn btn-outline w-100 ${styles.botoes}`}>
               Alterar foto de perfil
             </label>
-            <input type="file" id="fotoPerfilUpload" accept="image/*" style={{ display: "none" }} onChange={handleUploadFotoPerfil} />
+            <input
+              type="file"
+              id="fotoPerfilUpload"
+              accept="image/*"
+              style={{ display: "none" }}
+              onChange={handleUploadFotoPerfil}
+            />
 
             <button className={`btn w-100 mt-3 ${styles.botoes2}`} onClick={handleClickSair}>
               Sair
@@ -174,7 +188,7 @@ const Header = ({ role }) => {
                 <button type="button" className="btn-close" onClick={fecharPerfilModal}></button>
               </div>
               <div className="modal-body text-center">
-                <img src={fotoPerfil} alt="Perfil" className="rounded-circle mb-2" width="200" style={{ height: 'auto' }}  />
+                <img src={fotoPerfil} alt="Perfil" className="rounded-circle mb-2" width="200" style={{ height: 'auto' }} />
                 <p className={styles.pdados}><strong>Nome:</strong> {nomeUsuario}</p>
                 <p className={styles.pdados}><strong>Email:</strong> {user?.email}</p>
                 <p className={styles.pdados}><strong>Tipo de Usuário:</strong> {role}</p>
