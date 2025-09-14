@@ -35,22 +35,30 @@
   justify-content: center;
 }
 
-.botaoVoltar {
-  background-color: #f68e20;
-  border: 2px solid #000;
-  color: #000;
-  padding: 10px 20px;
-  font-size: 1rem;
-  font-weight: 600;
-  border-radius: 8px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-  transition: background-color 0.2s ease;
+
+.container_botao {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 40px; 
 }
 
-.botaoVoltar:hover {
-  background-color: #f68e20;
+.voltar_button {
+    background-color: #276772;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s ease;
+}
+
+.voltar_button:hover {
+    background-color: #1d4d55;
+}
+
+.texto {
+  margin-top: 2%;
+    color: #a18654;
+    text-align: center;
 }

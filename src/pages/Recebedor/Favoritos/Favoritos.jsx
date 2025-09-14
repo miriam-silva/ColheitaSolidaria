@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import CardDoacao from '../../components/CardDoacao/CardDoacao'
+import CardDoacao from '../../../components/CardDoacao/CardDoacao'
 import styles from './Favoritos.module.css'
 import { useNavigate } from 'react-router-dom'
 import { FaArrowLeft } from 'react-icons/fa'
+
 const Favoritos = () => {
     const [favoritos, setFavoritos] = useState([])
     const navigate = useNavigate()
@@ -30,11 +31,8 @@ const Favoritos = () => {
         return () => window.removeEventListener('storage', atualizarFavoritos)
     }, [])
 
-
-
     return (
-
-        <div className={styles.container}>
+        <div>
             <nav className={`navbar navbar-expand-sm navbar-toggleable-sm navbar-light box-shadow mb-1 ${styles.navbarra}`}>
                 <div className="container-fluid d-flex align-items-center">
 
@@ -49,9 +47,9 @@ const Favoritos = () => {
 
             <div className={styles.lista}>
                 {favoritos.length > 0 ? (
-                    favoritos.map((doacao) => (
+                    favoritos.map((doacao, index) => (
                         <CardDoacao
-                            key={doacao.id}
+                            key={doacao.id || index}
                             id={doacao.id}
                             imagemUrl={doacao.imagemUrl}
                             nome={doacao.nome}
@@ -71,23 +69,16 @@ const Favoritos = () => {
                 )}
             </div>
 
-            <div className={styles.rodape}>
-                <button className={styles.botaoVoltar}
-                    onClick={voltar}
-                    title="Voltar para a página anterior"
+            <div className={styles.container_botao}>
+                <button
+                    className={styles.voltar_button}
+                    onClick={() => navigate("/InicialRecebedor")}
                 >
-                    <FaArrowLeft />
                     Voltar
                 </button>
             </div>
-
-
         </div>
-     
-
-
     )
-
 }
 
 export default Favoritos
