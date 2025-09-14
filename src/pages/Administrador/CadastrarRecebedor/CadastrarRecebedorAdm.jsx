@@ -7,7 +7,6 @@ import useAuthentication from "../../../hooks/useAuthentication";
 import { useNavigate } from 'react-router-dom';
 import LoadingSpinner from '../../../components/LoadingSpinner/LoadingSpinner';
 
-
 const CadastrarRecebedorAdm = () => {
   const [activeTab, setActiveTab] = useState('recebedor');
 
