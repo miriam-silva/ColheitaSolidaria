@@ -41,8 +41,6 @@ const Perfil = () => {
                Voltar
              </button>
               </div>
-
-    
         </div>
     )
 }
