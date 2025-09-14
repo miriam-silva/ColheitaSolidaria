@@ -300,9 +300,15 @@ export default function LoginPage() {
                 </div>
 
                 <div id="itens" className="text-center mt-3">
-                  <p className={styles.p}>
-                    Não possui um cadastro? <Link to="/cadastro">Clique aqui para criar um!</Link>
-                  </p>
+                  {activeTab === "recebedor" ? (
+                    <p className={styles.p}>
+                      Vá até a instituição X para criar o seu cadastro!
+                    </p>
+                  ) : (
+                    <p className={styles.p}>
+                      Não possui um cadastro? <Link to="/cadastro">Clique aqui para criar um!</Link>
+                    </p>
+                  )}
                   <p className={styles.p}>
                     Deseja voltar para a tela anterior? <Link to="/">Clique aqui!</Link>
                   </p>

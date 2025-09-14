@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './Registrardoacao.module.css';
 import { registrarDoacao } from '../../../hooks/useDoacoes';
@@ -12,6 +12,8 @@ const Registrardoacao = () => {
     const navigate = useNavigate();
     const { adicionarDoacao } = useDoacoes();
 
+    const fileInputRef = useRef(null);  
+
     const [produto, setProduto] = useState('');
     const [descricao, setDescricao] = useState('');
     const [quantidade, setQuantidade] = useState('');
@@ -21,12 +23,17 @@ const Registrardoacao = () => {
     const [imagemDoacao, setImagemDoacao] = useState(null);
     const [previewImagem, setPreviewImagem] = useState(null);
     const [loading, setLoading] = useState(false);
+    const [showPreviewModal, setShowPreviewModal] = useState(false);
 
     const limparCampos = () => {
         setProduto('');
         setDescricao('');
         setQuantidade('');
         setValidade('');
+        setImagemDoacao(null);
+        setPreviewImagem(null);
+        setShowPreviewModal(false);
+        if (fileInputRef.current) fileInputRef.current.value = '';
     };
 
     const handleCancel = () => {
@@ -38,102 +45,101 @@ const Registrardoacao = () => {
         const nomeArquivo = `${uid}_${Date.now()}`;
         const caminho = `imagens/${nomeArquivo}`;
 
-        const { error } = await supabase.storage.from('doacoes').upload(caminho, file)
+        const { error } = await supabase.storage.from('doacoes').upload(caminho, file);
         if (error) throw new Error('Erro ao enviar imagem.');
 
-        const {data} = supabase.storage.from('doacoes').getPublicUrl(caminho)
-
+        const { data } = supabase.storage.from('doacoes').getPublicUrl(caminho);
         return data.publicUrl;
     };
 
     const handleSubmit = async () => {
-        setLoading(true)
+        setLoading(true);
         try {
-        if (!produto.trim() || !descricao.trim() || !quantidade || !validade) {
-            setMensagem("Preencha os dados corretamente.");
-            setTipoMensagem("erro");
-            setLoading(false)
-            return;
-        }
+            if (!produto.trim() || !descricao.trim() || !quantidade || !validade) {
+                setMensagem("Preencha os dados corretamente.");
+                setTipoMensagem("erro");
+                setLoading(false);
+                return;
+            }
 
-        const hoje = new Date();
-        const dataValidade = new Date(validade);
-        hoje.setHours(0, 0, 0, 0);
-        dataValidade.setHours(0, 0, 0, 0);
+            const hoje = new Date();
+            const dataValidade = new Date(validade);
+            hoje.setHours(0, 0, 0, 0);
+            dataValidade.setHours(0, 0, 0, 0);
 
-        if (dataValidade < hoje) {
-            setMensagem("Não é possível registrar doação com validade passada.");
-            setTipoMensagem("erro");
-            setLoading(false)
-            return;
-        }
+            if (dataValidade < hoje) {
+                setMensagem("Não é possível registrar doação com validade passada.");
+                setTipoMensagem("erro");
+                setLoading(false);
+                return;
+            }
 
-        const auth = getAuth();
-        const user = auth.currentUser;
+            const auth = getAuth();
+            const user = auth.currentUser;
+            if (!user) {
+                setMensagem("Usuário não autenticado.");
+                setTipoMensagem("erro");
+                setLoading(false);
+                return;
+            }
 
-        if (!user) {
-            setMensagem("Usuário não autenticado.");
-            setTipoMensagem("erro");
-            return;
-        }
+            if (!imagemDoacao) {
+                setMensagem("Anexe uma imagem da doação.");
+                setTipoMensagem("erro");
+                setLoading(false);
+                return;
+            }
 
-        if (!imagemDoacao) {
-            setMensagem("Anexe uma imagem da doação.");
-            setTipoMensagem("erro");
-            setLoading(false)
-            return;
-        }
+            let imagemUrl = "";
+            try {
+                imagemUrl = await uploadImagemSupabase(imagemDoacao, user.uid);
+            } catch (error) {
+                setMensagem("Erro ao enviar imagem.");
+                setTipoMensagem("erro");
+                setLoading(false);
+                return;
+            }
 
-        let imagemUrl = "";
-        try {
-            imagemUrl = await uploadImagemSupabase(imagemDoacao, user.uid);
-        } catch (error) {
-            setMensagem("Erro ao enviar imagem.");
-            setTipoMensagem("erro");
-            setLoading(false)
-            return;
-        }
-
-
-        const resultado = await registrarDoacao({
-            produto,
-            descricao,
-            quantidade,
-            validade: Timestamp.fromDate(new Date(validade)),
-            colaboradorId: user.uid,
-            imagemDoacao: imagemUrl
-        });
-
-        if (resultado.sucesso) {
-            adicionarDoacao({
+            const resultado = await registrarDoacao({
                 produto,
                 descricao,
                 quantidade,
-                validade,
-                dataRegistro: Timestamp.now(),
+                validade: Timestamp.fromDate(new Date(validade)),
+                colaboradorId: user.uid,
                 imagemDoacao: imagemUrl
             });
 
-            setMensagem("Doação registrada com sucesso!");
-            setTipoMensagem("sucesso");
-            limparCampos();
-            setTimeout(() => {
-                navigate('/colaborador/Doacaoregistrada');
-            }, 2000);
-        } else {
-            setMensagem("Erro ao registrar doação. Tente novamente.");
+            if (resultado.sucesso) {
+                adicionarDoacao({
+                    produto,
+                    descricao,
+                    quantidade,
+                    validade,
+                    dataRegistro: Timestamp.now(),
+                    imagemDoacao: imagemUrl
+                });
+
+                setMensagem("Doação registrada com sucesso!");
+                setTipoMensagem("sucesso");
+                limparCampos();
+                setTimeout(() => {
+                    navigate('/colaborador/Doacaoregistrada');
+                }, 2000);
+            } else {
+                setMensagem("Erro ao registrar doação. Tente novamente.");
+                setTipoMensagem("erro");
+                setLoading(false);
+            }
+
+        } catch (error) {
+            console.error("Erro no registro:", error);
+            setMensagem("Erro inesperado ao registrar doação");
             setTipoMensagem("erro");
-            setLoading(false)
+            setLoading(false);
+        } finally {
+            setLoading(false);
         }
-    } catch (error) {
-        console.error("Erro no registro:", error);
-        setMensagem("Erro inesperado ao registrar doação");
-        setTipoMensagem("erro");
-        setLoading(false)
-    } finally {
-        setLoading(false);
-    }
-};
+    };
 
     return (
         <div>
@@ -159,9 +165,11 @@ const Registrardoacao = () => {
                     id="productName"
                     placeholder="Nome"
                     value={produto}
-                    onChange={(e) => setProduto(e.target.value)} disabled={loading}
+                    onChange={(e) => setProduto(e.target.value)}
+                    disabled={loading}
                 />
             </div>
+
             <div className="mb-3">
                 <label htmlFor="productDescription" className={`form-label ${styles.texto}`}>Descrição do produto:</label>
                 <textarea
@@ -170,9 +178,11 @@ const Registrardoacao = () => {
                     rows="3"
                     placeholder="Descrição"
                     value={descricao}
-                    onChange={(e) => setDescricao(e.target.value)} disabled={loading}
+                    onChange={(e) => setDescricao(e.target.value)}
+                    disabled={loading}
                 />
             </div>
+
             <div className="mb-3">
                 <label htmlFor="productQuantity" className={`form-label ${styles.texto}`}>Quantidade:</label>
                 <input
@@ -181,20 +191,23 @@ const Registrardoacao = () => {
                     id="productQuantity"
                     placeholder="Quantidade"
                     value={quantidade}
-                    onChange={(e) => setQuantidade(e.target.value)} disabled={loading}
+                    onChange={(e) => setQuantidade(e.target.value)}
+                    disabled={loading}
                 />
             </div>
+
             <div className="mb-3">
                 <label htmlFor="productExpiry" className={`form-label ${styles.texto}`}>Validade:</label>
                 <input
                     type="date"
                     className="form-control"
                     id="productExpiry"
-                    placeholder="Validade"
                     value={validade}
-                    onChange={(e) => setValidade(e.target.value)} disabled={loading}
+                    onChange={(e) => setValidade(e.target.value)}
+                    disabled={loading}
                 />
             </div>
+
             <div className="mb-3">
                 <label htmlFor="imagemDoacao" className={`form-label ${styles.texto}`}>Foto da doação:</label>
                 <input
@@ -202,30 +215,63 @@ const Registrardoacao = () => {
                     className="form-control"
                     id="imagemDoacao"
                     accept="image/*"
+                    ref={fileInputRef}
                     onChange={(e) => {
-                    const file = e.target.files[0];
-                    if (file) {
-                        setImagemDoacao(file);
-                        setPreviewImagem(URL.createObjectURL(file));
-                    }
-}}
+                        const file = e.target.files[0];
+                        if (file) {
+                            setImagemDoacao(file);
+                            setPreviewImagem(URL.createObjectURL(file));
+                            setShowPreviewModal(true);
+                        }
+                    }}
                     disabled={loading}
-
                 />
-                
-  {}
-  {previewImagem && (
-    <div className="text-center my-3">
-      <p className={`${styles.texto}`}>Prévia da imagem:</p>
-      <img
-        src={previewImagem}
-        alt="Prévia da doação"
-        style={{ maxWidth: "300px", borderRadius: "8px" }}
-      />
-    </div>
-  )}
             </div>
 
+            {/* Modal de pré-visualização */}
+            {showPreviewModal && (
+                <div style={{
+                    position: 'fixed',
+                    top: 0, left: 0, right: 0, bottom: 0,
+                    backgroundColor: 'rgba(0,0,0,0.7)',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    zIndex: 9999
+                }}>
+                    <div style={{
+                        background: '#fff',
+                        padding: '20px',
+                        borderRadius: '10px',
+                        textAlign: 'center',
+                        maxWidth: '90%',
+                        maxHeight: '90%',
+                        overflow: 'auto',
+                        position: 'relative'
+                    }}>
+                        <h5 className={styles.texto2}>Confirme a imagem da doação</h5>
+                        <img
+                            src={previewImagem}
+                            alt="Prévia da doação"
+                            style={{ maxWidth: '80%', maxHeight: '70vh', borderRadius: '8px' }}
+                        />
+                        <div style={{ marginTop: '15px', display: 'flex', justifyContent: 'center', gap: '10px' }}>
+                            <button className={styles.approve_btn} onClick={() => setShowPreviewModal(false)}>Manter</button>
+                            <button
+                                className={styles.postpone_btn}
+                                onClick={() => {
+                                    setImagemDoacao(null);
+                                    setPreviewImagem(null);
+                                    setShowPreviewModal(false);
+                                    if (fileInputRef.current) fileInputRef.current.value = '';
+                                }}
+                            >
+                                Remover
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
 
             {loading && (
                 <div className="d-flex justify-content-center my-3">
