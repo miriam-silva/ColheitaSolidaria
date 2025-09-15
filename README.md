@@ -8,7 +8,7 @@
 
 ## 📚 Sobre o Projeto
 
-O projeto foi idealizado como parte do 3º semestre do curso de Desenvolvimento de Software Multiplataforma da Fatec Matão.
+O projeto foi idealizado como parte do 4º semestre do curso de Desenvolvimento de Software Multiplataforma da Fatec Matão.
 
 Surgiu da necessidade de conectar quem **tem excedente de alimentos (agricultores)** com quem **precisa deles (comunidades vulneráveis)**. A proposta é criar uma ponte segura e eficaz entre doadores e recebedores, com uma gestão simples e transparente.
 
@@ -49,19 +49,9 @@ Surgiu da necessidade de conectar quem **tem excedente de alimentos (agricultore
 
 ### Não Incluído (por enquanto):
 
-- Integração com APIs externas de logística
-- Notificações em tempo real
-- Integração com sistema de avaliação de impacto
-
 ---
 
 ## 📦 Entregáveis
-
-- Protótipo interativo no Figma
-- Sistema funcional online (link de homologação: [https://colheitasolidaria-teste2.web.app](https://colheitasolidaria-teste2.web.app/))
-- Documentação de gerenciamento do projeto
-- Análise heurística aplicada
-- Código-fonte versionado no GitHub
 
 ---
 
@@ -80,8 +70,6 @@ Surgiu da necessidade de conectar quem **tem excedente de alimentos (agricultore
 ## 👥 Equipe
 
 - **Miriam Silva Corrêa** – Código React, Firebase e Figma
-- **Ana Julia Tsubouchi de Oliveira** – Documentação, protótipos e Github
-- **Eloisa Rocha da Silva** – Documentação, Figma e código React
 - **Isadora Georgete** – Código React e documentação
 - **Caroline Oliveira Silva** – Código React e documentação
 
@@ -102,27 +90,11 @@ Surgiu da necessidade de conectar quem **tem excedente de alimentos (agricultore
 
 ## 📈 Critérios de Sucesso
 
-- Todas as funcionalidades básicas implementadas e funcionando
-- Login com AppCheck funcionando corretamente
-- Cadastro e solicitação de doações sem erros
-- Código-fonte completo e documentado
-- Análise heurística entregue
-- Documentação técnica e de gestão organizada
 
 ---
 
 ## 🗓 Cronograma (resumo)
 
-| Etapa | Status |
-| --- | --- |
-| Planejamento e protótipo | ✅ Concluído |
-| Estrutura do Front-End (React) | ✅ Concluído |
-| Sistema de Login + AppCheck | ✅ Concluído |
-| Upload de Imagens | ✅ Concluído |
-| Integração Supabase Storage | ✅ Concluído |
-| Análise heurística | 🔄 Em andamento |
-| Testes e ajustes finais | 🔄 Em andamento |
-| Documentação final | 🔄 Em andamento |
 
 ---
 
@@ -131,22 +103,6 @@ Surgiu da necessidade de conectar quem **tem excedente de alimentos (agricultore
 - 👨‍🌾 *Como agricultor*, quero registrar doações (tipo, quantidade, validade) para que recebedores possam solicitar.
 - 🧍‍♀️ *Como recebedor*, quero visualizar e filtrar doações disponíveis para escolher o que preciso.
 - 🧑‍💼 *Como administrador*, quero gerar relatórios de doações para acompanhar o desempenho do sistema.
-
----
-
-## 🧠 Desafios e Aprendizados
-
-- Superamos desafios técnicos ao integrar Firebase e Supabase.
-- Aprendemos a melhorar a gestão de tarefas com Notion e reuniões semanais.
-- Desenvolvemos maior autonomia e colaboração em equipe.
-- Refletimos sobre a importância da entrega contínua e dos prazos.
-
----
-
-## 🧐 Reflexão Final
-
-> "A principal dificuldade foi cumprir prazos, especialmente na fase de execução. Ainda assim, adquirimos aprendizado valioso sobre organização, colaboração e uso de ferramentas modernas como AppCheck, Firebase e Supabase."
-> 
 
 ---
 
@@ -162,4 +118,4 @@ Surgiu da necessidade de conectar quem **tem excedente de alimentos (agricultore
 
 ---
 
-Feito por Ana Júlia, Caroline Silva, Eloisa Silva, Isadora Georgete e Miriam Silva, estudantes da Fatec Matão — 3º Semestre DSM
+Feito por Caroline Silva, Isadora Georgete e Miriam Silva, estudantes da Fatec Matão — 3º Semestre DSM
