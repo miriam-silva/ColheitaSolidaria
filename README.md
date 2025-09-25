@@ -118,4 +118,4 @@ Surgiu da necessidade de conectar quem **tem excedente de alimentos (agricultore
 
 ---
 
-Feito por Caroline Silva, Isadora Georgete e Miriam Silva, estudantes da Fatec Matão — 3º Semestre DSM
+Feito por Caroline Silva, Isadora Georgete e Miriam Silva, estudantes da Fatec Matão — 4º Semestre DSM
