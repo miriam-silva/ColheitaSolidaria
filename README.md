@@ -96,5 +96,5 @@ Toda comunicação é feita via HTTP (REST) com `fetch` e hooks personalizados (
 
 ## 🌐 Links
 
-- 💻 **Frontend (Firebase Hosting):** [Acessar Plataforma](colheitasolidaria-teste2.web.app)  
+- 💻 **Frontend (Firebase Hosting):** [Acessar Plataforma](https://github.com/miriam-silva/ColheitaSolidaria)  
 - ⚙️ **Backend (API .NET Core):** [GitHub](https://github.com/isageorgete/Back_ColheitaSolidaria/)
