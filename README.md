@@ -1,121 +1,100 @@
-# ReadMe.md - Colheita Solidária
+# 🥕 Colheita Solidária – Frontend
 
-# 🥕 Colheita Solidária
+O **Colheita Solidária** é uma plataforma web criada para facilitar a doação de alimentos excedentes por agricultores a pessoas em situação de vulnerabilidade social.
 
-**Colheita Solidária** é uma plataforma digital criada para facilitar a doação de alimentos excedentes por agricultores para pessoas em situação de vulnerabilidade social. O objetivo é reduzir o desperdício, promover a solidariedade e gerar impacto positivo por meio da redistribuição de alimentos.
+O frontend foi desenvolvido em **React.js**, com integração à **API em .NET Core** e serviços do **Firebase** e **Supabase**.
 
 ---
 
 ## 📚 Sobre o Projeto
 
-O projeto foi idealizado como parte do 4º semestre do curso de Desenvolvimento de Software Multiplataforma da Fatec Matão.
-
-Surgiu da necessidade de conectar quem **tem excedente de alimentos (agricultores)** com quem **precisa deles (comunidades vulneráveis)**. A proposta é criar uma ponte segura e eficaz entre doadores e recebedores, com uma gestão simples e transparente.
+Projeto acadêmico desenvolvido no 4º semestre do curso de DSM – Fatec Matão, com o propósito de promover solidariedade e sustentabilidade através da redistribuição de alimentos.
 
 ---
 
 ## 🎯 Objetivos (modelo SMART)
 
-- **Específico (S):** Criar uma plataforma gratuita que conecte agricultores com pessoas em situação de vulnerabilidade para doações de alimentos.
-- **Mensurável (M):** Objetivo atingido ao concluir funcionalidades como login, cadastro de usuários, registro e solicitação de doações, análise e relatórios.
-- **Atingível (A):** A equipe possui o conhecimento técnico necessário e divide as tarefas de forma colaborativa.
-- **Relevante (R):** Combate o desperdício e a fome por meio de uma solução digital prática e acessível.
-- **Temporal (T):** Conclusão prevista até o fim do 1º semestre de 2025.
+- **S**: Conectar agricultores e recebedores para doação de alimentos.  
+- **M**: Meta alcançada com login, cadastro, registro e listagem de doações.  
+- **A**: A equipe domina as tecnologias usadas.  
+- **R**: Reduz desperdício e fome com tecnologia acessível.  
+- **T**: Conclusão prevista para o 1º semestre de 2025.
 
 ---
 
 ## 🚀 Funcionalidades Principais
 
-- ✅ Login com segurança usando Firebase AppCheck
-- ✅ Cadastro de Agricultores, Colaboradores, Recebedores e Administradores
-- ✅ Registro de doações com imagem e validade
-- ✅ Visualização e solicitação de doações pelos recebedores
-- ✅ Painel administrativo com controle de usuários e doações
-- ✅ Integração com Firebase Storage e Supabase Storage
-- ✅ Responsividade e navegação intuitiva
+- ✅ Login e autenticação (Firebase AppCheck e JWT da API)  
+- ✅ Cadastro de Agricultores, Recebedores e Administradores  
+- ✅ Registro de doações com imagem, validade e quantidade  
+- ✅ Visualização e solicitação de doações (componente `CardDoacao`)  
+- ✅ Painel administrativo para controle de doações  
+- ✅ Integração com API em .NET Core (backend)  
+- ✅ Upload de imagens no Supabase  
+- ✅ Layout responsivo e intuitivo
 
 ---
 
-## 📝 Escopo
+## 🧠 Integração com o Backend
 
-### Incluído:
-
-- Sistema de autenticação com Firebase
-- Frontend em React com consumo de dados via hooks
-- Firebase Firestore e Supabase como banco de dados
-- Upload de imagens no Firebase/Supabase Storage
-- Protótipos e validação visual no Figma
-- Deploy no Firebase
-
-### Não Incluído (por enquanto):
-
----
-
-## 📦 Entregáveis
+O frontend consome a **API Colheita Solidária**, que fornece os dados e controla autenticação, usuários e doações.  
+Toda comunicação é feita via HTTP (REST) com `fetch` e hooks personalizados (`useRegistrarDoacao`, `useListarDoacoes`, etc.).
 
 ---
 
 ## 🛠 Tecnologias Utilizadas
 
-- **Frontend:** React.js, CSS, Bootstrap
-- **Backend:** C#
-- **Banco de Dados:** Firebase Firestore, Supabase
-- **Hospedagem/Deploy:** Firebase Hosting
-- **Design/Protótipo:** Figma
-- **Controle de versão:** Git + GitHub
-- **Organização:** Notion, Google Drive
+- **Linguagem:** JavaScript (React.js)  
+- **Banco de Dados:** Firebase Firestore + Supabase  
+- **Autenticação:** Firebase Auth + JWT (via API)  
+- **Armazenamento:** Firebase Storage / Supabase Storage  
+- **Design:** Figma  
+- **Hospedagem:** Firebase Hosting  
+- **Controle de Versão:** Git + GitHub  
+- **Organização:** Notion e Google Drive
+
+---
+
+## 🧩 Estrutura do Projeto
+
+- **pages/** – Páginas principais (Login, Cadastro, InicialRecebedor, etc.)  
+- **components/** – Componentes reutilizáveis (`CardDoacao`, `Navbar`, etc.)  
+- **hooks/** – Hooks personalizados para operações com API  
+- **services/** – Conexão com backend e Firebase
 
 ---
 
 ## 👥 Equipe
 
-- **Miriam Silva Corrêa** – Código React, Firebase e Figma
-- **Isadora Georgete** – Código React e documentação
-- **Caroline Oliveira Silva** – Código React e documentação
+- Miriam Silva Corrêa – Código React, Firebase, integração com API e Figma  
+- Isadora Georgete – Código Backend(c#) e documentação  
+- Caroline Oliveira Silva – Código Backend(c#) e documentação
 
 ---
 
 ## 💵 Orçamento Estimado
 
-| Item | Custo estimado |
-| --- | --- |
-| Desenvolvimento e manutenção | R$ 10.000,00 |
-| Hospedagem e infraestrutura | R$ 1.000,00 |
-| Divulgação e marketing | R$ 2.000,00 |
-| Capacitação e formação da equipe | R$ 5.000,00 |
-| Logística e armazenamento físico | R$ 6.000,00 |
-| **Total estimado:** | **R$ 24.000,00** |
+| Item                             | Custo estimado |
+|---------------------------------|----------------|
+| Desenvolvimento e manutenção     | R$ 10.000,00   |
+| Hospedagem e infraestrutura      | R$ 1.000,00    |
+| Divulgação e marketing           | R$ 2.000,00    |
+| Capacitação e formação da equipe | R$ 5.000,00    |
+| Logística e armazenamento físico | R$ 6.000,00    |
+| **Total estimado:**              | **R$ 24.000,00** |
 
 ---
 
 ## 📈 Critérios de Sucesso
 
+- Integração total com o backend  
+- Interface intuitiva e responsiva  
+- Usuários cadastrando e solicitando doações com sucesso  
+- Sistema estável e acessível
 
 ---
 
-## 🗓 Cronograma (resumo)
+## 🌐 Links
 
-
----
-
-## 🧪 Histórias de Usuário
-
-- 👨‍🌾 *Como agricultor*, quero registrar doações (tipo, quantidade, validade) para que recebedores possam solicitar.
-- 🧍‍♀️ *Como recebedor*, quero visualizar e filtrar doações disponíveis para escolher o que preciso.
-- 🧑‍💼 *Como administrador*, quero gerar relatórios de doações para acompanhar o desempenho do sistema.
-
----
-
-## 🌐 Link do Projeto
-
-👉 [Acesse o Colheita Solidária aqui](https://colheitasolidaria-teste2.web.app/)
-
----
-
-## 📂 Repositório GitHub
-
-🔗  [Repositório do GitHub](https://github.com/miriam-silva/ColheitaSolidaria)
-
----
-
-Feito por Caroline Silva, Isadora Georgete e Miriam Silva, estudantes da Fatec Matão — 4º Semestre DSM
+- 💻 **Frontend (Firebase Hosting):** [Acessar Plataforma](colheitasolidaria-teste2.web.app)  
+- ⚙️ **Backend (API .NET Core):** [GitHub](https://github.com/isageorgete/Back_ColheitaSolidaria/)
