@@ -39,7 +39,7 @@ const Header = ({ role }) => {
   const handleClickSair = async () => {
     try {
       await logout();
-      window.location.href = "/"; 
+      window.location.href = "/";
     } catch (error) {
       console.error("Erro ao sair:", error.message);
       toast.error("Erro ao realizar logout. Tente novamente.");
@@ -149,7 +149,7 @@ const Header = ({ role }) => {
               <button
                 key={index}
                 className={`btn btn-outline w-100 ${styles.botoes}`}
-                onClick={link.onClick ? link.onClick : () => navigate(link.to)} 
+                onClick={link.onClick ? link.onClick : () => navigate(link.to)}
               >
                 {link.label}
               </button>
@@ -193,8 +193,19 @@ const Header = ({ role }) => {
                 <p className={styles.pdados}><strong>Email:</strong> {user?.email}</p>
                 <p className={styles.pdados}><strong>Tipo de Usuário:</strong> {role}</p>
               </div>
-              <div className="modal-footer">
-                <button className="btn btn-secondary" onClick={fecharPerfilModal}>Fechar</button>
+              <div className="modal-footer d-flex justify-content-between">
+              <button className="btn btn-outline-primary" onClick={() => { fecharPerfilModal();
+                  let rotaAtualizar = "/colaborador/AtualizarDados"; 
+                  if (role === "admin") rotaAtualizar = "/adm/AtualizarDados";
+                  else if (role === "recebedor") rotaAtualizar = "/recebedor/AtualizarDados";
+                  navigate(rotaAtualizar);
+                   }}>
+                   Atualizar dados
+              </button>
+
+                <button className="btn btn-secondary" onClick={fecharPerfilModal}>
+                  Fechar
+                </button>
               </div>
             </div>
           </div>
