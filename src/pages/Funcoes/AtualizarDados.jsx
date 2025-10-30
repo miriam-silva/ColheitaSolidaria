@@ -27,7 +27,7 @@ const AtualizarDados = () => {
           const data = docSnap.data();
           setFormData(data);
           setOriginalData(data);
-          setRole(data.role); // pega a role do usuário
+          setRole(data.role); 
         }
       }
     };
@@ -70,7 +70,7 @@ const AtualizarDados = () => {
       toast.error("Erro ao atualizar os dados. Tente novamente.");
     }
   };
-  
+
   const handleCancelar = () => {
     const confirmacao = window.confirm(
       "Tem certeza que quer cancelar a sua atualização de dados?"
