@@ -37,6 +37,8 @@ import Doacaoregistrada from "./pages/Colaborador/Doacaoregistrada/Doacaoregistr
 
 import Favoritos from "./pages/Recebedor/Favoritos/Favoritos";
 
+import AtualizarDados from "./pages/Funcoes/AtualizarDados";
+
 function App() {
   return (
     <DoacoesProvider>
@@ -93,6 +95,17 @@ function App() {
           </ProtectedRoute>
         } />
 
+        <Route
+          path="/adm/AtualizarDados"
+          element={
+            <ProtectedRoute requiredRole="admin">
+              <DefaultLayout2>
+                <AtualizarDados />
+              </DefaultLayout2>
+            </ProtectedRoute>
+          }
+        />
+
         {/* Colaborador */}
         <Route path="/InicialColaborador" element={
           <ProtectedRoute requiredRole="colaborador">
@@ -126,6 +139,14 @@ function App() {
           </ProtectedRoute>
         } />
 
+        <Route path="/colaborador/AtualizarDados" element={
+          <ProtectedRoute requiredRole="colaborador">
+            <DefaultLayout3>
+              <AtualizarDados />
+            </DefaultLayout3>
+          </ProtectedRoute>
+        } />
+
         {/* Recebedor */}
         <Route path="/InicialRecebedor" element={
           <ProtectedRoute requiredRole="recebedor">
@@ -151,14 +172,25 @@ function App() {
           </ProtectedRoute>
         } />
 
-        <Route path="/recebedor/favoritos"  element={
+        <Route path="/recebedor/favoritos" element={
           <ProtectedRoute requiredRole="recebedor">
             <DefaultLayout4>
               <Favoritos />
             </DefaultLayout4>
           </ProtectedRoute>
         } />
-        
+
+        <Route
+          path="/recebedor/AtualizarDados"
+          element={
+            <ProtectedRoute requiredRole="recebedor">
+              <DefaultLayout4>
+                <AtualizarDados />
+              </DefaultLayout4>
+            </ProtectedRoute>
+          }
+        />
+
         {/* Página de erro */}
         <Route path="*" element={<h1 className="text-center py-5">Página não encontrada</h1>} />
       </Routes>
