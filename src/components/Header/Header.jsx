@@ -194,7 +194,7 @@ const Header = ({ role }) => {
                 <p className={styles.pdados}><strong>Tipo de Usuário:</strong> {role}</p>
               </div>
               <div className="modal-footer d-flex justify-content-between">
-              <button className="btn btn-outline-primary" onClick={() => { fecharPerfilModal();
+              <button className={`btn ${styles.botoes2}`} onClick={() => { fecharPerfilModal();
                   let rotaAtualizar = "/colaborador/AtualizarDados"; 
                   if (role === "admin") rotaAtualizar = "/adm/AtualizarDados";
                   else if (role === "recebedor") rotaAtualizar = "/recebedor/AtualizarDados";
