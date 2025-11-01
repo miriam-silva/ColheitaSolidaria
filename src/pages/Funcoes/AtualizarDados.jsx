@@ -4,6 +4,7 @@ import { db } from "../../firebase/config";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import useAuthentication from "../../hooks/useAuthentication";
+import styles from "./AtualizarDados.module.css"; 
 
 const AtualizarDados = () => {
   const { user } = useAuthentication();
@@ -40,31 +41,28 @@ const AtualizarDados = () => {
 
   const handleSalvar = async (e) => {
     e.preventDefault();
-  
-    // Verifica se houve alguma alteração
+
     const houveMudanca = Object.keys(formData).some(
       (key) => formData[key] !== originalData[key]
     );
-  
+
     if (!houveMudanca) {
       toast.warning("Nenhum dado foi alterado!");
       return;
     }
-  
+
     try {
       await updateDoc(doc(db, "users", user.uid), formData);
-      setOriginalData(formData); // atualiza estado local
+      setOriginalData(formData);
       toast.success("Dados atualizados com sucesso!");
-  
-      // Define rota inicial conforme role
+
       let rotaInicial = "/";
       if (role === "admin") rotaInicial = "/InicialAdministrador";
       else if (role === "colaborador") rotaInicial = "/InicialColaborador";
       else if (role === "recebedor") rotaInicial = "/InicialRecebedor";
-  
-      // Redireciona e atualiza a página
-      navigate(rotaInicial, { replace: true }); // navega para a página inicial
-      window.location.reload(); // força reload para pegar os dados atualizados
+
+      navigate(rotaInicial, { replace: true });
+      window.location.reload();
     } catch (error) {
       console.error("Erro ao atualizar dados:", error.message);
       toast.error("Erro ao atualizar os dados. Tente novamente.");
@@ -81,11 +79,16 @@ const AtualizarDados = () => {
   };
 
   return (
-    <div className="container mt-5" style={{ maxWidth: "600px" }}>
-      <h2 className="text-center mb-4">Atualizar Dados</h2>
-      <form onSubmit={handleSalvar} className="d-flex flex-column gap-3">
+    <div className={styles.container}>
+      <nav className={`navbar navbar-expand-sm navbar-toggleable-sm navbar-light box-shadow mb-1 ${styles.navbarra}`}>
         <div>
-          <label className="form-label">Nome</label>
+          <h3 className={styles.arrumar}>Atualizar Dados</h3>
+        </div>
+      </nav>
+
+      <form onSubmit={handleSalvar} className="d-flex flex-column gap-3">
+        <div className="mb-3">
+          <label className={`form-label ${styles.texto} ${styles.arrumando}`}>Nome</label>
           <input
             type="text"
             name="nome"
@@ -95,8 +98,8 @@ const AtualizarDados = () => {
           />
         </div>
 
-        <div>
-          <label className="form-label">Email</label>
+        <div className="mb-3">
+          <label className={`form-label ${styles.texto} ${styles.arrumaremail}`}>Email</label>
           <input
             type="email"
             name="email"
@@ -106,8 +109,8 @@ const AtualizarDados = () => {
           />
         </div>
 
-        <div>
-          <label className="form-label">Telefone</label>
+        <div className="mb-3">
+          <label className={`form-label ${styles.texto}`}>Telefone</label>
           <input
             type="tel"
             name="telefone"
@@ -117,8 +120,8 @@ const AtualizarDados = () => {
           />
         </div>
 
-        <div>
-          <label className="form-label">Data de Nascimento</label>
+        <div className="mb-3">
+          <label className={`form-label ${styles.texto}`}>Data de Nascimento</label>
           <input
             type="date"
             name="dataNascimento"
@@ -128,10 +131,9 @@ const AtualizarDados = () => {
           />
         </div>
 
-        {/* Campo CNPJ apenas para admin */}
         {role === "admin" && (
-          <div>
-            <label className="form-label">CNPJ</label>
+          <div className="mb-3">
+            <label className={`form-label ${styles.texto}`}>CNPJ</label>
             <input
               type="text"
               name="cnpj"
@@ -142,12 +144,11 @@ const AtualizarDados = () => {
           </div>
         )}
 
-        <div className="d-flex justify-content-between mt-4">
-          <button type="button" className="btn btn-secondary" onClick={handleCancelar}>
+        <div className="button-group">
+          <button type="button" className={styles.postpone_btn} onClick={handleCancelar}>
             Cancelar
           </button>
-
-          <button type="submit" className="btn btn-success">
+          <button type="submit" className={styles.approve_btn}>
             Salvar alterações
           </button>
         </div>
