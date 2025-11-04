@@ -50,146 +50,95 @@ function App() {
         <Route path="/como-ajudar" element={<DefaultLayout><Comoajudar /></DefaultLayout>} />
         <Route path="/contato" element={<DefaultLayout><Contato /></DefaultLayout>} />
 
-        {/* Páginas sem Navbar e Footer */}
+        {/* Login e cadastro (abertos) */}
         <Route path="/login" element={<AuthLayout><Login /></AuthLayout>} />
         <Route path="/cadastro" element={<AuthLayout><Cadastro /></AuthLayout>} />
 
-        {/* Admin */}
+        {/* Rotas Admin */}
         <Route path="/InicialAdministrador" element={
           <ProtectedRoute requiredRole="admin">
-            <DefaultLayout2>
-              <InicialAdministrador />
-            </DefaultLayout2>
+            <DefaultLayout2><InicialAdministrador /></DefaultLayout2>
           </ProtectedRoute>
         } />
-
         <Route path="/adm/Doacoes" element={
           <ProtectedRoute requiredRole="admin">
-            <DefaultLayout2>
-              <Doacoes />
-            </DefaultLayout2>
+            <DefaultLayout2><Doacoes /></DefaultLayout2>
           </ProtectedRoute>
         } />
-
         <Route path="/adm/Pedidos" element={
           <ProtectedRoute requiredRole="admin">
-            <DefaultLayout2>
-              <Pedidos />
-            </DefaultLayout2>
+            <DefaultLayout2><Pedidos /></DefaultLayout2>
           </ProtectedRoute>
         } />
-
         <Route path="/adm/cadastrar-recebedor" element={
           <ProtectedRoute requiredRole="admin">
-            <DefaultLayout2>
-              <CadastrarRecebedorAdm />
-            </DefaultLayout2>
+            <DefaultLayout2><CadastrarRecebedorAdm /></DefaultLayout2>
           </ProtectedRoute>
         } />
-
         <Route path="/adm/usuarios" element={
           <ProtectedRoute requiredRole="admin">
-            <DefaultLayout2>
-              <GerenciarUsuarios />
-            </DefaultLayout2>
+            <DefaultLayout2><GerenciarUsuarios /></DefaultLayout2>
+          </ProtectedRoute>
+        } />
+        <Route path="/adm/AtualizarDados" element={
+          <ProtectedRoute requiredRole="admin">
+            <DefaultLayout2><AtualizarDados /></DefaultLayout2>
           </ProtectedRoute>
         } />
 
-        <Route
-          path="/adm/AtualizarDados"
-          element={
-            <ProtectedRoute requiredRole="admin">
-              <DefaultLayout2>
-                <AtualizarDados />
-              </DefaultLayout2>
-            </ProtectedRoute>
-          }
-        />
-
-        {/* Colaborador */}
+        {/* Rotas Colaborador */}
         <Route path="/InicialColaborador" element={
           <ProtectedRoute requiredRole="colaborador">
-            <DefaultLayout3>
-              <InicialColaborador />
-            </DefaultLayout3>
+            <DefaultLayout3><InicialColaborador /></DefaultLayout3>
           </ProtectedRoute>
         } />
-
         <Route path="/colaborador/Registrardoacao" element={
           <ProtectedRoute requiredRole="colaborador">
-            <DefaultLayout3>
-              <Registrardoacao />
-            </DefaultLayout3>
+            <DefaultLayout3><Registrardoacao /></DefaultLayout3>
           </ProtectedRoute>
         } />
-
         <Route path="/colaborador/Doacaoregistrada" element={
           <ProtectedRoute requiredRole="colaborador">
-            <DefaultLayout3>
-              <Doacaoregistrada />
-            </DefaultLayout3>
+            <DefaultLayout3><Doacaoregistrada /></DefaultLayout3>
           </ProtectedRoute>
         } />
-
         <Route path="/colaborador/Minhasdoacoes" element={
           <ProtectedRoute requiredRole="colaborador">
-            <DefaultLayout3>
-              <Minhasdoacoes />
-            </DefaultLayout3>
+            <DefaultLayout3><Minhasdoacoes /></DefaultLayout3>
           </ProtectedRoute>
         } />
-
         <Route path="/colaborador/AtualizarDados" element={
           <ProtectedRoute requiredRole="colaborador">
-            <DefaultLayout3>
-              <AtualizarDados />
-            </DefaultLayout3>
+            <DefaultLayout3><AtualizarDados /></DefaultLayout3>
           </ProtectedRoute>
         } />
 
-        {/* Recebedor */}
+        {/* Rotas Recebedor */}
         <Route path="/InicialRecebedor" element={
           <ProtectedRoute requiredRole="recebedor">
-            <DefaultLayout4>
-              <InicialRecebedor />
-            </DefaultLayout4>
+            <DefaultLayout4><InicialRecebedor /></DefaultLayout4>
           </ProtectedRoute>
         } />
-
         <Route path="/recebedor/Pedidoenviado" element={
           <ProtectedRoute requiredRole="recebedor">
-            <DefaultLayout4>
-              <Pedidoenviado />
-            </DefaultLayout4>
+            <DefaultLayout4><Pedidoenviado /></DefaultLayout4>
           </ProtectedRoute>
         } />
-
         <Route path="/recebedor/Minhassolicitacoes" element={
           <ProtectedRoute requiredRole="recebedor">
-            <DefaultLayout4>
-              <Minhassolicitacoes />
-            </DefaultLayout4>
+            <DefaultLayout4><Minhassolicitacoes /></DefaultLayout4>
           </ProtectedRoute>
         } />
-
         <Route path="/recebedor/favoritos" element={
           <ProtectedRoute requiredRole="recebedor">
-            <DefaultLayout4>
-              <Favoritos />
-            </DefaultLayout4>
+            <DefaultLayout4><Favoritos /></DefaultLayout4>
           </ProtectedRoute>
         } />
-
-        <Route
-          path="/recebedor/AtualizarDados"
-          element={
-            <ProtectedRoute requiredRole="recebedor">
-              <DefaultLayout4>
-                <AtualizarDados />
-              </DefaultLayout4>
-            </ProtectedRoute>
-          }
-        />
+        <Route path="/recebedor/AtualizarDados" element={
+          <ProtectedRoute requiredRole="recebedor">
+            <DefaultLayout4><AtualizarDados /></DefaultLayout4>
+          </ProtectedRoute>
+        } />
 
         {/* Página de erro */}
         <Route path="*" element={<h1 className="text-center py-5">Página não encontrada</h1>} />
@@ -199,4 +148,3 @@ function App() {
 }
 
 export default App;
-

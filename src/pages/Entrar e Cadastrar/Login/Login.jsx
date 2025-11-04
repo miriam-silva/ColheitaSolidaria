@@ -1,39 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
-import {
-  getAuth,
-  signInWithEmailAndPassword,
-  signInWithPopup,
-  GoogleAuthProvider,
-  GithubAuthProvider,
-  fetchSignInMethodsForEmail
-} from "firebase/auth";
-import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
-import { app } from "../../../firebase/config";
+import api from "../../../services/Api";
 import styles from "./Login.module.css";
 import LoadingSpinner from "../../../components/LoadingSpinner/LoadingSpinner";
-
-const auth = getAuth(app);
-const db = getFirestore(app);
-
-const createUserProfileIfNotExists = async (user) => {
-  const userDocRef = doc(db, "users", user.uid);
-  const userDoc = await getDoc(userDocRef);
-
-  if (!userDoc.exists()) {
-    await setDoc(userDocRef, {
-      email: user.email,
-      role: "recebedor",
-      createdAt: new Date(),
-      displayName: user.displayName || "",
-      photoURL: user.photoURL || ""
-    });
-    return { role: "recebedor" };
-  } else {
-    return userDoc.data();
-  }
-};
 
 export default function LoginPage() {
   const [activeTab, setActiveTab] = useState("Administrador");
@@ -56,128 +26,31 @@ export default function LoginPage() {
     setError("");
 
     try {
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      const user = userCredential.user;
+      const tipoUsuario =
+        activeTab === "Administrador"
+          ? "admin"
+          : activeTab === "colaborador"
+          ? "colaborador"
+          : "recebedor";
 
-      const userDocRef = doc(db, "users", user.uid);
-      const userDoc = await getDoc(userDocRef);
+      const response = await api.post("/Auth/login", {
+        Email: email,
+        Senha: password,
+        TipoUsuario: tipoUsuario,
+      });
 
-      if (!userDoc.exists()) throw new Error("Perfil de usuário não encontrado.");
+      const token = response.data.token || response.data.Token;
+      localStorage.setItem("token", token);
+      localStorage.setItem("tipoUsuario", tipoUsuario);
 
-      const userData = userDoc.data();
-      const userRole = userData.role;
-
-      if (activeTab === "adm") {
-        if (userRole !== "admin") throw new Error("Você não tem permissão de administrador.");
-        if (!cnpj) throw new Error("CNPJ é obrigatório para administradores.");
-
-        const chavesDocRef = doc(db, "config", "chaves_de_acesso");
-        const chavesDoc = await getDoc(chavesDocRef);
-
-        if (!chavesDoc.exists()) throw new Error("Configuração de chaves não encontrada.");
-
-        const chavesValidas = chavesDoc.data().chaves_de_acesso || [];
-        if (!chavesValidas.includes(chaveAcesso)) throw new Error("Chave de acesso inválida.");
-      }
-
-      if (activeTab === "colaborador" && userRole !== "colaborador") {
-        throw new Error("Você não tem permissão de colaborador.");
-      }
-
-      if (activeTab === "recebedor" && userRole !== "recebedor") {
-        throw new Error("Você não tem permissão de recebedor.");
-      }
-
-      switch (userRole) {
-        case "admin":
-          navigate("/InicialAdministrador");
-          break;
-        case "colaborador":
-          navigate("/InicialColaborador");
-          break;
-        case "recebedor":
-          navigate("/InicialRecebedor");
-          break;
-        default:
-          throw new Error("Tipo de usuário não reconhecido. Por favor, entre em contato com o suporte.");
-      }
+      if (tipoUsuario === "admin") navigate("/InicialAdministrador");
+      else if (tipoUsuario === "colaborador") navigate("/InicialColaborador");
+      else navigate("/InicialRecebedor");
     } catch (error) {
-      console.error("Erro no login: ", error);
-      setError(error.message || "Erro ao fazer login. Verifique suas credenciais.");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleLoginGoogle = async () => {
-    setLoading(true);
-    setError("");
-    try {
-      const provider = new GoogleAuthProvider();
-      const result = await signInWithPopup(auth, provider);
-      const user = result.user;
-
-      const userData = await createUserProfileIfNotExists(user);
-      const userRole = userData.role;
-
-      switch (userRole) {
-        case "admin":
-          navigate("/InicialAdministrador");
-          break;
-        case "colaborador":
-          navigate("/InicialColaborador");
-          break;
-        case "recebedor":
-          navigate("/InicialRecebedor");
-          break;
-        default:
-          throw new Error("Tipo de usuário não reconhecido.");
-      }
-    } catch (error) {
-      console.error("Erro com login Google:", error);
-      setError(error.message || "Erro ao fazer login com Google.");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleLoginGitHub = async () => {
-    setLoading(true);
-    setError("");
-    try {
-      const provider = new GithubAuthProvider();
-      const result = await signInWithPopup(auth, provider);
-      const user = result.user;
-
-      const userData = await createUserProfileIfNotExists(user);
-      const userRole = userData.role;
-
-      switch (userRole) {
-        case "admin":
-          navigate("/InicialAdministrador");
-          break;
-        case "colaborador":
-          navigate("/InicialColaborador");
-          break;
-        case "recebedor":
-          navigate("/InicialRecebedor");
-          break;
-        default:
-          throw new Error("Tipo de usuário não reconhecido.");
-      }
-    } catch (error) {
-      console.error("Erro com login GitHub:", error);
-      if (error.code === "auth/account-exists-with-different-credential") {
-        const email = error.customData.email;
-        const methods = await fetchSignInMethodsForEmail(auth, email);
-        setError(
-          `Já existe uma conta com o e-mail ${email} vinculada ao provedor: ${methods.join(
-            ", "
-          )}. Por favor, use esse provedor para entrar.`
-        );
-      } else {
-        setError(error.message || "Erro ao fazer login com GitHub.");
-      }
+      console.error("Erro no login:", error);
+      setError(
+        error.response?.data || "Erro ao fazer login. Verifique as credenciais."
+      );
     } finally {
       setLoading(false);
     }
@@ -201,7 +74,9 @@ export default function LoginPage() {
               {["Administrador", "colaborador", "recebedor"].map((tab) => (
                 <li key={tab} className={styles.tab_item}>
                   <button
-                    className={`${styles.tab_button} ${activeTab === tab ? styles.active : ""}`}
+                    className={`${styles.tab_button} ${
+                      activeTab === tab ? styles.active : ""
+                    }`}
                     onClick={() => handleTabChange(tab)}
                   >
                     {tab.charAt(0).toUpperCase() + tab.slice(1)}
@@ -217,7 +92,6 @@ export default function LoginPage() {
                 </h2>
 
                 {error && <div className={styles.error_message}>{error}</div>}
-
                 {loading && (
                   <div className="d-flex justify-content-center mb-4 mb-3">
                     <LoadingSpinner size={60} color="#a50000" />
@@ -259,6 +133,7 @@ export default function LoginPage() {
                     disabled={loading}
                   />
                 </div>
+
                 <div className={styles.form_group}>
                   <input
                     type="password"
@@ -278,39 +153,14 @@ export default function LoginPage() {
                   {loading ? "Carregando..." : "Acessar"}
                 </button>
 
-                {/* Botões para login social */}
                 <div className="text-center mt-3">
-                  <p className={styles.p}>Ou entre com:</p>
-                  <button
-                    type="button"
-                    onClick={handleLoginGoogle}
-                    className="btn btn-danger me-2"
-                    disabled={loading}
-                  >
-                    Google
-                  </button>
-                  <button
-                    type="button"
-                    onClick={handleLoginGitHub}
-                    className="btn btn-dark"
-                    disabled={loading}
-                  >
-                    GitHub
-                  </button>
-                </div>
-
-                <div id="itens" className="text-center mt-3">
-                  {activeTab === "recebedor" ? (
-                    <p className={styles.p}>
-                      Vá até a instituição X para criar o seu cadastro!
-                    </p>
-                  ) : (
-                    <p className={styles.p}>
-                      Não possui um cadastro? <Link to="/cadastro">Clique aqui para criar um!</Link>
-                    </p>
-                  )}
                   <p className={styles.p}>
-                    Deseja voltar para a tela anterior? <Link to="/">Clique aqui!</Link>
+                    Não possui um cadastro?{" "}
+                    <Link to="/cadastro">Clique aqui para criar um!</Link>
+                  </p>
+                  <p className={styles.p}>
+                    Deseja voltar para a tela anterior?{" "}
+                    <Link to="/">Clique aqui!</Link>
                   </p>
                 </div>
               </form>
