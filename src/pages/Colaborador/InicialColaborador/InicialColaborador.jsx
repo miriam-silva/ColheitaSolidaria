@@ -1,45 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { Link } from 'react-router-dom';
-import styles from './InicialColaborador.module.css';
-import { useDoacoes } from '../../../context/DoacoesContext';
-import { supabase } from '../../../supabase/supabaseClient';
+import React from "react";
+import { Link } from "react-router-dom";
+import styles from "./InicialColaborador.module.css";
+import { useDoacoes } from "../../../context/DoacoesContext";
 import CardHistoricoDoacao from "../../../components/CardHistoricoDoacao/CardHistoricoDoacao";
 
-function ImagemDoacao({ caminho }) {
-  const [url, setUrl] = useState(null);
-
-  useEffect(() => {
-    if (caminho) {
-      const { data } = supabase.storage.from('doacoes').getPublicUrl(caminho);
-      setUrl(data.publicUrl);
-    }
-  }, [caminho]);
-
-  if (!url) return null;
-
-  return (
-    <div style={{ marginBottom: '10px' }}>
-      <img
-        src={url}
-        alt="Imagem da doação"
-        style={{
-          maxWidth: '100%',
-          maxHeight: '180px',
-          height: 'auto',
-          borderRadius: '8px',
-          boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)'
-        }}
-      />
-    </div>
-  );
-}
-
 export default function InicialColaborador() {
-  const { doacoes } = useDoacoes();
+  const { doacoes, carregando } = useDoacoes(); 
+  const userId = Number(localStorage.getItem("userId"));
 
-  function isValidDate(d) {
-    return d instanceof Date && !isNaN(d);
-  }
+  const minhasDoacoes = doacoes.filter(d => d.usuarioId === userId);
 
   return (
     <div>
@@ -49,19 +18,23 @@ export default function InicialColaborador() {
         </Link>
       </div>
 
-      <nav className={`navbar navbar-expand-sm navbar-toggleable-sm navbar-light box-shadow mb-1 ${styles.navbarra}`}>
+      <nav
+        className={`navbar navbar-expand-sm navbar-toggleable-sm navbar-light box-shadow mb-1 ${styles.navbarra}`}
+      >
         <div className="container-fluid">
-          <h3 id="arrumar">Minhas doações:</h3>
+          <h3>Minhas doações:</h3>
         </div>
       </nav>
 
       <br />
 
-      {doacoes.length === 0 ? (
+      {carregando ? (
+        <p>Carregando doações...</p>
+      ) : minhasDoacoes.length === 0 ? (
         <h3 className={`${styles.transparente}`}>Nenhuma doação foi feita</h3>
       ) : (
-        doacoes.map((doacao, index) => (
-          <CardHistoricoDoacao key={doacao.id || index} index={index} doacao={doacao}/>
+        minhasDoacoes.map((doacao, index) => (
+          <CardHistoricoDoacao key={doacao.id || index} index={index} doacao={doacao} />
         ))
       )}
 

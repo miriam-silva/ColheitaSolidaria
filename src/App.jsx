@@ -17,8 +17,8 @@ import Colaboradores from "./pages/Home/Colaboradores/Colaboradores";
 import Comoajudar from "./pages/Home/Comoajudar/Comoajudar";
 import Contato from "./pages/Home/Contato/Contato";
 
-import Login from "./pages/Entrar e Cadastrar/Login/Login";
-import Cadastro from "./pages/Entrar e Cadastrar/Cadastro/Cadastro";
+import Login from "./pages/EntrareCadastrar/Login/Login";
+import Cadastro from "./pages/EntrareCadastrar/Cadastro/Cadastro";
 
 import InicialAdministrador from "./pages/Administrador/InicialAdm/InicialAdministrador";
 import Doacoes from "./pages/Administrador/Doacoes/Doacoes";

@@ -1,5 +1,4 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { buscarDoacoesPorColaborador } from '../hooks/useDoacoes';
 
 const DoacoesContext = createContext();
@@ -9,27 +8,34 @@ export function DoacoesProvider({ children }) {
   const [carregando, setCarregando] = useState(true);
 
   const adicionarDoacao = (novaDoacao) => {
-    setDoacoes((prev) => [...prev, novaDoacao]);
+    setDoacoes((prev) => [novaDoacao, ...prev]); 
+  };
+
+  const carregarDoacoes = async () => {
+    setCarregando(true);
+    try {
+      const userId = localStorage.getItem('userId');
+      if (!userId) {
+        setDoacoes([]);
+        return;
+      }
+
+      const doacoesDoUsuario = await buscarDoacoesPorColaborador(userId);
+      setDoacoes(doacoesDoUsuario);
+    } catch (err) {
+      console.error('Erro ao carregar doações:', err);
+      setDoacoes([]);
+    } finally {
+      setCarregando(false);
+    }
   };
 
   useEffect(() => {
-    const auth = getAuth();
-
-    const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        const doacoesDoUsuario = await buscarDoacoesPorColaborador(user.uid);
-        setDoacoes(doacoesDoUsuario);
-      } else {
-        setDoacoes([]);
-      }
-      setCarregando(false);
-    });
-
-    return () => unsubscribe();
+    carregarDoacoes();
   }, []);
 
   return (
-    <DoacoesContext.Provider value={{ doacoes, adicionarDoacao, carregando, setDoacoes }}>
+    <DoacoesContext.Provider value={{ doacoes, adicionarDoacao, carregando, setDoacoes, carregarDoacoes }}>
       {children}
     </DoacoesContext.Provider>
   );

@@ -4,7 +4,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import styles from "./Cadastro.module.css";
 import LoadingSpinner from "../../../components/LoadingSpinner/LoadingSpinner.jsx";
 import { validarCNPJ, validarCPF } from "../../../utils/validacao.js";
-import api from "../../../services/Api.js"; 
+import api from "../../../services/Api.js"; //arrumando erro?????
 
 export default function CadastroPage() {
   const [activeTab, setActiveTab] = useState("adm");

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
-import api from "../../../services/Api";
+import api from "../../../services/Api" //arrumando erro
 import styles from "./Login.module.css";
 import LoadingSpinner from "../../../components/LoadingSpinner/LoadingSpinner";
 
@@ -30,17 +30,29 @@ export default function LoginPage() {
         activeTab === "Administrador"
           ? "admin"
           : activeTab === "colaborador"
-          ? "colaborador"
-          : "recebedor";
+            ? "colaborador"
+            : "recebedor";
 
       const response = await api.post("/Auth/login", {
         Email: email,
         Senha: password,
         TipoUsuario: tipoUsuario,
+        Cnpj: cnpj || null,
+        ChaveAcesso: chaveAcesso || null,
       });
 
-      const token = response.data.token || response.data.Token;
+      const token =
+        response.data?.token ||
+        response.data?.Token ||
+        response.data?.result?.token ||
+        response.data?.result?.Token;
+
+      if (!token) {
+        throw new Error("Token JWT não retornado pelo servidor.");
+      }
+
       localStorage.setItem("token", token);
+      localStorage.setItem("userId", response.data.userId);
       localStorage.setItem("tipoUsuario", tipoUsuario);
 
       if (tipoUsuario === "admin") navigate("/InicialAdministrador");
@@ -49,12 +61,15 @@ export default function LoginPage() {
     } catch (error) {
       console.error("Erro no login:", error);
       setError(
-        error.response?.data || "Erro ao fazer login. Verifique as credenciais."
+        error.response?.data?.message ||
+        error.response?.data ||
+        "Erro ao fazer login. Verifique as credenciais."
       );
     } finally {
       setLoading(false);
     }
   };
+
 
   return (
     <Container fluid className={styles.login_container}>
@@ -74,9 +89,8 @@ export default function LoginPage() {
               {["Administrador", "colaborador", "recebedor"].map((tab) => (
                 <li key={tab} className={styles.tab_item}>
                   <button
-                    className={`${styles.tab_button} ${
-                      activeTab === tab ? styles.active : ""
-                    }`}
+                    className={`${styles.tab_button} ${activeTab === tab ? styles.active : ""
+                      }`}
                     onClick={() => handleTabChange(tab)}
                   >
                     {tab.charAt(0).toUpperCase() + tab.slice(1)}
