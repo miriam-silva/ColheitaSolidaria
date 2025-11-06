@@ -8,7 +8,7 @@ export function DoacoesProvider({ children }) {
   const [carregando, setCarregando] = useState(true);
 
   const adicionarDoacao = (novaDoacao) => {
-    setDoacoes((prev) => [novaDoacao, ...prev]); // adiciona no topo
+    setDoacoes((prev) => [novaDoacao, ...prev]); 
   };
 
   const carregarDoacoes = async () => {

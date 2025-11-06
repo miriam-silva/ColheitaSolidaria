@@ -41,7 +41,6 @@ export default function LoginPage() {
         ChaveAcesso: chaveAcesso || null,
       });
 
-      // ✅ garante leitura independente da estrutura do backend
       const token =
         response.data?.token ||
         response.data?.Token ||
@@ -52,7 +51,6 @@ export default function LoginPage() {
         throw new Error("Token JWT não retornado pelo servidor.");
       }
 
-      // Salvar token no localStorage
       localStorage.setItem("token", token);
       localStorage.setItem("userId", response.data.userId);
       localStorage.setItem("tipoUsuario", tipoUsuario);

@@ -38,7 +38,6 @@ const Registrardoacao = () => {
         navigate("/InicialColaborador");
     };
 
-    // 🔹 Envia imagem ao Supabase e retorna a URL pública
     const uploadImagemSupabase = async (file, uid) => {
         const nomeArquivo = `${uid}_${Date.now()}`;
         const caminho = `imagens/${nomeArquivo}`;
@@ -71,16 +70,14 @@ const Registrardoacao = () => {
                 return;
             }
 
-            // 🔹 1. Upload da imagem no Supabase
             const imagemUrl = await uploadImagemSupabase(imagemDoacao, userId);
 
-            // 🔹 2. Envia os dados simples, o hook criará o FormData internamente
             const resultado = await registrarDoacao({
                 nome: produto,
                 descricao,
                 quantidade,
                 validade,
-                imagemUrl, // <-- enviamos a URL pública, não o arquivo
+                imagemUrl, 
             });
 
 

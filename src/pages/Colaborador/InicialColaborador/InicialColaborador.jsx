@@ -5,10 +5,9 @@ import { useDoacoes } from "../../../context/DoacoesContext";
 import CardHistoricoDoacao from "../../../components/CardHistoricoDoacao/CardHistoricoDoacao";
 
 export default function InicialColaborador() {
-  const { doacoes, carregando } = useDoacoes(); // pegando todas as doações do contexto
-  const userId = Number(localStorage.getItem("userId")); // pega o id do usuário logado
+  const { doacoes, carregando } = useDoacoes(); 
+  const userId = Number(localStorage.getItem("userId"));
 
-  // Filtra apenas as doações do usuário logado
   const minhasDoacoes = doacoes.filter(d => d.usuarioId === userId);
 
   return (

@@ -1,8 +1,6 @@
 import api from "../services/api";
 import { supabase } from "../supabase/supabaseClient";
 
-// 🔹 Registrar doação com imagem (multipart/form-data)
-// 🔹 Registrar doação com imagem (multipart/form-data)
 export const registrarDoacao = async (dados) => {
   try {
     const token = localStorage.getItem("token");
@@ -38,10 +36,6 @@ export const registrarDoacao = async (dados) => {
   }
 };
 
-
-
-
-// 🔹 Buscar doações pelo ID do colaborador (se existir no backend)
 export const buscarDoacoesPorColaborador = async (colaboradorId) => {
   try {
     const token = localStorage.getItem("token");
@@ -56,7 +50,6 @@ export const buscarDoacoesPorColaborador = async (colaboradorId) => {
   }
 };
 
-// 🔹 Atualizar doação (também com imagem caso envie outra)
 export const atualizarDoacao = async (id, dados) => {
   try {
     const token = localStorage.getItem("token");
