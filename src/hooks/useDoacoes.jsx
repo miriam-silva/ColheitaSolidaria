@@ -1,4 +1,4 @@
-import api from "../services/api";
+import api from "../services/Api";
 import { supabase } from "../supabase/supabaseClient";
 
 export const registrarDoacao = async (dados) => {
