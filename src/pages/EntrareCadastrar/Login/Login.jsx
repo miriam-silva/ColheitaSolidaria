@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
-import api from "../../../services/Api" //arrumando erro
+import api from "../../../services/Api" 
 import styles from "./Login.module.css";
 import LoadingSpinner from "../../../components/LoadingSpinner/LoadingSpinner";
 
@@ -52,8 +52,15 @@ export default function LoginPage() {
       }
 
       localStorage.setItem("token", token);
-      localStorage.setItem("userId", response.data.userId);
+
+      const usuarioId = response.data.usuario?.id;
+      if (!usuarioId) {
+        throw new Error("ID do usuário não retornado pelo servidor.");
+      }
+
+      localStorage.setItem("userId", usuarioId);
       localStorage.setItem("tipoUsuario", tipoUsuario);
+      console.log("userId salvo:", usuarioId);
 
       if (tipoUsuario === "admin") navigate("/InicialAdministrador");
       else if (tipoUsuario === "colaborador") navigate("/InicialColaborador");
@@ -63,12 +70,14 @@ export default function LoginPage() {
       setError(
         error.response?.data?.message ||
         error.response?.data ||
+        error.message ||
         "Erro ao fazer login. Verifique as credenciais."
       );
     } finally {
       setLoading(false);
     }
   };
+
 
 
   return (

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import styles from '../../Recebedor/Pedidoenviado/Pedidoenviado.module.css'; 
+import styles from '../../Recebedor/Pedidoenviado/Pedidoenviado.module.css';
 
 const Doacaoregistrada = () => {
   const navigate = useNavigate();
@@ -11,9 +11,12 @@ const Doacaoregistrada = () => {
         Doação registrada!
       </div>
 
-      <button 
+      <button
         className={styles.voltar_button}
-        onClick={() => navigate('/InicialColaborador')}
+        onClick={() => {
+          navigate('/InicialColaborador');
+          window.location.reload(); 
+        }}
       >
         Voltar
       </button>

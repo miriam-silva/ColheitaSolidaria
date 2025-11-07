@@ -1,74 +1,70 @@
-import React, {useEffect, useState} from "react";
-import {collection, getDocs} from "firebase/firestore"
-import {db} from "../../firebase/config"
-import {supabase} from "../../supabase/supabaseClient"
+import React, { useEffect, useState } from "react";
 import CardDoacao from "../CardDoacao/CardDoacao";
-import LoadingSpinner from "../LoadingSpinner/LoadingSpinner"
-const ListaDoacoesFiltraValidade = ({onSelecionar, selecionados = [] }) => {
-    const [doacoes, setDoacoes] = useState([])
-    const [loading, setLoading] = useState(false)
-    
-    useEffect(() => {
-        const buscarDoacoes = async () => {
-            setLoading(true)
-            try{
-                const querySnapshot = await getDocs(collection(db, "doacoes"))
-                const hoje = new Date()
+import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
+import { buscarTodasDoacoes } from "../../hooks/useDoacoes";
+import styles from "./ListaDoacoesFiltraValidade.module.css";
 
-                const listaDoacoes = querySnapshot.docs
-                .map((doc) => {
-                    const data = doc.data()
+const ListaDoacoesFiltraValidade = ({ onSelecionar, selecionados = [] }) => {
+  const [doacoes, setDoacoes] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-                    let imagemPublicaUrl = null
-                    if (data.imagemDoacao){
-                        imagemPublicaUrl = supabase
-                        .storage 
-                        .from("doacoes")
-                        .getPublicUrl(data.imagemDoacao).publicUrl
-                    }
+  useEffect(() => {
+    const carregarDoacoes = async () => {
+      setLoading(true);
+      try {
+        const todasDoacoes = await buscarTodasDoacoes();
 
-                    return {
-                        id: doc.id,
-                        ...data,
-                        imagemPublicaUrl,
-                    }
-                })
+        const hoje = new Date();
+        const listaFiltrada = todasDoacoes.filter((doacao) => {
+          if (!doacao.validade) return true;
+          const validade = new Date(doacao.validade);
+          return validade >= hoje;
+        });
 
-                .filter((doacao) => {
-                    if(!doacao.validade) return true
-                    const validade = doacao.validade.toDate ? doacao.validade.toDate() : new Date(doacao.validade)
-                    return validade >= hoje
-                })
+        setDoacoes(listaFiltrada);
+      } catch (error) {
+        console.error("Erro ao buscar doações:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-                setDoacoes(listaDoacoes)
-            } catch (error) {
-                console.error("Erro ao buscar doações:", error)
-            } finally {
-                setLoading(false)
-            }
-        }
-        buscarDoacoes()
-    }, [])
+    carregarDoacoes();
+  }, []);
 
-    if (loading){
-        return(
-            <div className="d-flex justify-content-center my-4">
-                <LoadingSpinner size={60} color="#a50000"/>
-            </div>
-        )
-    }
-
-    if (doacoes.length === 0) {
-        return <p className="text-center">Nenhuma doação disponívem no momento.</p>
-    }
-
+  if (loading) {
     return (
-        <>
-            {doacoes.map((doacao) => (
-                <CardDoacao key={doacao.id} imagemUrl={doacao.imagemDoacao} nome={doacao.produto} validade={doacao.validade} descricao={doacao.descricao} selecionado={selecionados.includes(doacao.id)} onToggle={() => onSelecionar && onSelecionar(doacao.id)} />
-            ))}
-        </>
-    )
-}
+      <div className="d-flex justify-content-center my-4">
+        <LoadingSpinner size={60} color="#a50000" />
+      </div>
+    );
+  }
+
+  if (doacoes.length === 0) {
+    return (
+      <p className="text-center mt-4">
+        Nenhuma doação disponível no momento.
+      </p>
+    );
+  }
+
+  return (
+    <div className={styles.container}>
+      <div className={styles.grid}>
+        {doacoes.map((doacao) => (
+          <CardDoacao
+            key={doacao.id}
+            imagemUrl={doacao.imagemUrl}
+            nome={doacao.nome}
+            validade={doacao.validade}
+            descricao={doacao.descricao}
+            selecionado={selecionados.includes(doacao.id)}
+            onToggle={() => onSelecionar && onSelecionar(doacao.id)}
+          />
+        ))}
+      </div>
+    </div>
+  );
+};
 
 export default ListaDoacoesFiltraValidade;

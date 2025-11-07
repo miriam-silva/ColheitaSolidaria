@@ -1,56 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
-import { collection, query, where, getDocs, doc, getDoc } from "firebase/firestore";
-import { db } from "../../../firebase/config";
-import useAuthentication from "../../../hooks/useAuthentication";
+import { useHistoricoSolicitacoes } from "../../../hooks/useHistoricoSolicitacoes";
 import styles from "./Minhassolicitacoes.module.css";
 import LoadingSpinner from "../../../components/LoadingSpinner/LoadingSpinner";
 
 const Minhassolicitacoes = () => {
     const navigate = useNavigate();
-    const { user } = useAuthentication();
+    const { historico, loading, erro } = useHistoricoSolicitacoes();
 
-    const [solicitacoes, setSolicitacoes] = useState([]);
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        const fetchSolicitacoes = async () => {
-            if (!user) return;
-
-            try {
-                const solicitacoesRef = collection(db, "solicitacoes");
-                const q = query(solicitacoesRef, where("usuarioId", "==", user.uid));
-
-                const querySnapshot = await getDocs(q);
-
-                const listaSolicitacoes = await Promise.all(
-                    querySnapshot.docs.map(async (docSolicitacao) => {
-                        const solicitacaoData = docSolicitacao.data();
-                        const doacaoRef = doc(db, "doacoes", solicitacaoData.doacaoId);
-                        const doacaoSnap = await getDoc(doacaoRef);
-
-                        return {
-                            id: docSolicitacao.id,
-                            ...solicitacaoData,
-                            doacao: doacaoSnap.exists() ? doacaoSnap.data() : null,
-                        };
-                    })
-                );
-
-                setSolicitacoes(listaSolicitacoes);
-                setLoading(false);
-            } catch (error) {
-                console.error("Erro ao buscar solicitações:", error);
-                setLoading(false);
-            }
-        };
-
-        fetchSolicitacoes();
-    }, [user]);
-
-    const formatarData = (timestamp) => {
-        if (!timestamp) return "Data não disponível";
-        const data = timestamp.toDate();
+    const formatarData = (dataString) => {
+        if (!dataString) return "Data não disponível";
+        const data = new Date(dataString);
         return data.toLocaleDateString("pt-BR");
     };
 
@@ -64,32 +24,35 @@ const Minhassolicitacoes = () => {
 
             {loading ? (
                 <div className="d-flex justify-content-center my-4">
-                    <LoadingSpinner size={60} color="#a50000"/>
+                    <LoadingSpinner size={60} color="#a50000" />
                 </div>
-            ) : solicitacoes.length === 0 ? (
+            ) : erro ? (
+                <h3 className={`${styles.transparente}`}>{erro}</h3>
+            ) : historico.length === 0 ? (
                 <h3 className={`${styles.transparente}`}>Nenhuma solicitação foi feita</h3>
             ) : (
-                solicitacoes.map((sol) => (
+                historico.map((sol) => (
                     <div key={sol.id} className={styles.caixa}>
                         {sol.doacao && (
                             <>
-                                {sol.doacao.imagemUrl && (
-                                    <img
-                                        src={sol.doacao.imagemUrl}
-                                        alt={sol.doacao.titulo}
-                                        className={styles.imagem}
-                                    />
-                                )}
-                                <h4 className={styles.textoo}>{sol.doacao.titulo}</h4>
-                                <p className={styles.textoo}>{sol.doacao.descricao}</p>
+                                <img
+                                    src={sol.doacao.imagemUrl}
+                                    alt={sol.doacao.titulo}
+                                    className={styles.imagem}
+                                />
+                                <div className={styles.textoo}> {/* Container do texto */}
+                                    <h4>{sol.doacao.titulo}</h4>
+                                    <p>{sol.doacao.descricao}</p>
+                                    <p>
+                                        <strong>Data de solicitação:</strong>{" "}
+                                        {formatarData(sol.dataSolicitacao)}{" "}
+                                        <strong> | Status:</strong> {sol.status}
+                                    </p>
+                                </div>
                             </>
                         )}
-                        <p className={styles.textoo}>
-                            <strong>Data de solicitação:</strong>{" "}
-                            {formatarData(sol.dataSolicitacao)}{" "}
-                            <strong> | Status:</strong> {sol.status}
-                        </p>
                     </div>
+
                 ))
             )}
 
@@ -101,7 +64,6 @@ const Minhassolicitacoes = () => {
                     Voltar
                 </button>
             </div>
-
         </div>
     );
 };
