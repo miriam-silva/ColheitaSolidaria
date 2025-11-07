@@ -17,7 +17,6 @@
     text-align: center;
 }
 
-
 .container_botao {
     display: flex;
     justify-content: flex-end;
@@ -40,19 +39,22 @@
 }
 
 .caixa {
-    justify-content: space-between;
+    display: flex;              
+    justify-content: flex-start;   
+    align-items: center;           
     border: 5px solid black;
     border-radius: 20px;
     padding: 30px;
     margin: 10px 0;
     background-color: #ffffff;
-    margin-top: 1%;
+    gap: 20px;                     
 }
 
 .imagem {
     width: 200px;
     height: auto;
     border-radius: 20px;
+    object-fit: cover;          
 }
 
 .titulo {
@@ -73,8 +75,30 @@
 }
 
 .textoo {
-    justify-content: center;
-    align-self: center;
-    max-width: 80%;
+    display: flex;                 
+    flex-direction: column;        
+    justify-content: center;       
+    align-items: center;           
+    text-align: center;            
+    flex: 1;                       
     font-size: 22px;
+}
+
+@media (max-width: 768px) {
+    .caixa {
+        flex-direction: column;   
+        align-items: center;       
+        text-align: center;        
+    }
+
+    .imagem {
+        width: 100%;
+        max-width: 300px;
+        margin-top: 15px;          
+    }
+
+    .textoo {
+        align-items: center;      
+        text-align: center;        
+    }
 }

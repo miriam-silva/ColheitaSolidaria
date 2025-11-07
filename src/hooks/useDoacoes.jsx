@@ -37,18 +37,19 @@ export const registrarDoacao = async (dados) => {
 };
 
 export const buscarDoacoesPorColaborador = async (colaboradorId) => {
-  try {
-    const token = localStorage.getItem("token");
-    const response = await api.get(`/Doacao/Colaborador/${colaboradorId}`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-
-    return response.data || [];
-  } catch (error) {
-    console.error("Erro ao buscar doações do colaborador:", error);
+  if (!colaboradorId) {
+    console.warn("Colaborador ID não fornecido!");
     return [];
   }
+
+  const token = localStorage.getItem("token");
+  const response = await api.get(`/Doacao/Colaborador/${colaboradorId}`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
+  return response.data || [];
 };
+
 
 export const atualizarDoacao = async (id, dados) => {
   try {
@@ -78,7 +79,6 @@ export const atualizarDoacao = async (id, dados) => {
   }
 };
 
-// 🔹 Deletar doação
 export const deletarDoacao = async (id) => {
   try {
     const token = localStorage.getItem("token");
@@ -91,5 +91,19 @@ export const deletarDoacao = async (id) => {
   } catch (error) {
     console.error("Erro ao deletar doação:", error);
     return false;
+  }
+};
+
+export const buscarTodasDoacoes = async () => {
+  try {
+    const token = localStorage.getItem("token");
+    const response = await api.get("/Doacao", {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    return response.data || [];
+  } catch (error) {
+    console.error("Erro ao buscar todas as doações:", error);
+    return [];
   }
 };

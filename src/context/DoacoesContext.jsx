@@ -1,5 +1,5 @@
-import React, { createContext, useState, useContext, useEffect } from 'react';
-import { buscarDoacoesPorColaborador } from '../hooks/useDoacoes';
+import React, { createContext, useState, useContext, useEffect } from "react";
+import { buscarDoacoesPorColaborador } from "../hooks/useDoacoes";
 
 const DoacoesContext = createContext();
 
@@ -8,22 +8,25 @@ export function DoacoesProvider({ children }) {
   const [carregando, setCarregando] = useState(true);
 
   const adicionarDoacao = (novaDoacao) => {
-    setDoacoes((prev) => [novaDoacao, ...prev]); 
+    setDoacoes((prev) => [novaDoacao, ...prev]);
   };
 
   const carregarDoacoes = async () => {
     setCarregando(true);
     try {
-      const userId = localStorage.getItem('userId');
+      const userId = localStorage.getItem("userId");
       if (!userId) {
+        console.warn("Nenhum userId encontrado no localStorage!");
         setDoacoes([]);
         return;
       }
 
+      console.log("Carregando doações para o usuário:", userId);
+
       const doacoesDoUsuario = await buscarDoacoesPorColaborador(userId);
-      setDoacoes(doacoesDoUsuario);
+      setDoacoes(doacoesDoUsuario || []);
     } catch (err) {
-      console.error('Erro ao carregar doações:', err);
+      console.error("Erro ao carregar doações:", err);
       setDoacoes([]);
     } finally {
       setCarregando(false);
@@ -35,7 +38,15 @@ export function DoacoesProvider({ children }) {
   }, []);
 
   return (
-    <DoacoesContext.Provider value={{ doacoes, adicionarDoacao, carregando, setDoacoes, carregarDoacoes }}>
+    <DoacoesContext.Provider
+      value={{
+        doacoes,
+        adicionarDoacao,
+        carregando,
+        setDoacoes,
+        carregarDoacoes,
+      }}
+    >
       {children}
     </DoacoesContext.Provider>
   );

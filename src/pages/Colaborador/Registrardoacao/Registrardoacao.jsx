@@ -127,7 +127,7 @@ const Registrardoacao = () => {
                         type="text"
                         className="form-control"
                         id="productName"
-                        placeholder="Nome"
+                        placeholder="Ex: Pepinos"
                         value={produto}
                         onChange={(e) => setProduto(e.target.value)}
                         disabled={loading}
@@ -142,7 +142,7 @@ const Registrardoacao = () => {
                         className="form-control"
                         id="productDescription"
                         rows="3"
-                        placeholder="Descrição"
+                        placeholder="Ex: Pepinos maduros separados em caixas de 10 kilos"
                         value={descricao}
                         onChange={(e) => setDescricao(e.target.value)}
                         disabled={loading}
@@ -157,7 +157,7 @@ const Registrardoacao = () => {
                         type="number"
                         className="form-control"
                         id="productQuantity"
-                        placeholder="Quantidade"
+                        placeholder="Ex: 10"
                         value={quantidade}
                         onChange={(e) => setQuantidade(e.target.value)}
                         disabled={loading}

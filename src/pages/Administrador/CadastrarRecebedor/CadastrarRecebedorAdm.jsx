@@ -34,7 +34,7 @@ const CadastrarRecebedorAdm = () => {
 
     try {
       await registerRecebedor({
-        nome,
+        nomeCompleto: nome,
         cpf,
         dataNascimento,
         numeroFamiliares: numFamiliares,
@@ -43,6 +43,7 @@ const CadastrarRecebedorAdm = () => {
         senha,
         confirmarSenha,
       });
+
 
       setMensagemSucesso("Recebedor cadastrado com sucesso!");
       setTimeout(() => navigate("/InicialAdministrador"), 2000);
