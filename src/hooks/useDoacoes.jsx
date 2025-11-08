@@ -1,17 +1,14 @@
 import api from "../services/Api";
-import { supabase } from "../supabase/supabaseClient";
+
+const getToken = () => {
+  const token = localStorage.getItem("token");
+  if (!token) throw new Error("Usuário não autenticado");
+  return token;
+};
 
 export const registrarDoacao = async (dados) => {
   try {
-    const token = localStorage.getItem("token");
-
-    console.log("📦 Enviando ao backend:", {
-      Nome: dados.nome,
-      Descricao: dados.descricao,
-      Quantidade: dados.quantidade,
-      Validade: dados.validade,
-      ImagemUrl: dados.imagemUrl,
-    });
+    const token = getToken();
 
     const response = await api.post(
       "/Doacao",
@@ -22,66 +19,81 @@ export const registrarDoacao = async (dados) => {
         Validade: dados.validade,
         ImagemUrl: dados.imagemUrl,
       },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
+      { headers: { Authorization: `Bearer ${token}` } }
     );
 
     return response.data;
   } catch (error) {
-    console.error("Erro ao registrar doação:", error.response?.data || error.message);
+    console.error(
+      "Erro ao registrar doação:",
+      error.response?.data || error.message
+    );
     throw error;
   }
 };
 
-export const buscarDoacoesPorColaborador = async (colaboradorId) => {
-  if (!colaboradorId) {
-    console.warn("Colaborador ID não fornecido!");
+export const buscarDoacoesPorColaborador = async (usuarioId) => {
+  try {
+    const token = getToken();
+
+    const response = await api.get(`/Doacao/Colaborador/${usuarioId}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    return response.data || [];
+  } catch (error) {
+    if (error.response?.status === 401) {
+      console.warn("Token inválido ou expirado. Faça login novamente.");
+      localStorage.removeItem("token");
+      localStorage.removeItem("userId");
+    }
+    console.error(
+      "Erro ao buscar doações:",
+      error.response?.data || error.message
+    );
     return [];
   }
-
-  const token = localStorage.getItem("token");
-  const response = await api.get(`/Doacao/Colaborador/${colaboradorId}`, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
-
-  return response.data || [];
 };
 
+export const buscarTodasDoacoes = async () => {
+  try {
+    const token = getToken();
+
+    const response = await api.get("/Doacao", {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    return response.data || [];
+  } catch (error) {
+    console.error(
+      "Erro ao buscar todas as doações:",
+      error.response?.data || error.message
+    );
+    return [];
+  }
+};
 
 export const atualizarDoacao = async (id, dados) => {
   try {
-    const token = localStorage.getItem("token");
+    const token = getToken();
 
-    const formData = new FormData();
-    formData.append("Nome", dados.nome);
-    formData.append("Descricao", dados.descricao);
-    formData.append("Quantidade", dados.quantidade);
-    formData.append("Validade", dados.validade);
-
-    if (dados.novaImagem) {
-      formData.append("Imagem", dados.novaImagem);
-    }
-
-    const response = await api.put(`/Doacao/${id}`, formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-        Authorization: `Bearer ${token}`,
-      },
+    const response = await api.put(`/Doacao/${id}`, dados, {
+      headers: { Authorization: `Bearer ${token}` },
     });
 
     return response.data;
   } catch (error) {
-    console.error("Erro ao atualizar doação:", error);
+    console.error(
+      "Erro ao atualizar doação:",
+      error.response?.data || error.message
+    );
     throw error;
   }
 };
 
 export const deletarDoacao = async (id) => {
   try {
-    const token = localStorage.getItem("token");
+    const token = getToken();
 
     await api.delete(`/Doacao/${id}`, {
       headers: { Authorization: `Bearer ${token}` },
@@ -89,21 +101,10 @@ export const deletarDoacao = async (id) => {
 
     return true;
   } catch (error) {
-    console.error("Erro ao deletar doação:", error);
+    console.error(
+      "Erro ao deletar doação:",
+      error.response?.data || error.message
+    );
     return false;
-  }
-};
-
-export const buscarTodasDoacoes = async () => {
-  try {
-    const token = localStorage.getItem("token");
-    const response = await api.get("/Doacao", {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-
-    return response.data || [];
-  } catch (error) {
-    console.error("Erro ao buscar todas as doações:", error);
-    return [];
   }
 };

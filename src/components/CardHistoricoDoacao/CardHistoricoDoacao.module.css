@@ -136,3 +136,15 @@
         max-width: 100%; 
     }
 }
+
+@media (max-width: 991px) {
+  .imagem {
+    display: block;
+    margin: 0 auto; 
+    max-height: 200px;
+  }
+
+  .col-sm-12.d-flex.justify-content-end.align-items-center {
+    justify-content: center !important; 
+  }
+}
