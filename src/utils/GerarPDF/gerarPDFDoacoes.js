@@ -1,55 +1,51 @@
-import {jsPDF} from 'jspdf'
-import autoTable from 'jspdf-autotable'
-import {collection, getDocs, doc, getDoc} from 'firebase/firestore'
-import {db} from '../../firebase/config'
+import { jsPDF } from "jspdf";
+import autoTable from "jspdf-autotable";
 
-export const gerarPDFDoacoes = async () => {
-    try{
-        const doacoesRef = collection(db, 'doacoes')
-        const snapshot = await getDocs(doacoesRef)
-
-        const dadosComNomes =  await Promise.all(
-        snapshot.docs.map(async (docItem) => {
-            const data = docItem.data()
-
-            let nomeColaborador = 'Usuário não encontrado'
-            if (data.colaboradorId){
-                const userRef = doc(db, 'users', data.colaboradorId)
-                const userSnap = await getDoc(userRef)
-                if (userSnap.exists()){
-                    nomeColaborador = userSnap.data().nome
-                }
-            }
-
-        return {
-            nomeColaborador,
-            produto: data.produto || '---',
-            quantidade: data.quantidade || '---',
-            data: data.dataRegistro?.toDate().toLocaleDateString('pt-BR') || '---',
+/**
+ * Gera um PDF com a lista de doações (dados já carregados no front)
+ * @param {Array} doacoes - Lista de doações vinda do backend
+ */
+export const gerarPDFDoacoes = async (doacoes = []) => {
+    try {
+        if (!doacoes || doacoes.length === 0) {
+            alert("Nenhuma doação disponível para exportar.");
+            return;
         }
-    })
-)
 
-        const docPDF = new jsPDF()
-        docPDF.text('Relatório de Doações', 14, 20)
+        const docPDF = new jsPDF();
 
-        const colunas = ['Nome do Doador', 'Produto', 'Quantidade', 'Data']
-        const linhas = dadosComNomes.map((d) => [
-            d.nomeColaborador,
-            d.produto,
-            d.quantidade,
-            d.data,
-        ])
+        // 🔹 Cabeçalho
+        docPDF.setFontSize(16);
+        docPDF.text("Relatório de Doações", 14, 20);
 
+        // 🔹 Define colunas e linhas
+        const colunas = ["Nome do Colaborador", "Produto", "Quantidade", "Validade"];
+        const linhas = doacoes.map((d) => [
+            d.nomeColaborador ?? d.colaboradorNome ?? "Desconhecido",
+            d.nome ?? "---",
+            d.quantidade ?? "---",
+            d.validade ? new Date(d.validade).toLocaleDateString("pt-BR") : "---",
+        ]);
+
+
+        // 🔹 Cria tabela
         autoTable(docPDF, {
             startY: 30,
             head: [colunas],
             body: linhas,
-        })
+            styles: {
+                fontSize: 10,
+                halign: "center",
+            },
+            headStyles: {
+                fillColor: [165, 0, 0], // vermelho do tema Colheita Solidária 🌱
+                textColor: 255,
+            },
+        });
 
-        docPDF.save('relatorio_doacoes.pdf')
+        // 🔹 Salva o arquivo
+        docPDF.save("relatorio_doacoes.pdf");
     } catch (error) {
-        console.error('Erro ao gerar PDF:', error)
+        console.error("Erro ao gerar PDF:", error);
     }
-}
-
+};
