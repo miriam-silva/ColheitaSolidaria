@@ -1,68 +1,36 @@
-import {jsPDF} from 'jspdf'
-import autoTable from 'jspdf-autotable'
-import {collection, getDocs, doc, getDoc} from 'firebase/firestore'
-import {db} from '../../firebase/config'
+import { jsPDF } from "jspdf";
+import autoTable from "jspdf-autotable";
 
-export const gerarPDFPedidos = async () => {
-    try{
-        const pedidosref = collection(db, 'solicitacoes')
-        const snapshot = await getDocs(pedidosref)
+export const gerarPDFPedidos = async (pedidos) => {
+  try {
+    const doc = new jsPDF();
+    doc.text("Relatório de Pedidos", 14, 20);
 
-        const dadosPedidos =  await Promise.all(
-        snapshot.docs.map(async (docPedido) => {
-            const pedidoData = docPedido.data()
+    const colunas = ["Usuário", "Produto", "Descrição", "Status"];
+    const linhas = pedidos.map((p) => [
+      p.recebedorNome || "Desconhecido",
+      p.doacaoNome || "Item não identificado",
+      p.doacaoDescricao || "Sem descrição",
+      p.status || "pendente",
+    ]);
 
-            let nomeUsuario = 'Usuário não encontrado'
-            if (pedidoData.usuarioId){
-                const userRef = doc(db, 'users', pedidoData.usuarioId)
-                const userSnap = await getDoc(userRef)
-                if (userSnap.exists()){
-                    nomeUsuario = userSnap.data().nome
-                }
-            }
-
-            let doacaoDescricao = 'Doação não encontrada'
-            if (pedidoData.doacaoId) {
-                const doacaoRef = doc(db, 'doacoes', pedidoData.doacaoId)
-                const doacaoSnap = await getDoc(doacaoRef)
-                if (doacaoSnap.exists()){
-                    const doacaoData = doacaoSnap.data()
-                    const nomeProduto = doacaoData.produto || 'um item disponível'
-                    doacaoDescricao = `Solicitou um pouco de ${nomeProduto}`
-                }
-            }
-
-        return {
-            nomeUsuario,
-            pedido: doacaoDescricao,
-            status: pedidoData.status || 'pendente',
-            familiares: pedidoData.familiares || 'não informado',
+    autoTable(doc, {
+      startY: 30,
+      head: [colunas],
+      body: linhas,
+      headStyles: { fillColor: [165, 0, 0] },
+      styles: { fontSize: 10 },
+      didParseCell: (data) => {
+        if (data.section === "body" && data.column.index === 3) {
+          if (data.cell.raw === "Aprovado") data.cell.styles.textColor = [0, 128, 0];
+          if (data.cell.raw === "Protelado") data.cell.styles.textColor = [255, 165, 0];
+          if (data.cell.raw === "pendente") data.cell.styles.textColor = [255, 0, 0];
         }
-    })
-)
+      },
+    });
 
-        const docPDF = new jsPDF()
-        docPDF.text('Relatório de Pedidos', 14, 20)
-
-        const colunas = ['Usuário', 'Pedido', 'Status', 'Familiares']
-        const linhas = dadosPedidos.map((pedido) => [
-            pedido.nomeUsuario,
-            pedido.pedido,
-            pedido.status,
-            pedido.familiares,
-        ])
-
-        autoTable(docPDF, {
-            startY: 30,
-            head: [colunas],
-            body: linhas,
-            styles: {fontSize: 10},
-            headStyles: {fillColor: [165, 0, 0]}
-        })
-
-        docPDF.save('relatorio_pedidos.pdf')
-    } catch (error) {
-        console.error('Erro ao gerar PDF:', error)
-    }
-}
-
+    doc.save("relatorio_pedidos.pdf");
+  } catch (error) {
+    console.error("Erro ao gerar PDF:", error);
+  }
+};

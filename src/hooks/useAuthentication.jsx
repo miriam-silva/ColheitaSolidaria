@@ -1,5 +1,5 @@
 import { useState } from "react";
-import api from "../services/Api"; 
+import api from "../services/Api";
 
 const useAuthentication = () => {
   const [loading, setLoading] = useState(false);
@@ -13,7 +13,7 @@ const useAuthentication = () => {
     try {
       const token = localStorage.getItem("token");
 
-      const response = await api.post("/recebedor/register", recebedorData, {
+      const response = await api.post("/admin/criar-recebedor", recebedorData, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -52,13 +52,13 @@ const useAuthentication = () => {
   const logout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("tipoUsuario");
-    window.location.href = "/"; 
+    window.location.href = "/";
   };
 
   return {
     registerRecebedor,
     loginRecebedor,
-    logout, 
+    logout,
     loading,
     error,
   };
