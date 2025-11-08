@@ -6,9 +6,12 @@ import CardHistoricoDoacao from "../../../components/CardHistoricoDoacao/CardHis
 
 export default function InicialColaborador() {
   const { doacoes, carregando } = useDoacoes(); 
+
   const userId = Number(localStorage.getItem("userId"));
 
-  const minhasDoacoes = doacoes.filter(d => d.usuarioId === userId);
+  const minhasDoacoes = doacoes.filter(
+    (d) => Number(d.usuarioId) === userId
+  );
 
   return (
     <div>
@@ -34,7 +37,11 @@ export default function InicialColaborador() {
         <h3 className={`${styles.transparente}`}>Nenhuma doação foi feita</h3>
       ) : (
         minhasDoacoes.map((doacao, index) => (
-          <CardHistoricoDoacao key={doacao.id || index} index={index} doacao={doacao} />
+          <CardHistoricoDoacao
+            key={doacao.id || index}
+            index={index}
+            doacao={doacao}
+          />
         ))
       )}
 

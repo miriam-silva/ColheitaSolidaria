@@ -62,6 +62,8 @@ export default function LoginPage() {
       localStorage.setItem("tipoUsuario", tipoUsuario);
       console.log("userId salvo:", usuarioId);
 
+      window.dispatchEvent(new Event("usuarioLogado"));
+
       if (tipoUsuario === "admin") navigate("/InicialAdministrador");
       else if (tipoUsuario === "colaborador") navigate("/InicialColaborador");
       else navigate("/InicialRecebedor");
