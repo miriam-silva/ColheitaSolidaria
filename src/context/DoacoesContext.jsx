@@ -39,34 +39,35 @@ export function DoacoesProvider({ children }) {
   };
 
   useEffect(() => {
-    const atualizarCredenciais = () => {
-      const novoUserId = localStorage.getItem("userId");
-      const novoToken = localStorage.getItem("token");
-
-      setUserId(novoUserId);
-      setToken(novoToken);
+    const atualizarUsuario = () => {
+      const id = localStorage.getItem("userId");
+      const tokenSalvo = localStorage.getItem("token");
+      setUserId(id);
+      setToken(tokenSalvo);
     };
 
-    atualizarCredenciais();
+    atualizarUsuario(); 
+    window.addEventListener("usuarioLogado", atualizarUsuario);
 
-    window.addEventListener("storage", atualizarCredenciais);
-    window.addEventListener("usuarioLogado", atualizarCredenciais);
-
-
-    return () => {
-      window.removeEventListener("storage", atualizarCredenciais);
-      window.removeEventListener("usuarioLogado", atualizarCredenciais);
-    };
-
+    return () => window.removeEventListener("usuarioLogado", atualizarUsuario);
   }, []);
 
   useEffect(() => {
+    const role = localStorage.getItem("tipoUsuario");
+
     if (userId && token) {
-      carregarDoacoes(userId);
+      if (role && role.toLowerCase() === "colaborador") {
+        console.log("Usuário colaborador identificado, carregando doações...");
+        carregarDoacoes(userId);
+      } else {
+        console.log("Usuário não é colaborador, limpando doações...");
+        setDoacoes([]);
+        setCarregando(false);
+      }
     } else {
       setCarregando(false);
     }
-  }, [userId, token]); 
+  }, [userId, token]);
 
   return (
     <DoacoesContext.Provider

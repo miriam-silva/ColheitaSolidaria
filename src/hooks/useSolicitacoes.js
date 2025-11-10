@@ -23,9 +23,10 @@ export function useSolicitacoes() {
 
       const response = await api.post("/Solicitacao", {
         DoacaoId: parseInt(doacaoId),
-        UsuarioId: usuarioId, 
-        Quantidade: parseInt(quantidade),
+        RecebedorId: usuarioId,
+        QuantidadeSolicitada: parseInt(quantidade),
       });
+
 
       setSolicitacoes((prev) => [response.data, ...prev]);
       return response.data;

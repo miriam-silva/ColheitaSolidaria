@@ -12,29 +12,40 @@ import "react-toastify/dist/ReactToastify.css";
 
 const Header = ({ role }) => {
   const [nomeUsuario, setNomeUsuario] = useState("");
+  const [emailUsuario, setEmailUsuario] = useState("");
   const [fotoPerfil, setFotoPerfil] = useState(receptorImg);
   const [showPerfilModal, setShowPerfilModal] = useState(false);
   const { user, logout } = useAuthentication();
   const navigate = useNavigate();
 
   useEffect(() => {
-    const buscarDados = async () => {
-      if (user) {
-        try {
-          const docRef = doc(db, "users", user.uid);
-          const docSnap = await getDoc(docRef);
-          if (docSnap.exists()) {
-            const data = docSnap.data();
-            setNomeUsuario(data.nome);
-            if (data.fotoPerfil) setFotoPerfil(data.fotoPerfil);
-          }
-        } catch (error) {
-          console.error("Erro ao buscar dados do usuário:", error.message);
-        }
+    const buscarDadosUsuario = async () => {
+      const token = localStorage.getItem("token");
+      if (!token) return;
+
+      try {
+        const response = await fetch("http://localhost:7100/api/Auth/me", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (!response.ok) throw new Error("Erro ao buscar dados do usuário.");
+
+        const usuario = await response.json();
+
+        setNomeUsuario(usuario.nomeCompleto || "Usuário");
+        setFotoPerfil(usuario.fotoPerfil || receptorImg);
+        setEmailUsuario(usuario.email || "E-mail não disponível");
+      } catch (error) {
+        console.error("Erro ao carregar dados do usuário:", error);
       }
     };
-    buscarDados();
-  }, [user]);
+
+    buscarDadosUsuario();
+  }, []);
+
+
 
   const handleClickSair = async () => {
     try {
@@ -190,18 +201,19 @@ const Header = ({ role }) => {
               <div className="modal-body text-center">
                 <img src={fotoPerfil} alt="Perfil" className="rounded-circle mb-2" width="200" style={{ height: 'auto' }} />
                 <p className={styles.pdados}><strong>Nome:</strong> {nomeUsuario}</p>
-                <p className={styles.pdados}><strong>Email:</strong> {user?.email}</p>
+                <p className={styles.pdados}><strong>Email:</strong> {emailUsuario}</p>
                 <p className={styles.pdados}><strong>Tipo de Usuário:</strong> {role}</p>
               </div>
               <div className="modal-footer d-flex justify-content-between">
-              <button className={`btn ${styles.botoes2}`} onClick={() => { fecharPerfilModal();
-                  let rotaAtualizar = "/colaborador/AtualizarDados"; 
+                <button className={`btn ${styles.botoes2}`} onClick={() => {
+                  fecharPerfilModal();
+                  let rotaAtualizar = "/colaborador/AtualizarDados";
                   if (role === "admin") rotaAtualizar = "/adm/AtualizarDados";
                   else if (role === "recebedor") rotaAtualizar = "/recebedor/AtualizarDados";
                   navigate(rotaAtualizar);
-                   }}>
-                   Atualizar dados
-              </button>
+                }}>
+                  Atualizar dados
+                </button>
 
                 <button className="btn btn-secondary" onClick={fecharPerfilModal}>
                   Fechar
