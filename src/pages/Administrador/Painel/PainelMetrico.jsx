@@ -1,35 +1,38 @@
-import React, { useEffect, useState } from 'react';
-import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import { getFirestore, collection, getDocs } from 'firebase/firestore';
-import { app } from "../../../firebase/config";
+import React, { useEffect, useState } from "react";
+import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from "recharts";
+import api from "../../../services/Api";
 import styles from "./PainelMetrico.module.css";
 
-const db = getFirestore(app);
-const COLORS = ['#a50000', '#f5a623', '#4caf50'];
+const COLORS = ["#a50000", "#f5a623", "#4caf50"];
 
-export default function PainelMetrico() {
+export default function PainelMetrico({ usuarios: propsUsuarios }) {
   const [dados, setDados] = useState([]);
 
   useEffect(() => {
-    const buscarUsuarios = async () => {
-      const snapshot = await getDocs(collection(db, 'users'));
-      const contagem = { admin: 0, colaborador: 0, recebedor: 0 };
+    const carregarDados = async () => {
+      try {
+        let usuarios = propsUsuarios;
+        if (!usuarios || usuarios.length === 0) {
+          const response = await api.get("/Admin/usuarios-gerais");
+          usuarios = response.data;
+        }
 
-      snapshot.forEach((doc) => {
-        const user = doc.data();
-        contagem[user.role] = (contagem[user.role] || 0) + 1;
-      });
+        const contagem = { Admin: 0, Colaborador: 0, Recebedor: 0 };
+        usuarios.forEach(u => contagem[u.role]++);
 
-      const grafico = Object.entries(contagem).map(([role, total]) => ({
-        name: role,
-        value: total
-      }));
+        const grafico = Object.entries(contagem).map(([role, total]) => ({
+          name: role,
+          value: total
+        }));
 
-      setDados(grafico);
+        setDados(grafico);
+      } catch (error) {
+        console.error("Erro ao carregar métricas:", error);
+      }
     };
 
-    buscarUsuarios();
-  }, []);
+    carregarDados();
+  }, [propsUsuarios]);
 
   return (
     <div className={styles.container}>

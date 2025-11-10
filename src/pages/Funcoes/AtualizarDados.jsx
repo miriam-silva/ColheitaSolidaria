@@ -1,39 +1,69 @@
 import React, { useEffect, useState } from "react";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
-import { db } from "../../firebase/config";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import useAuthentication from "../../hooks/useAuthentication";
-import styles from "./AtualizarDados.module.css"; 
+import styles from "./AtualizarDados.module.css";
 
 const AtualizarDados = () => {
-  const { user } = useAuthentication();
   const navigate = useNavigate();
   const [role, setRole] = useState("");
   const [formData, setFormData] = useState({
-    nome: "",
+    nomeCompleto: "",
     email: "",
     telefone: "",
     dataNascimento: "",
-    cnpj: "",
+    numeroDeFamiliares: "",
+    senha: "",
   });
   const [originalData, setOriginalData] = useState({});
 
   useEffect(() => {
     const carregarDados = async () => {
-      if (user) {
-        const docRef = doc(db, "users", user.uid);
-        const docSnap = await getDoc(docRef);
-        if (docSnap.exists()) {
-          const data = docSnap.data();
-          setFormData(data);
-          setOriginalData(data);
-          setRole(data.role); 
-        }
+      const token = localStorage.getItem("token");
+      if (!token) {
+        toast.error("Usuário não autenticado!");
+        navigate("/");
+        return;
+      }
+
+      try {
+        const response = await fetch("http://localhost:7100/api/Auth/me", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+
+        if (!response.ok) throw new Error("Erro ao carregar dados do usuário.");
+        const data = await response.json();
+
+        setRole(data.role?.toLowerCase() || "");
+
+        setFormData({
+          nomeCompleto: data.nomeCompleto || "",
+          email: data.email || "",
+          telefone: data.telefone || "",
+          dataNascimento: data.dataNascimento
+            ? new Date(data.dataNascimento).toISOString().split("T")[0]
+            : "",
+          numeroDeFamiliares: data.numeroDeFamiliares || "",
+          senha: "",
+        });
+
+        setOriginalData({
+          nomeCompleto: data.nomeCompleto || "",
+          email: data.email || "",
+          telefone: data.telefone || "",
+          dataNascimento: data.dataNascimento
+            ? new Date(data.dataNascimento).toISOString().split("T")[0]
+            : "",
+          numeroDeFamiliares: data.numeroDeFamiliares || "",
+          senha: "",
+        });
+      } catch (error) {
+        console.error("Erro ao carregar dados:", error);
+        toast.error("Não foi possível carregar seus dados. Tente novamente.");
       }
     };
+
     carregarDados();
-  }, [user]);
+  }, [navigate]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -52,8 +82,30 @@ const AtualizarDados = () => {
     }
 
     try {
-      await updateDoc(doc(db, "users", user.uid), formData);
-      setOriginalData(formData);
+      const token = localStorage.getItem("token");
+
+      const body = {
+        nomeCompleto: formData.nomeCompleto,
+        telefone: formData.telefone,
+        dataNascimento: formData.dataNascimento,
+        senha: formData.senha,
+      };
+
+      if (role === "recebedor") {
+        body.numeroDeFamiliares = formData.numeroDeFamiliares;
+      }
+
+      const response = await fetch("http://localhost:7100/api/Auth/me", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(body),
+      });
+
+      if (!response.ok) throw new Error("Erro ao atualizar dados.");
+
       toast.success("Dados atualizados com sucesso!");
 
       let rotaInicial = "/";
@@ -64,51 +116,53 @@ const AtualizarDados = () => {
       navigate(rotaInicial, { replace: true });
       window.location.reload();
     } catch (error) {
-      console.error("Erro ao atualizar dados:", error.message);
+      console.error("Erro ao atualizar dados:", error);
       toast.error("Erro ao atualizar os dados. Tente novamente.");
     }
   };
 
   const handleCancelar = () => {
-    const confirmacao = window.confirm(
-      "Tem certeza que quer cancelar a sua atualização de dados?"
-    );
-    if (confirmacao) {
+    if (window.confirm("Tem certeza que quer cancelar a atualização?")) {
       navigate(-1);
     }
   };
 
   return (
     <div className={styles.container}>
-      <nav className={`navbar navbar-expand-sm navbar-toggleable-sm navbar-light box-shadow mb-1 ${styles.navbarra}`}>
+      <nav
+        className={`navbar navbar-expand-sm navbar-toggleable-sm navbar-light box-shadow mb-1 ${styles.navbarra}`}
+      >
         <div>
           <h3 className={styles.arrumar}>Atualizar Dados</h3>
         </div>
       </nav>
 
       <form onSubmit={handleSalvar} className="d-flex flex-column gap-3">
+        {/* Nome */}
         <div className="mb-3">
-          <label className={`form-label ${styles.texto} ${styles.arrumando}`}>Nome</label>
+          <label className={`form-label ${styles.texto}`}>Nome</label>
           <input
             type="text"
-            name="nome"
+            name="nomeCompleto"
             className="form-control"
-            value={formData.nome}
+            value={formData.nomeCompleto}
             onChange={handleChange}
           />
         </div>
 
+        {/* Email (fixo) */}
         <div className="mb-3">
-          <label className={`form-label ${styles.texto} ${styles.arrumaremail}`}>Email</label>
+          <label className={`form-label ${styles.texto}`}>Email</label>
           <input
             type="email"
             name="email"
             className="form-control"
             value={formData.email}
-            onChange={handleChange}
+            disabled
           />
         </div>
 
+        {/* Telefone */}
         <div className="mb-3">
           <label className={`form-label ${styles.texto}`}>Telefone</label>
           <input
@@ -120,8 +174,11 @@ const AtualizarDados = () => {
           />
         </div>
 
+        {/* Data */}
         <div className="mb-3">
-          <label className={`form-label ${styles.texto}`}>Data de Nascimento</label>
+          <label className={`form-label ${styles.texto}`}>
+            Data de Nascimento
+          </label>
           <input
             type="date"
             name="dataNascimento"
@@ -131,21 +188,41 @@ const AtualizarDados = () => {
           />
         </div>
 
-        {role === "admin" && (
+        {/* Número de familiares → só para recebedor */}
+        {role === "recebedor" && (
           <div className="mb-3">
-            <label className={`form-label ${styles.texto}`}>CNPJ</label>
+            <label className={`form-label ${styles.texto}`}>
+              Número de familiares
+            </label>
             <input
-              type="text"
-              name="cnpj"
+              type="number"
+              name="numeroDeFamiliares"
               className="form-control"
-              value={formData.cnpj}
+              value={formData.numeroDeFamiliares}
               onChange={handleChange}
             />
           </div>
         )}
 
+        {/* Nova senha */}
+        <div className="mb-3">
+          <label className={`form-label ${styles.texto}`}>Nova senha</label>
+          <input
+            type="password"
+            name="senha"
+            className="form-control"
+            value={formData.senha}
+            onChange={handleChange}
+            placeholder="Deixe em branco para manter a atual"
+          />
+        </div>
+
         <div className="button-group">
-          <button type="button" className={styles.postpone_btn} onClick={handleCancelar}>
+          <button
+            type="button"
+            className={styles.postpone_btn}
+            onClick={handleCancelar}
+          >
             Cancelar
           </button>
           <button type="submit" className={styles.approve_btn}>
