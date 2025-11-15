@@ -9,8 +9,7 @@ const Navbar2 = () => {
     { id: 2, label: 'Sobre Nós', path: '/sobre' },
     { id: 3, label: 'Colaboradores', path: '/colaboradores' },
     { id: 4, label: 'Como ajudar?', path: '/como-ajudar' }, 
-    { id: 5, label: 'Contato', path: '/contato' },
-    { id: 6, label: 'O Projeto', path: '/sobreoprojeto' }
+    { id: 5, label: 'Contato', path: '/contato' }
   ];
 
   const toggleMenu = () => setIsOpen(!isOpen);

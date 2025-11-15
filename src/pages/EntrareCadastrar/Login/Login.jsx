@@ -60,6 +60,7 @@ export default function LoginPage() {
 
       localStorage.setItem("userId", usuarioId);
       localStorage.setItem("tipoUsuario", tipoUsuario);
+      localStorage.setItem("email", email);
       console.log("userId salvo:", usuarioId);
 
       window.dispatchEvent(new Event("usuarioLogado"));
