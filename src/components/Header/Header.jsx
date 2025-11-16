@@ -9,11 +9,13 @@ import { db } from "../../firebase/config";
 import { supabase } from "../../supabase/supabaseClient";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { usePerfil } from "../../hooks/usePerfil";
 
 const Header = ({ role }) => {
   const [nomeUsuario, setNomeUsuario] = useState("");
   const [emailUsuario, setEmailUsuario] = useState("");
   const [fotoPerfil, setFotoPerfil] = useState(receptorImg);
+  const { uploadFotoPerfil } = usePerfil();
   const [showPerfilModal, setShowPerfilModal] = useState(false);
   const { user, logout } = useAuthentication();
   const navigate = useNavigate();
@@ -58,36 +60,23 @@ const Header = ({ role }) => {
   };
 
   const handleUploadFotoPerfil = async (e) => {
-    const file = e.target.files[0];
-    if (!file || !user) return;
+  const file = e.target.files[0];
+  if (!file) {
+    toast.error("Selecione uma imagem válida.");
+    return;
+  }
 
-    try {
-      const fileExt = file.name.split(".").pop();
-      const filePath = `${user.uid}.${fileExt}`;
+  const resultado = await uploadFotoPerfil(file);
 
-      const { data, error } = await supabase.storage
-        .from("users")
-        .upload(filePath, file, { upsert: true });
+  if (resultado.sucesso) {
+    setFotoPerfil(resultado.fotoUrl); // Atualiza imediatamente a foto na UI
+    toast.success("Foto de perfil atualizada!");
+  } else {
+    toast.error(`Erro: ${resultado.mensagem}`);
+  }
+};
 
-      if (error) throw error;
 
-      const { data: publicUrlData } = supabase.storage
-        .from("users")
-        .getPublicUrl(filePath);
-
-      const url = publicUrlData.publicUrl;
-
-      await updateDoc(doc(db, "users", user.uid), {
-        fotoPerfil: url,
-      });
-
-      setFotoPerfil(url);
-      toast.success("Foto de perfil atualizada!");
-    } catch (error) {
-      console.error("Erro ao enviar foto:", error.message);
-      toast.error("Erro ao atualizar foto de perfil.");
-    }
-  };
 
   const abrirPerfilModal = () => setShowPerfilModal(true);
   const fecharPerfilModal = () => setShowPerfilModal(false);
